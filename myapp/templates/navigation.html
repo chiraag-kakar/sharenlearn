@@ -15,10 +15,22 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-sm" style="background-color: lightsteelblue;">
-        <ul class="navbar-nav">
+        <nav class="navbar navbar-expand-sm justify-content-center" style="background-color: rgb(255, 255, 255);">
+        <ul class="navbar-nav" style="color: rgb(10, 41, 3);">
             <li class="navbar-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="{%url 'index'%}">Home</a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{%url 'about'%}">About</a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{%url 'contact'%}">Contact</a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{%url 'login'%}">Login</a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="#">Admin Login</a>
             </li>
         </ul>
     </nav>

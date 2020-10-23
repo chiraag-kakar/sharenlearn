@@ -1,18 +1,12 @@
 @import url(//fonts.googleapis.com/css?family=Lato:300:400);
 
 
-.nav-link {color: black;}
+.nav-link {color: rgb(241, 233, 233);}
 
 body {
   margin:0;
 }
 
-/* h1 {
-  font-family: 'Lato', sans-serif;
-  font-weight:300;
-  letter-spacing: 2px;
-  font-size:48px;
-} */
 
 h1 {
   text-align: center;
