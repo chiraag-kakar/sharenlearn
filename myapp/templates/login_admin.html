@@ -1,24 +1,19 @@
 {%extends 'navigation.html'%}
 {%load static%}
 {%block body%}
-<div class="container mt-5">
+<div class="container mt-5" style="background-color: whitesmoke;">
     <div class="row">
         <div class="col-sm-6">
-            <h2 class="text-center">
-                NEW USER
-            </h2>
-            <hr>
             <p>
-                Create an account at Share N Learn to upload and download the notes shared by the peers.
+                Admin can access the dashboard by logging in using their credentials
             </p>
-            <a href="{%url 'signup'%}" class="btn btn-danger text-center mt-5">Create New Account</a>
         </div>
         <div class="col-sm-6">
             <h2 class="text-center">
-                USER LOGIN
+                ADMIN LOGIN
             </h2>
             <hr>
-            <form method="POST">
+            <form method="POST" >
                 {%csrf_token%}
             <label>Email Address</label>
                     <input type="email" class="form-control" placeholder="enter college mail" name="emailid">

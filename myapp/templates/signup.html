@@ -1,0 +1,44 @@
+{%extends 'navigation.html'%}
+{%load static%}
+{%block body%}
+<div class="container mt-5">
+    <div class="row">
+        
+        <div class="col-sm-6">
+            <h2 class="text-center">
+                Register @ Share N Learn
+            </h2>
+            <hr>
+            <form method="POST">
+                {%csrf_token%}
+            <label>First Name</label>
+                <input type="text" class="form-control" placeholder="Enter First Name" name="firstname">
+            <label>Last Name</label>
+                <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname">
+            <label>Contact</label>
+                <input type="number" class="form-control" placeholder="Enter Contact Number" name="contact">
+            <label>Email</label>
+                <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid">
+            <label>Password</label>
+                <input type="password" class="form-control" placeholder="Enter your Password" name="password">
+            <label>Department</label>
+            <select class="form-control" name="branch">
+                <option value="CSE">Computer Science & Engineering</option>
+                <option value="IT">Information Technology</option>
+                <option value="ECE">Electronics & Communication Engineering</option>
+                <option value="EE">Electrical Engineering</option>
+                <option value="ME">Mechanical Engineering</option>
+                <option value="CE">Civil Engineering</option>
+            </select>
+            <label>Role</label>
+            <select class="form-control" name="role">
+                <option value="student">Student</option>
+                <option value="faculty">Faculty</option>
+            </select>
+            <input type=submit class="btn btn-danger mt-3" value="Submit">
+            </form>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
