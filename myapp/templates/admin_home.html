@@ -1,0 +1,53 @@
+{%extends 'admin_nav.html'%}
+{% load static%}
+{% block body %}
+<style>
+    .container1 {
+        background-color: lightgrey;
+        border-radius: 8px;
+    }
+    h2, h4 {
+        padding: 10px;
+    }
+
+    .mydiv:hover {
+        transform:translateY(-10px);
+    }
+</style>
+
+<br/>
+<br/>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-3 text-center mydiv mt-3">
+            <div class="container1">
+                <h2 class="text-primary">5</h2>
+                <a href="#"><h4 class="text-dark">All Notes</h4></a>
+            </div>
+        </div>
+
+        <div class="col-sm-3 text-center mydiv mt-3">
+            <div class="container1">
+                <h2 class="text-primary">5</h2>
+                <a href="#"><h4 class="text-dark">Pending Notes</h4></a>
+            </div>
+        </div>
+
+        <div class="col-sm-3 text-center mydiv mt-3">
+            <div class="container1">
+                <h2 class="text-primary">5</h2>
+                <a href="#"><h4 class="text-dark">Rejected Notes</h4></a>
+            </div>
+        </div>
+
+        <div class="col-sm-3 text-center mydiv mt-3">
+            <div class="container1">
+                <h2 class="text-primary">5</h2>
+                <a href="#"><h4 class="text-dark">Accepted Notes</h4></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
