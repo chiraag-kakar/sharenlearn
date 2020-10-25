@@ -8,7 +8,7 @@ class Signup(models.Model):
     role = models.CharField(max_length=20,null=True)
 
     def __str__(self):
-        return self.user.userame
+        return self.user.username
 
 class Notes(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)

@@ -1,12 +1,27 @@
 {%extends 'navigation.html'%}
 {%load static%}
 {%block body%}
+
+{%  ifequal error "no" %}
+<script>
+    alert('Signed Up Successfully');
+    window.location.href="{% url 'login' %}";
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert('Something went wrong, Try Again');
+</script>
+{% endifequal %}
+
+
 <div class="container mt-5">
     <div class="row">
         
         <div class="col-sm-6">
             <h2 class="text-center">
-                Register @ Share N Learn
+                Registration Page | Share N Learn
             </h2>
             <hr>
             <form method="POST">
@@ -35,10 +50,24 @@
                 <option value="student">Student</option>
                 <option value="faculty">Faculty</option>
             </select>
-            <input type=submit class="btn btn-danger mt-3" value="Submit">
+            <input type="submit" class="btn btn-danger mt-3" value="Submit">
             </form>
         </div>
         
     </div>
 </div>
+
+{%  ifequal error "no" %}
+<script>
+    alert('Signed Up Successfully');
+    window.location.href="{% url 'login' %}";
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert('Something went wrong, Try Again');
+</script>
+{% endifequal %}
+
 {% endblock %}
