@@ -1,0 +1,59 @@
+{%extends 'usernavigation.html'%}
+{% load static %}
+{%block body%}
+
+{%  ifequal error "no" %}
+<script>
+    alert('Notes Uploaded Successfully');
+    window.location.href="{% url 'profile' %}";
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert('Something went wrong, Try Again');
+</script>
+{% endifequal %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-6">
+            <h2 class="text-center">Upload Notes</h2>
+            <hr>
+            <form method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+                <label>Branch</label>
+                    <select class="form-control" name="branch">
+                        <option value="">---Select Branch---</option>
+                        <option value="CSE">CSE</option>
+                        <option value="IT">IT</option>
+                        <option value="ECE">ECE</option>
+                        <option value="EE">EE</option>
+                        <option value="ME">ME</option>
+                        <option value="CE">CE</option>
+                    </select>
+                <label>Subject</label>
+                    <input type="text" class="form-control" placeholder="Enter Subject" name="subject">
+                <label>Upload File</label>
+                    <input type="file" class="form-control mt-3" name="notesfile">
+                <label>File Type</label>
+                <select class="form-control" name="filetype">
+                    <option value="">---Select Filetype---</option>
+                    <option value="pdf">PDF</option>
+                    <option value="ppt">PPT</option>
+                    <option value="docx">DOC/DOCX</option>
+                    <option value="txt">TXT</option>
+                    <option value="img">IMG</option>
+                    <option value="zip">ZIP/RAR</option>
+                </select>
+                <label>Description</label>
+                    <textarea class="form-control" name="description"></textarea>
+                    <input type="submit" class="btn btn-danger mt-3" value="Submit">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

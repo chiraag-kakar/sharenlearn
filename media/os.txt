@@ -1,0 +1,27 @@
+How much coding is enough?
+
+I keep receiving queries as to how much of Data structures and Algorithms are needed.
+The answer is, IT DEPENDS.
+Bare minimum: You SHOULD be able to convert most of the REQUIREMENTS to CODE. (It doesn't have to be optimized)
+
+This SHOULD be done before delving into frontend/backend/ML AI/Analytics.
+Without basic logical abilities, you'll be screwed no matter what fancy tech you're using.
+
+Frontend is not just dumping data to UI. You'll have to manipulate and transform it.
+
+Even in backend, you have to heavily manipulate the data.
+
+Just using scikit/numpy/pandas without basic coding abilities is not going to make you a data scientist.
+
+Invest strong 4-6 months(minimum) to build your coding abilities.
+How to know if we have done the bare minimum? These are the benchmarks:
+1) Can solve 3-5 problems in codechef long challenge (Div-2)
+2) 2 problems in codechef cook-off
+3) 2 problems in codeforces rated
+4) Easy problems on leetcode within 30 minutes without any help.
+
+Without basic coding investment, you'll struggle the moment something slight complex comes up.
+
+Note that these are bare minimum benchmarks. These are NOT enough for your interviews on DS/Algo for top product-based companies. I will talk about it in upcoming posts.
+
+Hope this helps!

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import *
 from django.contrib.auth import authenticate, login, logout
+from datetime import date
 # Create your views here.
 def about(request):
     return render(request,'about.html')
@@ -69,6 +70,7 @@ def signup1(request) :
     d={'error':error}
     return render(request, 'signup.html',d)
 
+
 def admin_home(request) :
     if not request.user.is_staff:
         return redirect('login_admin')
@@ -122,3 +124,24 @@ def changepassword(request):
             error="yes"
     d={'error':error}
     return render(request, 'changepassword.html',d)
+
+    
+def upload_notes(request) :
+    if not request.user.is_authenticated:
+        return redirect('login')
+    error=""
+    if request.method == 'POST':
+        b = request.POST['branch']
+        s = request.POST['subject']
+        n = request.FILES['notesfile']
+        f = request.POST['filetype']
+        d = request.POST['description']
+        u = User.objects.filter(username=request.user.username).first()
+        try:
+            Notes.objects.create(user=u,uploadingdate=date.today(), branch=b, subject=s,
+            notesfile=n,filetype=f,description=d,status='pending')
+            error="no"
+        except:
+            error="yes"
+    d = {'error':error}
+    return render(request, 'upload_notes.html', d)
