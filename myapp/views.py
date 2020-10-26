@@ -62,7 +62,7 @@ def signup1(request) :
         r = request.POST['role']
         try:
             user = User.objects.create_user(username=e,password=p,first_name=f,last_name=l)
-            Signup.objects.create(user=user,contact=c,branch=b,role=r)
+            Signup.objects.create(user=user,emailid=e,contact=c,branch=b,role=r)
             error="no"
         except:
             error="yes"
@@ -81,6 +81,29 @@ def profile(request) :
     data = Signup.objects.get(user = user)
     d = {'data':data,'user':user}
     return render(request, 'profile.html',d)
+
+def edit_profile(request) :
+    if not request.user:
+        return redirect('login')
+    user = User.objects.get(id=request.user.id)
+    data = Signup.objects.get(user = user)
+    error=False
+    if request.method=='POST':
+        f=request.POST['firstname']
+        l=request.POST['lastname']
+        c=request.POST['contact']
+        b=request.POST['branch']
+
+        user.first_name=f
+        user.last_name=l
+        datacontact=c
+        data.branch=b
+
+        user.save()
+        data.save()
+        error=True
+    d = {'data':data,'user':user,'error':error}
+    return render(request, 'edit_profile.html',d)
 
 def changepassword(request):
     if not request.user:

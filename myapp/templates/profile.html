@@ -1,4 +1,55 @@
 {%extends 'usernavigation.html'%}
 {%load static%}
 {%block body%}
+
+<div class="container mt-5">
+    <h2 class="text-center">Profile Page</h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <b>Full Name :</b>
+        </div>
+        <div class="col-md-6" style="text-transform: capitalize;">
+            {{data.user.first_name}} {{data.user.last_name}}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <b>College Mail :</b>
+        </div>
+        <div class="col-md-6">
+            {{data.user.username}}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <b>Contact :</b>
+        </div>
+        <div class="col-md-6">
+            {{data.contact}}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <b>Branch :</b>
+        </div>
+        <div class="col-md-6">
+            {{data.branch}}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <b>Role :</b>
+        </div>
+        <div class="col-md-6">
+            {{data.role}}
+        </div>
+    </div>
+    <a href="{% url 'edit_profile' %}" class="btn btn-primary mt-4">Edit Profile</a>
+</div>
+
 {% endblock %}
