@@ -81,3 +81,21 @@ def profile(request) :
     data = Signup.objects.get(user = user)
     d = {'data':data,'user':user}
     return render(request, 'profile.html',d)
+
+def changepassword(request):
+    if not request.user:
+        return redirect('login')
+    error=""
+    if request.method=="POST":
+        o=request.POST['old']
+        n=request.POST['new']
+        c=request.POST['confirm']
+        if c==n:
+            u=User.objects.get(username__exact=request.user.username)
+            u.set_password(n)
+            u.save()
+            error="no"
+        else:
+            error="yes"
+    d={'error':error}
+    return render(request, 'changepassword.html',d)
