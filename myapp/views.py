@@ -145,3 +145,18 @@ def upload_notes(request) :
             error="yes"
     d = {'error':error}
     return render(request, 'upload_notes.html', d)
+
+def view_usernotes(request) :
+    if not request.user:
+        return redirect('login')
+    user = User.objects.get(id=request.user.id)
+    notes = Notes.objects.filter(user = user)
+    d = {'notes':notes,}
+    return render(request, 'view_usernotes.html',d)
+
+def delete_usernotes(request,pid) :
+    if not request.user:
+        return redirect('login')
+    notes = Notes.objects.get(id = pid)
+    notes.delete()
+    return redirect('view_usernotes')

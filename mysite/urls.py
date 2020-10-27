@@ -33,6 +33,7 @@ urlpatterns = [
     path('profile',profile,name="profile"),
     path('changepassword',changepassword,name="changepassword"),
     path('edit_profile',edit_profile,name="edit_profile"),
-    path('upload_notes',upload_notes,name="upload_notes")
-
+    path('upload_notes',upload_notes,name="upload_notes"),
+    path('view_usernotes',view_usernotes,name="view_usernotes"),
+    path('delete_usernotes/<int:pid>',delete_usernotes,name="delete_usernotes")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

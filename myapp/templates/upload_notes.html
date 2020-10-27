@@ -18,7 +18,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-sm-6">
-            <h2 class="text-center">Upload Notes</h2>
+            <h2 class="text-center">Upload My Uploads</h2>
             <hr>
             <form method="post" enctype="multipart/form-data">
                 {%csrf_token%}
@@ -39,12 +39,12 @@
                 <label>File Type</label>
                 <select class="form-control" name="filetype">
                     <option value="">---Select Filetype---</option>
-                    <option value="pdf">PDF</option>
-                    <option value="ppt">PPT</option>
-                    <option value="docx">DOC/DOCX</option>
-                    <option value="txt">TXT</option>
-                    <option value="img">IMG</option>
-                    <option value="zip">ZIP/RAR</option>
+                    <option value="PDF">PDF</option>
+                    <option value="PPT">PPT</option>
+                    <option value="DOC/DOCX">DOC/DOCX</option>
+                    <option value="TXT">TXT</option>
+                    <option value="IMG">IMG</option>
+                    <option value="ZIP/RAR">ZIP/RAR</option>
                 </select>
                 <label>Description</label>
                     <textarea class="form-control" name="description"></textarea>
