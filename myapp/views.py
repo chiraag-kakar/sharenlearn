@@ -162,12 +162,12 @@ def delete_usernotes(request,pid) :
     return redirect('view_usernotes')
 
 def view_users(request) :
-    if not request.user:
+    if not request.user.is_staff:
         return redirect('login')
     users = Signup.objects.all()
     
-    d = {'users':users,}
-    return render(request, 'view_users.html',d)
+    d = {'users':users}
+    return render(request, 'view_users.html', d)
 
 
 def delete_users(request,pid) :
