@@ -51,7 +51,7 @@ def login_admin(request) :
     d = {'error':error}
     return render(request, 'login_admin.html',d)
 
-def signup1(request) :
+def signup(request) :
     error=""
     if request.method=='POST':
         f = request.POST['firstname']
@@ -80,7 +80,7 @@ def admin_home(request) :
     rn = Notes.objects.filter(status="Rejected").count()
     aln = Notes.objects.all().count()
     d={'pn':pn,'an':an,'rn':rn,'aln':aln}
-    return render(request, 'admin_home.html')
+    return render(request, 'admin_home.html',d)
 
 def profile(request) :
     if not request.user:
