@@ -1,0 +1,74 @@
+{%extends 'admin_nav.html'%}
+{% load static %}
+{%block body%}
+
+{%  ifequal error "no" %}
+<script>
+    alert();
+    // window.location.href="{% url 'profile' %}";
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert('Something went wrong, Try Again');
+</script>
+{% endifequal %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+
+
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+});
+</script>
+
+<div class="container mt-5">
+    <h2 class="text-center">Uploads Pending for Review</h2>
+    <hr>
+    <table id="example" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Sr. No.</th>
+                <th>Uploaded By</th>
+                <th>Uploading Date</th>
+                <th>Branch</th>
+                <th>Subject</th>
+                <th>Download Notes</th>
+                <th>Filetype</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Assign Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in notes %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.user.username}}</td>
+                <td>{{i.uploadingdate}}</td>
+                <td>{{i.branch}}</td>
+                <td>{{i.subject}}</td>
+                <td><a href="{{i.notesfile.url}}" download class="btn btn-primary">Download</a></td>
+                <td>{{i.filetype}}</td>
+                <td>{{i.description}}</td>
+                <td>{{i.status}}</td>
+                <td><a href="{% url 'assign_status' i.id %}" class="btn btn-success" >Assign Status</a></td>
+                <td><a href="{% url 'delete_usernotes' i.id %}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+{% endblock %}

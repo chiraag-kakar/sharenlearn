@@ -1,4 +1,4 @@
-{%extends 'usernavigation.html'%}
+{%extends 'admin_nav.html'%}
 {% load static %}
 {%block body%}
 
@@ -31,12 +31,13 @@ $(document).ready(function() {
 </script>
 
 <div class="container mt-5">
-    <h2 class="text-center">View My Notes</h2>
+    <h2 class="text-center">All Uploads</h2>
     <hr>
     <table id="example" class="table table-bordered">
         <thead>
             <tr>
                 <th>Sr. No.</th>
+                <th>Uploaded By</th>
                 <th>Uploading Date</th>
                 <th>Branch</th>
                 <th>Subject</th>
@@ -44,6 +45,7 @@ $(document).ready(function() {
                 <th>Filetype</th>
                 <th>Description</th>
                 <th>Status</th>
+                <th>Assign Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -51,6 +53,7 @@ $(document).ready(function() {
             {% for i in notes %}
             <tr>
                 <td>{{forloop.counter}}</td>
+                <td>{{i.user.username}}</td>
                 <td>{{i.uploadingdate}}</td>
                 <td>{{i.branch}}</td>
                 <td>{{i.subject}}</td>
@@ -58,7 +61,8 @@ $(document).ready(function() {
                 <td>{{i.filetype}}</td>
                 <td>{{i.description}}</td>
                 <td>{{i.status}}</td>
-                <td><a href="{% url 'delete_usernotes' i.id %}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
+                <td><a href="{% url 'assign_status' i.id %}" class="btn btn-success" >Assign Status</a></td>
+                <td><a href="{% url 'delete_notes' i.id %}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
             </tr>
             {% endfor %}
         </tbody>

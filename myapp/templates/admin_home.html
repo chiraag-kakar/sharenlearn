@@ -21,29 +21,29 @@
     <div class="row">
         <div class="col-sm-3 text-center mydiv mt-3">
             <div class="container1">
-                <h2 class="text-primary">5</h2>
-                <a href="#"><h4 class="text-dark">All Notes</h4></a>
+                <h2 class="text-primary">{{aln}}</h2>
+                <a href="{% url 'all_notes'%}"><h4 class="text-dark">All Notes</h4></a>
             </div>
         </div>
 
         <div class="col-sm-3 text-center mydiv mt-3">
             <div class="container1">
-                <h2 class="text-primary">5</h2>
-                <a href="#"><h4 class="text-dark">Pending Notes</h4></a>
+                <h2 class="text-primary">{{pn}}</h2>
+                <a href="{% url 'pending_notes'%}"><h4 class="text-dark">Pending Notes</h4></a>
             </div>
         </div>
 
         <div class="col-sm-3 text-center mydiv mt-3">
             <div class="container1">
-                <h2 class="text-primary">5</h2>
-                <a href="#"><h4 class="text-dark">Rejected Notes</h4></a>
+                <h2 class="text-primary">{{rn}}</h2>
+                <a href="{% url 'rejected_notes'%}"><h4 class="text-dark">Rejected Notes</h4></a>
             </div>
         </div>
 
         <div class="col-sm-3 text-center mydiv mt-3">
             <div class="container1">
-                <h2 class="text-primary">5</h2>
-                <a href="#"><h4 class="text-dark">Accepted Notes</h4></a>
+                <h2 class="text-primary">{{an}}</h2>
+                <a href="{% url 'accepted_notes'%}"><h4 class="text-dark">Accepted Notes</h4></a>
             </div>
         </div>
 

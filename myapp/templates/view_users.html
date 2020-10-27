@@ -45,6 +45,8 @@ $(document).ready(function() {
                 <th>Role</th>
                 <th>Action</th>
             </tr>
+        </thead>
+        <tbody>
             {% for i in users %}
             <tr>
                 <td>{{forloop.counter}}</td>
@@ -56,7 +58,7 @@ $(document).ready(function() {
                 <td><a href="{% url 'delete_users' i.id %}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
             </tr>
             {% endfor %}
-        </thead>
+        </tbody>
     </table>
 </div>
 

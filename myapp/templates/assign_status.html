@@ -1,0 +1,52 @@
+{%extends 'admin_nav.html'%}
+{% load static%}
+{% block body %}
+
+{%  ifequal error "no" %}
+<script>
+    alert('Status Updated Successfullly');
+    window.location.href="{% url 'all_notes' %}";
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert('Something went wrong, Try Again');
+</script>
+{% endifequal %}
+
+<style>
+    .container1 {
+        background-color: lightgrey;
+        border-radius: 8px;
+    }
+    h2, h4 {
+        padding: 10px;
+    }
+
+    .mydiv:hover {
+        transform:translateY(-10px);
+    }
+</style>
+
+<br/>
+<br/>
+<div class="container mt-5">
+    <h2 class="text-center">Assign Status</h2>
+    <hr>
+    <form method="post">
+        {%csrf_token%}
+        <label>Upload ID</label>
+        <input type="text" name="notesid" class="form-control" value="{{notes.id}}" readonly>
+
+        <label>Status</label>
+        <select name="status" class="form-control">
+            <option value="Accepted">Accepted</option>
+            <option value="Rejected">Rejected</option>
+        </select>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+{% endblock %}
