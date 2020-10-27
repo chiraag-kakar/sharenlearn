@@ -1,0 +1,49 @@
+{%extends 'admin_nav.html'%}
+{% load static %}
+{%block body%}
+
+{%  ifequal error "no" %}
+<script>
+    alert();
+    // window.location.href="{% url 'profile' %}";
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert('Something went wrong, Try Again');
+</script>
+{% endifequal %}
+
+<div class="container mt-5">
+    <h2 class="text-center">View Users</h2>
+    <hr>
+    <table class="table table-bordered" id="myTable">
+        <thead>
+            <tr>
+                <th>Sr. No.</th>
+                <th>Full Name</th>
+                <th>Email Id</th>
+                <th>Contact</th>
+                <th>Branch</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+            {% for i in users %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td style="text-transform: capitalize;">{{i.user.first_name}} {{i.user.last_name}}</td>
+                <td>{{i.user.username}}</td>
+                <td>{{i.contact}}</td>
+                <td>{{i.branch}}</td>
+                <td>{{i.role}}</td>
+                <td><a href="{% url 'delete_users' i.id %}" download class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </thead>
+    </table>
+</div>
+
+
+
+{% endblock %}

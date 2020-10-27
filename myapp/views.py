@@ -160,3 +160,19 @@ def delete_usernotes(request,pid) :
     notes = Notes.objects.get(id = pid)
     notes.delete()
     return redirect('view_usernotes')
+
+def view_users(request) :
+    if not request.user:
+        return redirect('login')
+    users = Signup.objects.all()
+    
+    d = {'users':users,}
+    return render(request, 'view_users.html',d)
+
+
+def delete_users(request,pid) :
+    if not request.user:
+        return redirect('login')
+    users = User.objects.get(id = pid)
+    users.delete()
+    return redirect('view_users')
