@@ -51,7 +51,7 @@ def login_admin(request) :
     d = {'error':error}
     return render(request, 'login_admin.html',d)
 
-def signup(request) :
+def signup1(request) :
     error=""
     if request.method=='POST':
         f = request.POST['firstname']
@@ -63,11 +63,11 @@ def signup(request) :
         r = request.POST['role']
         try:
             user = User.objects.create_user(username=e,password=p,first_name=f,last_name=l)
-            Signup.objects.create(user=user,emailid=e,contact=c,branch=b,role=r)
+            Signup.objects.create(user=user,contact=c,branch=b,role=r)
             error="no"
         except:
             error="yes"
-    d={'error':error}
+    d = {'error':error}
     return render(request, 'signup.html',d)
 
 
