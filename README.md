@@ -55,7 +55,7 @@ cd desktop
 
 mkdir myproject
 
-cd mydblog
+cd myproject
 ```
 ---
 **Step 4**: Fork the Repository Cloning Repository using Git
