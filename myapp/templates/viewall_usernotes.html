@@ -46,7 +46,7 @@ $(document).ready(function() {
                 <th>Description</th>
                 <th>Status</th>
                 
-                <th>Action</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -62,7 +62,6 @@ $(document).ready(function() {
                 <td>{{i.description}}</td>
                 <td>{{i.status}}</td>
                 
-                <td><a href="{% url 'delete_usernotes' i.id %}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
             </tr>
             {% endfor %}
         </tbody>
