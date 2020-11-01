@@ -1,11 +1,25 @@
 {%extends 'navigation.html'%}
 {%load static%}
 {%block body%}
-<div class="container">
-    <h2 class="text-center">About Us</h2>
-    <p class="justify-content-center">
-        The Share N Learn is a platform where both students and faculties can upload all the important notifications and learning materials.
-        Proper Care is taken to preserve the user details and the uploaded content.
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+body{
+    background: linear-gradient(60deg, rgb(184, 53, 129) 0%, rgb(20, 83, 92) 100%);
+	margin:0;
+	padding:0;
+}
+</style>
+    <div class="container" >
+    <h2 class="text-center" style="color: white;">About Us</h2>
+    <p style="color:rgb(235, 241, 240);font-family: courier;
+    font-size: 160%;" class="justify-content-center">
+        <b>Share N Learn</b>  is a Common Platform for Students & Faculties to upload and share - files including study material which will be accessible to all the registered members.
+        <br><br>
+        The <b>Goal</b> of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework , 
+        Competitive exams and others hence reducing the dependency on social media platforms.
+        In future the platform can also serve as an online library for the college students.
     </p>
 </div>
 {% endblock %}
