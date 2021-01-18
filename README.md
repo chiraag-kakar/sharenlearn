@@ -10,6 +10,11 @@
 
 **Share N Learn is a Common Platform for Students & Faculties to upload and share - files including all sorts of study material which will be accessible to all the registered members built using [Django](https://docs.djangoproject.com/en/3.1/) Framework.**
 
+The **Goal** of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework , 
+Competitive exams and others hence reducing the dependency on social media platforms.
+In future the platform can also serve as an e-library for the college students.
+
+
                                       😃Hit that ⭐ button to show some ❤️           
 
 ## Getting Started
@@ -82,7 +87,9 @@ cd myproject
 
 </details>
 
+
 ---
+
 
 <details><summary>Step 4 : Fork the Repository Cloning Repository using Git</summary>
  
@@ -146,6 +153,9 @@ pip install -r requirements.txt
 </details>
 
 
+---
+
+
 <details><summary>Step 7 : Creating Superuser and making database migrations to access the default Admin Panel</summary>
  
  
@@ -180,6 +190,23 @@ python manage.py runserver
 
 
 ## Congratulations for setting up the project locally.
+
+
+## Contributing
+
+* Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+* For major changes, please open an [issue](https://github.com/chiraag-kakar/sharenlearn/issues) first to discuss what you would like to change.
+
+
+Note : * Please take a moment to review the [Contributing.md](https://github.com/chiraag-kakar/sharenlearn/blob/master/Contributing.md) which provides the guidelines for contributing.
+       * Please read the [Code of Conduct](https://github.com/chiraag-kakar/sharenlearn/blob/master/Code%20of%20Conduct.pdf).
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b <your_branch_name>`)
+3. Stage your Changes (`git add .`) 
+4. Commit your Changes (`git commit -m '<your_commit_message>'`)
+5. Push to the Branch (`git push origin feature/AmazingFeature`)
+6. Open a [Pull Request](https://github.com/chiraag-kakar/sharenlearn/pulls)
 
 
 ---
