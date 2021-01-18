@@ -1,4 +1,12 @@
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/chiraag-kakar/sharenlearn/pulls)
+![](https://github.com/chiraag-kakar/sharenlearn/blob/master/banner.png)
+
+
+![](https://img.shields.io/github/license/chiraag-kakar/sharenlearn?style=for-the-badge)
+![](https://img.shields.io/tokei/lines/github/chiraag-kakar/sharenlearn?label=Lines%20of%20Code&style=for-the-badge)
+![](https://img.shields.io/github/issues-raw/chiraag-kakar/sharenlearn?color=orange&style=for-the-badge)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](https://github.com/chiraag-kakar/sharenlearn/pulls)
+![](https://img.shields.io/github/issues-pr/chiraag-kakar/sharenlearn?style=for-the-badge)
+![](https://img.shields.io/github/commit-activity/y/chiraag-kakar/sharenlearn?style=for-the-badge)
 
 
 **Share N Learn is a Common Platform for Students & Faculties to upload and share - files including study material which will be accessible to all the registered members.
