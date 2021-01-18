@@ -199,8 +199,7 @@ python manage.py runserver
 
 
 Note : 
-* Please take a moment to review the [Contributing.md](https://github.com/chiraag-kakar/sharenlearn/blob/master/Contributing.md) which provides the guidelines for contributing.
-* Please read the [Code of Conduct](https://github.com/chiraag-kakar/sharenlearn/blob/master/Code%20of%20Conduct.pdf).
+* Please take a moment to review the [Contributing.md](https://github.com/chiraag-kakar/sharenlearn/blob/master/Contributing.md) and [Code of Conduct](https://github.com/chiraag-kakar/sharenlearn/blob/master/Code%20of%20Conduct.pdf) which provides the guidelines for contributing.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b <your_branch_name>`)
