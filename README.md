@@ -198,14 +198,15 @@ python manage.py runserver
 * For major changes, please open an [issue](https://github.com/chiraag-kakar/sharenlearn/issues) first to discuss what you would like to change.
 
 
-Note : * Please take a moment to review the [Contributing.md](https://github.com/chiraag-kakar/sharenlearn/blob/master/Contributing.md) which provides the guidelines for contributing.
-       * Please read the [Code of Conduct](https://github.com/chiraag-kakar/sharenlearn/blob/master/Code%20of%20Conduct.pdf).
+Note : 
+* Please take a moment to review the [Contributing.md](https://github.com/chiraag-kakar/sharenlearn/blob/master/Contributing.md) which provides the guidelines for contributing.
+* Please read the [Code of Conduct](https://github.com/chiraag-kakar/sharenlearn/blob/master/Code%20of%20Conduct.pdf).
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b <your_branch_name>`)
 3. Stage your Changes (`git add .`) 
 4. Commit your Changes (`git commit -m '<your_commit_message>'`)
-5. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Push to the Branch (`git push origin <your_branch_name>`)
 6. Open a [Pull Request](https://github.com/chiraag-kakar/sharenlearn/pulls)
 
 
@@ -213,4 +214,4 @@ Note : * Please take a moment to review the [Contributing.md](https://github.com
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/chiraag-kakar/sharenlearn/blob/master/LICENSE) file for details.
