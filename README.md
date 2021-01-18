@@ -8,8 +8,7 @@
 ![](https://img.shields.io/github/issues-pr/chiraag-kakar/sharenlearn?style=for-the-badge)
 
 
-**Share N Learn is a Common Platform for Students & Faculties to upload and share - files including study material which will be accessible to all the registered members.
- built using [Django](https://docs.djangoproject.com/en/3.1/) Framework.**
+**Share N Learn is a Common Platform for Students & Faculties to upload and share - files including all sorts of study material which will be accessible to all the registered members built using [Django](https://docs.djangoproject.com/en/3.1/) Framework.**
 
                                       😃Hit that ⭐ button to show some ❤️           
 
