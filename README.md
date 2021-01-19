@@ -6,7 +6,7 @@
 ![](https://img.shields.io/github/issues-raw/chiraag-kakar/sharenlearn?color=orange&style=for-the-badge)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](https://github.com/chiraag-kakar/sharenlearn/pulls)
 ![](https://img.shields.io/github/issues-pr/chiraag-kakar/sharenlearn?style=for-the-badge)
-
+![](https://img.shields.io/github/forks/chiraag-kakar/sharenlearn?style=for-the-badge)
 
 **Share N Learn is a Common Platform for Students & Faculties to upload and share - files including all sorts of study material which will be accessible to all the registered members built using [Django](https://docs.djangoproject.com/en/3.1/) Framework.**
 
