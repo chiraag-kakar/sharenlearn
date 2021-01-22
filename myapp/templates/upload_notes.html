@@ -1,7 +1,43 @@
 {%extends 'usernavigation.html'%}
 {% load static %}
 {%block body%}
-
+<!-- Aos css -->
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+<style>
+body{
+    background: linear-gradient(-45deg,#EE7752,#E73C73,#23A6D5,#23D5AB);
+}
+.form-box{
+    margin-top: 10%;
+    margin-bottom: 5%;
+    margin-left: 12%;
+    margin-right: 12%;
+    -webkit-box-shadow: 0 0 20px white;
+    box-shadow: 0 0 20px white;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+}
+.header-box{
+    border-bottom: 1px solid rgb(223, 215, 215);
+    padding-left: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-family: 'Russo One';
+    color: teal;
+}
+.filname{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    height: 37px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid lightgray;
+    background-color: aliceblue;
+}
+</style>
 {%  ifequal error "no" %}
 <script>
     alert('Notes Uploaded Successfully');
@@ -15,30 +51,33 @@
 </script>
 {% endifequal %}
 
-<div class="container mt-5">
+<div class="form-box" data-aos="fade-up" data-aos-duration="3000">
+<div class="header-box mb-4">
+<h2 data-aos="fade-left" data-aos-duration="3000">Upload My Notes</h2>
+</div>
+<form method="post" enctype="multipart/form-data">
+<div style="padding-left: 10%; padding-right:10%">
+    {%csrf_token%}
     <div class="row">
-        <div class="col-sm-6">
-            <h2 class="text-center">Upload My Uploads</h2>
-            <hr>
-            <form method="post" enctype="multipart/form-data">
-                {%csrf_token%}
-                <label>Branch</label>
-                    <select class="form-control" name="branch">
-                        <option value="">---Select Branch---</option>
-                        <option value="CSE">CSE</option>
-                        <option value="IT">IT</option>
-                        <option value="ECE">ECE</option>
-                        <option value="EE">EE</option>
-                        <option value="ME">ME</option>
-                        <option value="CE">CE</option>
-                    </select>
-                <label>Subject</label>
-                    <input type="text" class="form-control" placeholder="Enter Subject" name="subject">
-                <label>Upload File</label>
-                    <input type="file" class="form-control mt-3" name="notesfile">
-                <label>File Type</label>
-                <select class="form-control" name="filetype">
-                    <option value="">---Select Filetype---</option>
+        <div class="col-md-6 mt-3">
+            <label>Branch :</label>
+            <div class="mt-2">
+                <select class="selectpicker" name="branch" required>
+                    <option value="" disabled selected>---Select Branch---</option>
+                    <option value="CSE">CSE</option>
+                    <option value="IT">IT</option>
+                    <option value="ECE">ECE</option>
+                    <option value="EE">EE</option>
+                    <option value="ME">ME</option>
+                    <option value="CE">CE</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 mt-3">
+            <label>File Type :</label>
+            <div class="mt-2">
+                <select class="selectpicker" name="filetype" required>
+                    <option value="" disabled selected>---Select Filetype---</option>
                     <option value="PDF">PDF</option>
                     <option value="PPT">PPT</option>
                     <option value="DOC/DOCX">DOC/DOCX</option>
@@ -46,14 +85,40 @@
                     <option value="IMG">IMG</option>
                     <option value="ZIP/RAR">ZIP/RAR</option>
                 </select>
-                <label>Description</label>
-                    <textarea class="form-control" name="description"></textarea>
-                    <input type="submit" class="btn btn-danger mt-3" value="Submit">
-            </form>
+            </div>
         </div>
     </div>
+    <div class="mb-2 mt-4">
+        <label>Upload Notes :</label>
+    </div>
+    <div class="input-group">
+        <label class="btn btn-primary">
+            <input type="file" name="notesfile" class="d-none" onchange="$('#upload-file-name').html(this.files[0].name)" required>
+            Upload File
+        </label>
+        <span class="filname" id="upload-file-name">No File Uploaded</span>
+    </div>
+    <div class="mt-4">
+        <label>Subject :</label>
+        <div class="mt-2">
+            <input type="text" class="form-control" placeholder="Enter Subject" name="subject" style="width:90%;">
+        </div>
+    </div>
+    <div class="mt-4">
+        <label>Description :</label>
+        <div class="mt-2">
+            <textarea class="form-control" name="description" placeholder="A brief description about the notes" style="width: 90%;height: 100px"></textarea>
+        </div>
+    </div>
+    <div class="mt-4">
+        <button type="submit" class="btn btn-danger">Submit</button>
+    </div>
+</div>
+</form>
 </div>
 
-
-
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 {% endblock %}
