@@ -6,7 +6,9 @@
 ![](https://img.shields.io/github/issues-raw/chiraag-kakar/sharenlearn?color=orange&style=for-the-badge)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](https://github.com/chiraag-kakar/sharenlearn/pulls)
 ![](https://img.shields.io/github/issues-pr/chiraag-kakar/sharenlearn?style=for-the-badge)
-
+![](https://img.shields.io/github/forks/chiraag-kakar/sharenlearn?style=for-the-badge)
+![](https://img.shields.io/github/stars/chiraag-kakar/sharenlearn?style=for-the-badge)
+![](https://img.shields.io/website?style=for-the-badge&url=http%3A%2F%2Fwecreate.pythonanywhere.com)
 
 **Share N Learn is a Common Platform for Students & Faculties to upload and share - files including all sorts of study material which will be accessible to all the registered members built using [Django](https://docs.djangoproject.com/en/3.1/) Framework.**
 
@@ -160,11 +162,9 @@ pip install -r requirements.txt
  
  
 ```
-python manage.py createsuperuser
-```
-```
 python manage.py makemigrations
 python manage.py migrate
+python manage.py createsuperuser
 ```
 
 
