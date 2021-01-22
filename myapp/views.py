@@ -3,6 +3,11 @@ from django.contrib.auth.models import User
 from .models import *
 from django.contrib.auth import authenticate, login, logout
 from datetime import date
+
+from django.core.mail import send_mail
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseRedirect
+
 # Create your views here.
 def about(request):
     return render(request,'about.html')
@@ -11,7 +16,21 @@ def index(request) :
     return render(request, 'index.html')
 
 def contact(request) :
+    try:
+        if 'msg' in request.POST:
+            nameee = request.POST['name']
+            emailee = request.POST['mess']
+            subjectee = request.POST['sub']
+            messageee = request.POST['msg']
+            fmessage = "Name : "+nameee+"\n"+"Email : "+emailee+"\n"+"Subject : "+subjectee+"\n"+"Message : "+messageee
+            print(messageee)
+            send_mail('Contact Form',fmessage, settings.EMAIL_HOST_USER,['reciever@gmail.com'], fail_silently=False)
+            return render(request, 'contact.html')
+    except Exception as e:
+        print('post exception  ')
+        print(e)
     return render(request, 'contact.html')
+    
 
 def Logout(request) :
     logout(request)
@@ -242,3 +261,7 @@ def viewall_usernotes(request):
     notes = Notes.objects.filter(status="Accepted")
     d = {'notes':notes}
     return render(request, 'viewall_usernotes.html', d)
+
+#SMTP Backend in views.py
+
+

@@ -16,16 +16,12 @@
 {% endifequal %}
 
 
-<div class="container mt-5">
-    <div class="row">
-        
-        <div class="col-sm-6">
-            <h2 class="text-center">
-                Registration Page | Share N Learn
-            </h2>
-            <hr>
-            <form method="POST">
-                {%csrf_token%}
+<h1>Sign Up Form</h1>
+	<div class="register">
+		<form method="POST" id="register" action="">
+            {%csrf_token%}
+			<h2>Sign Up Here</h2>
+		
             <label>First Name</label>
                 <input type="text" class="form-control" placeholder="Enter First Name" name="firstname">
             <label>Last Name</label>
@@ -51,9 +47,8 @@
                 <option value="faculty">Faculty</option>
             </select>
             <input type="submit" class="btn btn-danger mt-3" value="Submit">
-            </form>
-        </div>
-        
-    </div>
-</div>
+
+
+		</form>
+	</div>
 {% endblock %}

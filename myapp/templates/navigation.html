@@ -13,10 +13,13 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <!-- link static files with templates -->
         <link type="text/css" rel="stylesheet" href ="{% static 'css/mystyle.css' %}">
+        <style>
+            ul li:hover {background:#F0FFFF;opacity:0.6;}
+       </style>
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg mh-nav nav-btn justify-content-center" style="background-color: rgb(255, 255, 255);">
+        <nav class="navbar sticky-top navbar-light navbar-expand-lg mh-nav nav-btn justify-content-left" style=" background-image: linear-gradient(to right,#004080,#EEE8AA,#FDF5E6,#800080);;">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                     <span class="navbar-toggler-icon icon">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bricks" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -27,21 +30,21 @@
             
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             
-                    <ul class="navbar-nav mr-auto ml-auto" style="color: rgb(10, 41, 3);">
+                    <ul class="navbar-nav mr-auto ml-auto";">
                         <li class="navbar-item active">
-                            <a class="nav-link" href="{%url 'index'%}">Home</a>
+                            <a class="nav-link" href="{%url 'index'%}"><b>Home</b></a>
                         </li>
                         <li class="navbar-item">
-                            <a class="nav-link" href="{%url 'about'%}">About</a>
+                            <a class="nav-link" href="{%url 'about'%}"><b>About</b></a>
                         </li>
                         <li class="navbar-item">
-                            <a class="nav-link" href="{%url 'contact'%}">Contact</a>
+                            <a class="nav-link" href="{%url 'contact'%}"><b>Contact</b></a>
                         </li>
                         <li class="navbar-item">
-                            <a class="nav-link" href="{%url 'login'%}">Login</a>
+                            <a class="nav-link" href="{%url 'login'%}"><b>Login</b></a>
                         </li>
                         <li class="navbar-item">
-                            <a class="nav-link" href="{%url 'login_admin'%}">Admin Login</a>
+                            <a class="nav-link" href="{%url 'login_admin'%}"><b>Admin Login</b></a>
                         </li>
                     </ul>
             </div>
