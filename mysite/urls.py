@@ -24,7 +24,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     
     path('admin/', admin.site.urls),
-     path('sharenlearn_hidden_admin/', admin.site.urls,name='hidden'),
     path('about',about,name='about') ,
     path('',index,name='index') ,
     path('contact',contact,name='contact'),
