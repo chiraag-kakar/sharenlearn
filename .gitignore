@@ -6,4 +6,5 @@ virtual
 db.sqlite3
 /static
 .DS_Store
+venv3/
 virtual/
