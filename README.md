@@ -79,7 +79,7 @@ And the installed version of python will be printed.
 <details><summary>Step 3 : Creating Project Directory </summary>
 
 
-(Note : We are creating project directory in the desktop for ease of access)
+(Note : We are creating project directory in the desktop for easey and fast access)
 
 ```
 cd desktop
