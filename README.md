@@ -32,6 +32,7 @@ A PythonAnywhere Account (for deploying the project on a live system)
 ```
 
 ### Development Environment Setup : Windows
+
 AUTHOR :Chiraag Kakar
 
 
