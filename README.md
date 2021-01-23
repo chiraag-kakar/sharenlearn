@@ -34,9 +34,6 @@ A PythonAnywhere Account (for deploying the project on a live system)
 ### Development Environment Setup : Windows
 
 
-AUTHOR :Chiraag Kakar
-
-
 <details><summary>Step 1 : Downloading and Installing the Code Editor</summary>
  
  
@@ -80,7 +77,7 @@ And the installed version of python will be printed.
 <details><summary>Step 3 : Creating Project Directory </summary>
 
 
-(Note : We are creating project directory in the desktop for easey and fast access)
+(Note : We are creating project directory in the desktop for ease of access)
 
 ```
 cd desktop
