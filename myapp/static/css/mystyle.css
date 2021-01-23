@@ -19,7 +19,7 @@ h1 {
 h1:before {
   content: attr(data-shadow);
   color: transparent;
-  text-shadow: 0 0 15px rgb(247, 243, 243);
+  text-shadow: 0 0 15px rgb(233, 203, 70);
   position: absolute;
   z-index: -1;
   margin: -0.1em 0 0 0;
@@ -43,6 +43,7 @@ h1:before {
 .contact-form{
   padding:69px 40px 47px;
   background: #fff;
+  color:black;
  
 }
 .contact-form input[type=text],
@@ -55,8 +56,8 @@ h1:before {
 	float: left;
 	border: none;
 	font-size: 14px;
-	font-weight: 500;
-  background: #edf4f6;
+  font-weight: 500;
+  background-color:whitesmoke;
 }
 .section-text {
   color:#EEE;
@@ -65,7 +66,7 @@ h1:before {
 }
 .contact-form-wrap {
   /*background-color:#e6f7ff;*/
-  background: linear-gradient(60deg, rgb(184, 53, 129) 0%, rgb(20, 83, 92) 100%);
+  background: whitesmoke;
   padding:45px 47px;
 }
 .contact-form textarea {
@@ -79,7 +80,7 @@ h1:before {
 .site-btn {
   /*border:#e6f7ff;
   background-color:#e6f7ff;*/
-  background: linear-gradient(60deg, rgb(184, 53, 129) 0%, rgb(20, 83, 92) 100%);
+  background: darkslategray;
   text-align: center;
   color:#EEE;
   padding:17px 10px;
@@ -132,7 +133,8 @@ p {
 .header {
   position:relative;
   text-align:center;
-  background: linear-gradient(60deg, rgb(184, 53, 129) 0%, rgb(20, 83, 92) 100%);
+  /* background: linear-gradient(60deg, rgb(184, 53, 129) 0%, rgb(20, 83, 92) 100%); */
+  background-color: #ceb12f;
   color:white;
 }
 .logo {
@@ -230,7 +232,7 @@ h1{
 body{
 	margin: 0;
   padding: 0;
-	background: #1abc9c ;
+	background: #eef3f2 ;
 	
 }
 h2{

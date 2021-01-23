@@ -14,37 +14,23 @@
     alert('Invalid Login Credentials, Try Again');
 </script>
 {% endifequal %}
-<div class="container mt-5" style="background-color: whitesmoke;">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-sm-6">
-            <h3>
-                <b>Admins can access the dashboard by logging in using their credentials</b>
-            </h3>
+        <div class="col-sm-3" style="color:white;">
+            
         </div>
-        <div class="col-sm-6">
-            <h2 class="text-center">
+        <div class="col-6 text-justify-center">
+            <h2>
                 ADMIN LOGIN
             </h2>
             <hr>
-            <form method="POST" class="needs-validation novalidate" >
+            <form method="POST" >
                 {%csrf_token%}
-                 <div class="form-row">
-                     <div class="form-group col-sm-8">
-                        <label for="validationTooltipUsername">Username</label>
-                        <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" aria-describedby="validationTooltipUsername" required>
-                        <div class="invalid-tooltip">
-                            Please enter a unique and valid username.
-                        </div>
-                     </div>
-                     <div class="form-group col-sm-8">
-                        <label for="validationTooltipPassword">Password</label>
-                        <input type="password" class="form-control"id="validationTooltipPassword "placeholder="Enter password" name="pwd" area-describedby="validationTooltipPassword" required>
-                        <div class="invalid-tooltip">
-                            Please enter a valid password.
-                        </div>
-                     </div>
-                 </div>  
-                 <input type="submit" class="btn btn-danger mt-3" value="Sign In">  
+            <label>UserName</label>
+                    <input type="text" class="form-control" placeholder="enter username" name="uname">
+            <label>Password</label>
+                    <input type="password" class="form-control"placeholder="enter password" name="pwd">
+                    <input type="submit" class="btn btn-danger mt-3" value="Sign In">
             </form>
         </div>
         
