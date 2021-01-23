@@ -32,7 +32,6 @@ A PythonAnywhere Account (for deploying the project on a live system)
 ```
 
 ### Development Environment Setup : Windows
-AUTHOR :Chiraag Kakar
 
 
 <details><summary>Step 1 : Downloading and Installing the Code Editor</summary>
