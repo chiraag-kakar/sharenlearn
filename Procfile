@@ -1,1 +1,1 @@
-web: gunicorn sharenlearn.wsgi
+web: gunicorn mysite/wsgi.py
