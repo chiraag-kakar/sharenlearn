@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="base.css">
         <style>
+
              #nav {
     			padding: 20px;
     			text-align:center;
@@ -141,15 +142,53 @@
            .button2:hover {
                 background-color:white;
           }
+
+            ul li:hover {background:#F0FFFF;opacity:0.6;}
+            body {
+                background-image: url(/static/images/xyzbg.jpg);
+            }
+
        </style>
     </head>
 
     <body>
+
 <br>
        <header>
     <div class="wrapper">
       <h1>Hey Welcome</h1>
       <a href="#nav" aria-label="Open Navigation"><button class="button1">MENU</button></a>
+
+        <nav class="navbar navbar-expand-lg mh-nav nav-btn justify-content-left" style="background-color:#ffffe6;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon icon">
+                    <!-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bricks" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h15a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H14v2h1.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H14v2h1.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5H2v-2H.5a.5.5 0 0 1-.5-.5v-3A.5.5 0 0 1 .5 6H2V4H.5a.5.5 0 0 1-.5-.5v-3zM3 4v2h4.5V4H3zm5.5 0v2H13V4H8.5zM3 10v2h4.5v-2H3zm5.5 0v2H13v-2H8.5zM1 1v2h3.5V1H1zm4.5 0v2H15V1H5.5zM1 7v2h3.5V7H1zm4.5 0v2h5V7h-5zm6 0v2H15V7h-3.5zM1 13v2h3.5v-2H1zm4.5 0v2h5v-2h-5zm6 0v2H15v-2h-3.5z"/>
+                    </svg> -->
+                </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto ml-auto" style="color:blue;">
+            <li class="navbar-item active">
+                <a class="nav-link" href="{%url 'index'%}">Home</a>
+            </li>
+            <li class="navbar-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">View Notes</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{%url 'pending_notes'%}">Pending</a>
+                    <a class="dropdown-item" href="{%url 'accepted_notes'%}">Accepted</a>
+                    <a class="dropdown-item" href="{%url 'rejected_notes'%}">Rejected</a>
+                    <a class="dropdown-item" href="{%url 'all_notes'%}">All</a>
+                </div>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{%url 'view_users'%}">View Users</a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{%url 'logout'%}">Logout</a>
+            </li>
+        </ul>
+
     </div>
   </header>
 

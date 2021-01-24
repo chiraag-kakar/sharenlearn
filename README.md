@@ -24,6 +24,8 @@ In future the platform can also serve as an e-library for the college students.
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
+
+
 ```
 Any Code Editor (VS Code preferred)
 Python version 3.7 or higher
@@ -162,11 +164,9 @@ pip install -r requirements.txt
  
  
 ```
-python manage.py createsuperuser
-```
-```
 python manage.py makemigrations
 python manage.py migrate
+python manage.py createsuperuser
 ```
 
 
