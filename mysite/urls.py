@@ -18,7 +18,7 @@ from django.urls import path
 from myapp.views import *
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.conf.urls import include
 from django.contrib.sitemaps.views import sitemap
 from myapp.sitemaps import StaticViewSitemap
 
@@ -29,6 +29,7 @@ sitemaps = {
 urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
      name='django.contrib.sitemaps.views.sitemap'),
+    path('secret_admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('admin/', admin.site.urls),
     path('about',about,name='about') ,
     path('',index,name='index') ,
