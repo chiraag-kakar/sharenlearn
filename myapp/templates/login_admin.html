@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-sm-6">
             <p>
-                Admins can access the dashboard by logging in using their credentials
+                <b>Admins can access the dashboard by logging in using their credentials</b>
             </p>
         </div>
         <div class="col-sm-6">
@@ -26,13 +26,25 @@
                 ADMIN LOGIN
             </h2>
             <hr>
-            <form method="POST" >
+            <form method="POST" class="needs-validation novalidate" >
                 {%csrf_token%}
-            <label>UserName</label>
-                    <input type="text" class="form-control" placeholder="enter username" name="uname">
-            <label>Password</label>
-                    <input type="password" class="form-control"placeholder="enter password" name="pwd">
-                    <input type="submit" class="btn btn-danger mt-3" value="Sign In">
+                 <div class="form-row">
+                     <div class="form-group col-sm-8">
+                        <label for="validationTooltipUsername">Username</label>
+                        <input type="text" class="form-control" id="validationTooltipUsername" placeholder="Username" name="uname" aria-describedby="validationTooltipUsername" required>
+                        <div class="invalid-tooltip">
+                            Please enter a unique and valid username.
+                        </div>
+                     </div>
+                     <div class="form-group col-sm-8">
+                        <label for="validationTooltipPassword">Password</label>
+                        <input type="password" class="form-control"id="validationTooltipPassword "placeholder="Enter password" name="pwd" area-describedby="validationTooltipPassword" required>
+                        <div class="invalid-tooltip">
+                            Please enter a valid password.
+                        </div>
+                     </div>
+                 </div>  
+                 <input type="submit" class="btn btn-danger mt-3" value="Sign In">  
             </form>
         </div>
         
