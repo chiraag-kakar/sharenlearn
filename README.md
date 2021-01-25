@@ -16,6 +16,8 @@ The **Goal** of the project is to create a secure and scalable platform common t
 Competitive exams and others hence reducing the dependency on social media platforms.
 In future the platform can also serve as an e-library for the college students.
 
+**So let's grow together.**
+
 
                                       😃Hit that ⭐ button to show some ❤️           
 
