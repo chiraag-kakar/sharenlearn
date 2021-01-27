@@ -1,4 +1,5 @@
-{%extends 'navigation.html'%}
+{% include 'navigation.html' %}
+
 {%block body%}
 
 <div class="header">
@@ -32,14 +33,21 @@
     </g>
     </svg>
     </div>
+
+    
     <!--Waves end-->
     
-    </div>
+</div>
+
     <!--Header ends-->
     
     <!--Content starts-->
-    <div class="content flex">
-    <p>Share N Learn | 2020 | Copyright | <a href='/sitemap.xml'>Sitemap</a></p>
-    </div>
+
+
+
+
+    <!--Footer starts-->
+    {% include 'footer.html' %}
+    <!--Footer ends-->
     {%endblock%}
  
