@@ -18,7 +18,7 @@ from django.urls import path
 from myapp.views import *
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.conf.urls import include
 from django.contrib.sitemaps.views import sitemap
 from myapp.sitemaps import StaticViewSitemap
 
@@ -27,9 +27,9 @@ sitemaps = {
 }
 
 urlpatterns = [
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
-     name='django.contrib.sitemaps.views.sitemap'),
-    path('admin/', admin.site.urls),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},name='django.contrib.sitemaps.views.sitemap'),
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    path('secret_admin/', admin.site.urls),
     path('about',about,name='about') ,
     path('',index,name='index') ,
     path('contact',contact,name='contact'),
@@ -53,4 +53,5 @@ urlpatterns = [
     path('delete_users/<int:pid>',delete_users,name="delete_users"),
     path('assign_status/<int:pid>',assign_status,name="assign_status"),
     path('delete_notes/<int:pid>',delete_notes,name="delete_notes")
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

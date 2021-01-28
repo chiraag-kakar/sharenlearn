@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp.apps.MyappConfig' ,
     'django.contrib.sitemaps',
+    'admin_honeypot',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())

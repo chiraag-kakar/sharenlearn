@@ -16,6 +16,8 @@ The **Goal** of the project is to create a secure and scalable platform common t
 Competitive exams and others hence reducing the dependency on social media platforms.
 In future the platform can also serve as an e-library for the college students.
 
+**So let's grow together.**
+
 
                                       😃Hit that ⭐ button to show some ❤️           
 
@@ -24,6 +26,8 @@ In future the platform can also serve as an e-library for the college students.
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
+
+
 ```
 Any Code Editor (VS Code preferred)
 Python version 3.7 or higher
@@ -32,6 +36,9 @@ A PythonAnywhere Account (for deploying the project on a live system)
 ```
 
 ### Development Environment Setup : Windows
+
+
+AUTHOR :Chiraag Kakar
 
 
 <details><summary>Step 1 : Downloading and Installing the Code Editor</summary>
@@ -77,7 +84,7 @@ And the installed version of python will be printed.
 <details><summary>Step 3 : Creating Project Directory </summary>
 
 
-(Note : We are creating project directory in the desktop for ease of access)
+(Note : We are creating project directory in the desktop for easey and fast access)
 
 ```
 cd desktop
