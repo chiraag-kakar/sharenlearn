@@ -27,10 +27,9 @@ sitemaps = {
 }
 
 urlpatterns = [
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
-     name='django.contrib.sitemaps.views.sitemap'),
-    path('secret_admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
-    path('admin/', admin.site.urls),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},name='django.contrib.sitemaps.views.sitemap'),
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    path('secret_admin/', admin.site.urls),
     path('about',about,name='about') ,
     path('',index,name='index') ,
     path('contact',contact,name='contact'),
