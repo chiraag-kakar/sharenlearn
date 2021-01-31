@@ -262,6 +262,8 @@ def viewall_usernotes(request):
     d = {'notes':notes}
     return render(request, 'viewall_usernotes.html', d)
 
+
+
 #SMTP Backend in views.py
 
 

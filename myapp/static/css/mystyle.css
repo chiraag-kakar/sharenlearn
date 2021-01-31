@@ -224,6 +224,7 @@ p {
 	margin: 0;
 	padding: 0;
 }
+
 h1{
 	text-align: center;
 	padding: 20px;
@@ -289,4 +290,69 @@ label{
 	border: none;
 	border-radius: 3px;
 	outline: 0;
+}
+/* footer css */
+
+footer {
+  background:black;
+  text-align:center;
+  line-height: normal;
+  padding:30px;
+}
+.p-tag
+{
+  color: white;
+}
+
+li {
+  display:inline-block;
+}
+
+.social-icon{
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 100%;
+  margin:20px;
+  filter:grayscale(100);
+}
+.social-icon:hover {
+  filter: grayscale(0);
+} 
+
+.svg-instagram {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  text-decoration: none;
+  border-radius: 100%;
+}
+iframe {
+  max-width : 100%;
+  width : 80%;
+}
+
+.follow-us-container{
+  position : relative;
+}
+
+.g-map{
+  position : absolute;
+  right : 0;
+}
+
+.g-map-desk{
+  display : none; 
+
+}
+
+@media screen and (max-width : 900px){
+  .g-map{
+    display : none;
+  }
+  
+  .g-map-desk{
+    display : block;
+  }
 }
