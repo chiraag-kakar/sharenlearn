@@ -19,81 +19,12 @@ h1 {
 h1:before {
   content: attr(data-shadow);
   color: transparent;
-  text-shadow: 0 0 15px rgb(233, 203, 70);
+  text-shadow: 0 0 15px rgb(247, 243, 243);
   position: absolute;
   z-index: -1;
   margin: -0.1em 0 0 0;
   animation: skew 2s ease-in-out alternate infinite;
   transform-origin: bottom;
-}
-.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col,
-.col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm,
-.col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md,
-.col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg,
-.col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl,
-.col-xl-auto {
-  position: relative;
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-}
-.contact-info-area {
-	padding-top: 60px;
-}
-.contact-form{
-  padding:69px 40px 47px;
-  background: #fff;
-  color:black;
- 
-}
-.contact-form input[type=text],
-.contact-form input[type=email],
-.contact-form textarea {
-	height: 57px;
-	width: 100%;
-	padding: 0 30px;
-	margin-bottom: 27px;
-	float: left;
-	border: none;
-	font-size: 14px;
-  font-weight: 500;
-  background-color:whitesmoke;
-}
-.section-text {
-  color:#EEE;
-  padding:0 15px;
-  margin-bottom:50px;
-}
-.contact-form-wrap {
-  /*background-color:#e6f7ff;*/
-  background: whitesmoke;
-  padding:45px 47px;
-}
-.contact-form textarea {
-	padding-top: 23px;
-	padding-bottom: 15px;
-	height: 225px;
-}
-.contact-form input {
-  width:100%;
-}
-.site-btn {
-  /*border:#e6f7ff;
-  background-color:#e6f7ff;*/
-  background: darkslategray;
-  text-align: center;
-  color:#EEE;
-  padding:17px 10px;
-}
-.special {
-  color:#e6f7ff;
-}
-
-@media (max-width: 479px )
-{
-  .contact-form-wrap ,.contact-form {
-    padding:50px 15px 40px;
-  }
 }
 @keyframes rotate {
   from {
@@ -133,8 +64,7 @@ p {
 .header {
   position:relative;
   text-align:center;
-  /* background: linear-gradient(60deg, rgb(184, 53, 129) 0%, rgb(20, 83, 92) 100%); */
-  background-color: #ceb12f;
+  background: linear-gradient(60deg, rgb(184, 53, 129) 0%, rgb(20, 83, 92) 100%);
   color:white;
 }
 .logo {
@@ -215,144 +145,5 @@ p {
   }
   h1 {
     font-size:24px;
-  }
-}
-
-/* css for signup/signin page */
-
-*{
-	margin: 0;
-	padding: 0;
-}
-
-h1{
-	text-align: center;
-	padding: 20px;
-	color:white;
-}
-body{
-	margin: 0;
-  padding: 0;
-	background: #eef3f2 ;
-	
-}
-h2{
-	text-align: center;
-	padding: 20px;
-	color: white;
-}
-.register{
-	background: #343434; 
-	width: 500px;
-	margin: 0% auto 55px;
-	color: white;
-	font-size: 18px;
-	padding: 23px;
-	border-radius: 10px;
-}
-#register{
-	margin-left: 50px;
-}
-label{
-	color: white;
-	font-family: sans-serif;
-	font-size: 18px;
-	font-style: italic;
-}
-#name{
-	width: 300px;
-	border: none;
-	border-radius: 3px;
-	outline: 0;
-	padding: 7px;
-}
-#ph{
-	width: 65px;
-	padding: 7px;
-	border: none;
-	border-radius: 3px;
-	outline: 0;
-}
-#num{
-	width: 230px;
-	padding: 7px;
-	border: none;
-	border-radius: 3px;
-	outline: 0;
-}
-#sub{
-	width: 200px;
-	padding: 7px;
-	font-size: 16px;
-	font-family: sans-serif;
-	font-style: italic;
-	font-weight: 600;
-	border: none;
-	border-radius: 3px;
-	outline: 0;
-}
-/* footer css */
-
-footer {
-  background:black;
-  text-align:center;
-  line-height: normal;
-  padding:30px;
-}
-.p-tag
-{
-  color: white;
-}
-
-li {
-  display:inline-block;
-}
-
-.social-icon{
-  width: 40px;
-  height: 40px;
-  display: inline-block;
-  text-decoration: none;
-  border-radius: 100%;
-  margin:20px;
-  filter:grayscale(100);
-}
-.social-icon:hover {
-  filter: grayscale(0);
-} 
-
-.svg-instagram {
-  width: 40px;
-  height: 40px;
-  display: inline-block;
-  text-decoration: none;
-  border-radius: 100%;
-}
-iframe {
-  max-width : 100%;
-  width : 80%;
-}
-
-.follow-us-container{
-  position : relative;
-}
-
-.g-map{
-  position : absolute;
-  right : 0;
-}
-
-.g-map-desk{
-  display : none; 
-
-}
-
-@media screen and (max-width : 900px){
-  .g-map{
-    display : none;
-  }
-  
-  .g-map-desk{
-    display : block;
   }
 }
