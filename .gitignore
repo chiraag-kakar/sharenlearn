@@ -2,7 +2,7 @@
 *~
 /.vscode
 __pycache__
-newvenv/
+virtual
 db.sqlite3
 /static
 .DS_Store

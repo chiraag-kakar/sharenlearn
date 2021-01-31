@@ -2,16 +2,6 @@
 {%load static%}
 {%block body%}
 
-<style>
-/* @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap'); */
-@import url('../static/css/Gfonts_css.css');
-
-body{
-    background: linear-gradient(60deg, rgb(184, 53, 129) 0%, rgb(20, 83, 92) 100%);
-	margin:0;
-	padding:0;
-}
-</style>
 
 <div class="container text-light" >
     <h2 class="text-center card-header bg-success mt-5" style="color: white; font-weight: bolder;">About Us</h2>
@@ -24,4 +14,14 @@ body{
         In future the platform can also serve as an online library for the college students.
     </p>
 </div>
+
+<style>
+    .container {
+        margin-bottom: 10%;
+    }
+</style>
+
+
+{% include 'footer.html' %}
+
 {% endblock %}
