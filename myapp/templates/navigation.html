@@ -38,6 +38,23 @@
                         <li class="navbar-item active">
                             <a class="nav-link" href="{%url 'index'%}"><b>Home</b></a>
                         </li>
+                        {% if request.user.is_superuser %}
+                        <li class="navbar-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">View Notes</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{%url 'pending_notes'%}">Pending</a>
+                                <a class="dropdown-item" href="{%url 'accepted_notes'%}">Accepted</a>
+                                <a class="dropdown-item" href="{%url 'rejected_notes'%}">Rejected</a>
+                                <a class="dropdown-item" href="{%url 'all_notes'%}">All</a>
+                            </div>
+                        </li>
+                        <li class="navbar-item">
+                            <a class="nav-link" href="{%url 'view_users'%}">View Users</a>
+                        </li>
+                        <li class="navbar-item">
+                            <a class="nav-link" href="{%url 'logout'%}">Logout</a>
+                        </li>
+                        {% else %}
                         <li class="navbar-item">
                             <a class="nav-link" href="{%url 'about'%}"><b>About</b></a>
                         </li>
@@ -50,6 +67,7 @@
                         <li class="navbar-item">
                             <a class="nav-link" href="{%url 'login_admin'%}"><b>Admin Login</b></a>
                         </li>
+                        {% endif %}
                     </ul>
             </div>
                 </nav>
