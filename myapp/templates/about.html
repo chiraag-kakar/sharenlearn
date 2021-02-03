@@ -1,27 +1,245 @@
 {%extends 'navigation.html'%}
-{%load static%}
-{%block body%}
-
-
-<div class="container text-light" >
-    <h2 class="text-center card-header bg-success mt-5" style="color: white; font-weight: bolder;">About Us</h2>
-    <p class="card-body bg-dark" style="color:rgb(235, 241, 240);font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size:130%;" class="justify-content-center">
-        <b>Share N Learn</b>  is a Common Platform for Students & Faculties to upload and share - files including study material which will be accessible to all the registered members.
-        <br><br>
-        The <b>Goal</b> of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework , 
-        Competitive exams and others hence reducing the dependency on social media platforms.
-        In future the platform can also serve as an online library for the college students.
-    </p>
-</div>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {%load static%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Parallax Scrolling Effect</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
-    .container {
-        margin-bottom: 10%;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+.container{
+    max-width: 70rem;
+    padding: 0 2rem;
+    margin: 0 auto;
+}
+
+header{
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    overflow: hidden;
+}
+
+header:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    z-index: 25;
+}
+
+.big-title{
+    position: absolute;
+    z-index: 30;
+    line-height: 4rem;
+    top: calc(30% - 2rem);
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+#sub-title{
+     font-size:4rem;
+}
+
+section{
+    width: 100%;
+    background-color: #151515;
+    position: relative;
+}
+
+section .container{
+    padding: 3rem;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
+section .container > *{
+    margin: 2rem;
+}
+
+.content{
+    color: #fff;
+    transform: translateY(-50px);
+}
+
+.title{
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    position: relative;
+}
+
+.border-1{
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    background-color: #fff;
+    bottom: 0;
+    left: 0;
+}
+
+.border-2{
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #fff;
+    bottom: 0;
+    left: 0;
+}
+
+.shadow{
+    position: absolute;
+    bottom: 100%;
+    height: 300px;
+    width: 100%;
+    left: 0;
+    z-index: 20;
+    background: linear-gradient(to top, #151515, transparent);
+}
+    
+.sky{
+    position: absolute;
+    width: 100%;
+    bottom:0px;
+    right: 0;
+    height:100%;
+}
+    
+.opacity{
+    opacity: 0;
+}
+
+@media (max-width: 850px){
+    section .container{
+        grid-template-columns: 1fr;
     }
+}
+
+@media(max-width: 600px){
+    .big-title{
+        font-size: 2rem;
+    }
+    #sub-title{
+       font-size:3rem;
+    }
+
+    .text{
+        font-size: .8rem;
+    }
+
+    .title{
+        font-size: 1.2rem;
+    }
+}
 </style>
+</head>
+<body>
+    <header>
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/927610/pexels-photo-587409.jpeg" class="sky translate" data-speed="0.5" alt="">
+        <h1 class="big-title translate" data-speed="0.1"><u>About ShareNLearn.</u><br><br><span id="sub-title">Our mission is to Grow Together.</span></h1>
+    </header>
 
+    <section>
+        <div class="shadow"></div>
+        <div class="container">
+            <div class="content">
+                <h3 class="title">
+                    Our Essence
+                    <div class="border-1"></div>
+                </h3>
+                <p class="text">
+Share N Learn is a Common Platform for Students & Faculties to upload and share - files including study material which will be accessible to all the registered members.</p>
+            </div>
+        </div>
+       </section>
+    
+    <section>
+       <div class="shadow"></div>
+        <div class="container">
+            <div class="content opacity">
+                <h3 class="title">
+                    Our Goal
+                    <div class="border-2"></div>
+                </h3>
+                <p class="text">The Goal of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework , Competitive exams and others hence reducing the dependency on social media platforms. In future the platform can also serve as an online library for the college students.
+</p>
 
+            </div>
+        </div>
+    </section>
+    <script>
+const translate = document.querySelectorAll(".translate");
+const big_title = document.querySelector(".big-title");
+const header = document.querySelector("header");
+const shadow = document.querySelector(".shadow");
+const content = document.querySelector(".content");
+const section = document.querySelector("section");
+const opacity = document.querySelectorAll(".opacity");
+const border1 = document.querySelector(".border-1");
+const border2 = document.querySelector(".border-2");
+
+let header_height = header.offsetHeight;
+let section_height = 1.4*section.offsetHeight;
+
+window.addEventListener('scroll', () => {
+    let scroll = window.pageYOffset;
+    let sectionY =section.getBoundingClientRect();
+    
+    translate.forEach(element => {
+        let speed = element.dataset.speed;
+        element.style.transform = `translateY(${scroll * speed}px)`;
+    });
+
+    opacity.forEach(element => {
+        element.style.opacity = scroll / (sectionY.top + section_height);
+    })
+
+    big_title.style.opacity = - scroll / (header_height / 2) + 1;
+    shadow.style.height = `${scroll * 0.5 + 300}px`;
+
+    content.style.transform = `translateY(${scroll / (section_height + sectionY.top) * 50 - 50}px)`;
+
+    border1.style.width = `${scroll / (sectionY.top + section_height) * 30}%`;
+    border2.style.width = `${scroll / (sectionY.top + section_height) * 30}%`;
+ 
+})
+
+</script>
+<script>
+$(window).scroll(function(){
+        var scroll = $(window).scrollTop();
+        $(".sky").css({
+            width: (100 + scroll/5) + "%"
+        })
+    })
+
+</script>
+</body>
+</html>
 {% include 'footer.html' %}
 
 {% endblock %}
