@@ -1,77 +1,96 @@
 <html lang="en">
-    <head>
-        {% load static %}
-        <title>Share N Learn</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="static/images/myicon.png">
-        <link type="text/css" rel="stylesheet" href="static/css/mystyle.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <!-- link static files with templates -->
-        <link type="text/css" rel="stylesheet" href ="{% static 'css/mystyle.css' %}">
-        <link rel="stylesheet" href="../static/css/mystyle.css">
-        <style>
-            ul li:hover {background:#F0FFFF;opacity:0.6;}
-            body {
-                background-image: url(/static/images/xyzbg.jpg);
-            }
-       </style>
-    </head>
 
-    <body class="text-light" style="color: white;">
-        <nav class="navbar sticky-top navbar-light navbar-expand-lg mh-nav nav-btn justify-content-left">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon icon">
-                                        <!-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bricks" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+<head>
+    {% load static %}
+    <title>Share N Learn</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="static/images/myicon.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="static/css/mystyle.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head> 
+
+<!-- 
+    
+-->
+<!-- link static files with templates -->
+<link type="text/css" rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+<link rel="stylesheet" href="../static/css/mystyle.css">
+<style>
+    ul li:hover {
+        background: #3E92CC;
+        /* background:#4b7bec; */
+    }
+
+    .navbar {
+        background-color: #d1d8e0;
+        margin: 0;
+    }
+
+    li:active {
+        color: black;
+    }
+
+    body {
+        
+        background:linear-gradient(to bottom, rgba(0,0,0,20%), rgba(0,0,0,50%) ),  url(https://images.unsplash.com/photo-1483401757487-2ced3fa77952?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1052&q=80) no-repeat;
+        background-size: cover;
+        background-position: center;
+    }  
+</style>
+
+</head>
+
+<body class="text-light">
+    <nav class="navbar sticky-top navbar-light navbar-expand-lg mh-nav nav-btn justify-content-left">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon icon">
+                <!-- <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bricks" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h15a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H14v2h1.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H14v2h1.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5H2v-2H.5a.5.5 0 0 1-.5-.5v-3A.5.5 0 0 1 .5 6H2V4H.5a.5.5 0 0 1-.5-.5v-3zM3 4v2h4.5V4H3zm5.5 0v2H13V4H8.5zM3 10v2h4.5v-2H3zm5.5 0v2H13v-2H8.5zM1 1v2h3.5V1H1zm4.5 0v2H15V1H5.5zM1 7v2h3.5V7H1zm4.5 0v2h5V7h-5zm6 0v2H15V7h-3.5zM1 13v2h3.5v-2H1zm4.5 0v2h5v-2h-5zm6 0v2H15v-2h-3.5z"/>
-                                        </svg> -->
-                                    </span>
-                                </button>
-            
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            
-                    <ul class="navbar-nav mr-auto ml-auto">
-                        <li class="navbar-item active">
-                            <a class="nav-link" href="{%url 'index'%}"><b>Home</b></a>
-                        </li>
-                        {% if request.user.is_superuser %}
-                        <li class="navbar-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">View Notes</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{%url 'pending_notes'%}">Pending</a>
-                                <a class="dropdown-item" href="{%url 'accepted_notes'%}">Accepted</a>
-                                <a class="dropdown-item" href="{%url 'rejected_notes'%}">Rejected</a>
-                                <a class="dropdown-item" href="{%url 'all_notes'%}">All</a>
-                            </div>
-                        </li>
-                        <li class="navbar-item">
-                            <a class="nav-link" href="{%url 'view_users'%}">View Users</a>
-                        </li>
-                        <li class="navbar-item">
-                            <a class="nav-link" href="{%url 'logout'%}">Logout</a>
-                        </li>
-                        {% else %}
-                        <li class="navbar-item">
-                            <a class="nav-link" href="{%url 'about'%}"><b>About</b></a>
-                        </li>
-                        <li class="navbar-item">
-                            <a class="nav-link" href="{%url 'contact'%}"><b>Contact</b></a>
-                        </li>
-                        <li class="navbar-item">
-                            <a class="nav-link" href="{%url 'login'%}"><b>Login</b></a>
-                        </li>
-                        <li class="navbar-item">
-                            <a class="nav-link" href="{%url 'login_admin'%}"><b>Admin Login</b></a>
-                        </li>
-                        {% endif %}
-                    </ul>
-            </div>
-                </nav>
-    </body>
+                                        </svg> -- !-->
+            </span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <ul class="navbar-nav mr-auto ml-auto nav" id="btn-box">
+                <li class="navbar-item btn">
+                    <a id="nav" class="nav-link" href="{%url 'index'%}" onclick=""><b>Home</b></a>
+                </li>
+                <li class="navbar-item btn">
+                    <a id="nav" class="nav-link" href="{%url 'about'%}"><b>About</b></a>
+                </li>
+                <li class="navbar-item btn">
+                    <a id="nav" class="nav-link" href="{%url 'contact'%}"><b>Contact</b></a>
+                </li>
+                <li class="navbar-item btn">
+                    <a id="nav" class="nav-link" href="{%url 'login'%}"><b>Login</b></a>
+                </li>
+                <li class="navbar-item btn">
+                    <a id="nav" class="nav-link" href="{%url 'login_admin'%}"><b>Admin Login</b></a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <script> 
+        $(document).ready(function () {
+        const url = location.href;
+        $("ul a").each(function () {
+            if (this.href === url) {
+            $(this).addClass("active");
+            }
+        });
+        }); 
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
+
 </html>
 
 {% block body %}
