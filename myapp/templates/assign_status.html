@@ -2,18 +2,18 @@
 {% load static%}
 {% block body %}
 
-{%  ifequal error "no" %}
+{%  if error == "no" %}
 <script>
     alert('Status Updated Successfullly');
     window.location.href="{% url 'all_notes' %}";
 </script>
-{% endifequal %}
+{% endif %}
 
-{% ifequal error "yes" %}
+{% if error == "yes" %}
 <script>
     alert('Something went wrong, Try Again');
 </script>
-{% endifequal %}
+{% endif %}
 
 <style>
     .container1 {
