@@ -171,8 +171,9 @@ p {
 .content {
   position:relative;
   height:20vh;
-  text-align:center;
-  background-color: white;
+  /* text-align:center; */
+  text-align:left;
+  /* background-color: white; */
 }
 
 /* Animation */

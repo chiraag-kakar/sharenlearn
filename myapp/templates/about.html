@@ -11,10 +11,6 @@
     box-sizing: border-box;
 }
 
-body{
-    font-family: 'Poppins', sans-serif;
-}
-
 .container{
     max-width: 70rem;
     padding: 0 2rem;
@@ -157,28 +153,28 @@ section .container > *{
     </header>
 
     <section>
-        <div class="shadow"></div>
+        <!-- <div class="shadow"></div> -->
         <div class="container">
             <div class="content">
                 <h3 class="title">
                     Our Essence
                     <div class="border-1"></div>
                 </h3>
-                <p class="text">
+                <p style="color: white" class="text">
 Share N Learn is a Common Platform for Students & Faculties to upload and share - files including study material which will be accessible to all the registered members.</p>
             </div>
         </div>
        </section>
     
     <section>
-       <div class="shadow"></div>
+       <!-- <div class="shadow"></div> -->
         <div class="container">
             <div class="content opacity">
                 <h3 class="title">
                     Our Goal
                     <div class="border-2"></div>
                 </h3>
-                <p class="text">The Goal of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework , Competitive exams and others hence reducing the dependency on social media platforms. In future the platform can also serve as an online library for the college students.
+                <p style="color: white" class="text">The Goal of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework , Competitive exams and others hence reducing the dependency on social media platforms. In future the platform can also serve as an online library for the college students.
 </p>
 
             </div>
@@ -231,6 +227,8 @@ $(window).scroll(function(){
     })
 
 </script>
+
+{% include 'footer.html' %}
 {% endblock %}
     
-{% include 'footer.html' %}
+
