@@ -2,18 +2,18 @@
 {%load static%}
 {%block body%}
 
-{%  ifequal error "no" %}
+{%  if error == "no" %}
 <script>
     alert('Signed Up Successfully');
     window.location.href="{% url 'login' %}";
 </script>
-{% endifequal %}
+{% endif %}
 
-{% ifequal error "yes" %}
+{% if error == "yes" %}
 <script>
     alert('Something went wrong, Try Again');
 </script>
-{% endifequal %}
+{% endif %}
 
 
 <h1>Sign Up Form</h1>
