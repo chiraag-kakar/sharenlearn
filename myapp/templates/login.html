@@ -2,18 +2,18 @@
 {%load static%}
 {%block body%}
 
-{%  if error == "no" %}
+{%  ifequal error "no" %}
 <script>
     alert('Logged in Successfully');
     window.location.href="{% url 'profile' %}";
 </script>
-{% endif %}
+{% endifequal %}
 
-{% if error == "yes" %}
+{% ifequal error "yes" %}
 <script>
     alert('Invalid Login Credentials, Try Again');
 </script>
-{% endif %}
+{% endifequal %}
 <div class="container mt-5 text-light">
     <div class="row">
         <div class="col-sm-6">
