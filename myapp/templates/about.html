@@ -1,6 +1,5 @@
 {%extends 'navigation.html'%}
 {%block body%}
-    <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
@@ -9,6 +8,10 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
 }
 
 .container{
@@ -62,7 +65,7 @@ section .container{
     display: grid;
     align-items: center;
     justify-content: center;
-    min-height: 60vh;
+    min-height: 37vh;
 }
 
 section .container > *{
@@ -109,7 +112,7 @@ section .container > *{
     z-index: 20;
     background: linear-gradient(to top, #151515, transparent);
 }
-    
+
 .sky{
     position: absolute;
     width: 100%;
@@ -117,7 +120,7 @@ section .container > *{
     right: 0;
     height:100%;
 }
-    
+
 .opacity{
     opacity: 0;
 }
@@ -133,7 +136,7 @@ section .container > *{
         font-size: 2rem;
     }
     #sub-title{
-       font-size:3rem;
+       font-size:2.8rem;
     }
 
     .text{
@@ -149,37 +152,35 @@ section .container > *{
 <body>
     <header>
         <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/927610/pexels-photo-587409.jpeg" class="sky translate" data-speed="0.5" alt="">
-        <h1 class="big-title translate" data-speed="0.1"><u>About ShareNLearn.</u><br><br><span id="sub-title">Our mission is to Grow Together.</span></h1>
+        <h2 class="big-title translate" data-speed="0.1"><u>About Share N Learn.</u><br><br><span id="sub-title">Our mission is to Grow Together.</span></h2>
     </header>
 
     <section>
-        <!-- <div class="shadow"></div> -->
+        <div class="shadow"></div>
         <div class="container">
             <div class="content">
                 <h3 class="title">
                     Our Essence
                     <div class="border-1"></div>
                 </h3>
-                <p style="color: white" class="text">
-Share N Learn is a Common Platform for Students & Faculties to upload and share - files including study material which will be accessible to all the registered members.</p>
+                <h6 class="text">Share N Learn is a Common Platform for Students & Faculties to upload and share - files including study material which will be accessible to all the registered members.</h6>
             </div>
         </div>
-       </section>
+    </section>
     
     <section>
-       <!-- <div class="shadow"></div> -->
+       <div class="shadow"></div>
         <div class="container">
-            <div class="content opacity">
+            <div class="content">
                 <h3 class="title">
                     Our Goal
                     <div class="border-2"></div>
                 </h3>
-                <p style="color: white" class="text">The Goal of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework , Competitive exams and others hence reducing the dependency on social media platforms. In future the platform can also serve as an online library for the college students.
-</p>
-
+                <h6 class="text">The Goal of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework , Competitive exams and others hence reducing the dependency on social media platforms. In future the platform can also serve as an online library for the college students.</h6>
             </div>
         </div>
     </section>
+
     <script>
 const translate = document.querySelectorAll(".translate");
 const big_title = document.querySelector(".big-title");
@@ -192,7 +193,7 @@ const border1 = document.querySelector(".border-1");
 const border2 = document.querySelector(".border-2");
 
 let header_height = header.offsetHeight;
-let section_height = 1.4*section.offsetHeight;
+let section_height = 2.4*section.offsetHeight;
 
 window.addEventListener('scroll', () => {
     let scroll = window.pageYOffset;
@@ -210,10 +211,10 @@ window.addEventListener('scroll', () => {
     big_title.style.opacity = - scroll / (header_height / 2) + 1;
     shadow.style.height = `${scroll * 0.5 + 300}px`;
 
-    content.style.transform = `translateY(${scroll / (section_height + sectionY.top) * 50 - 50}px)`;
+    content.style.transform = `translateY(${scroll / (section_height + sectionY.top) * 80 - 80}px)`;
 
-    border1.style.width = `${scroll / (sectionY.top + section_height) * 30}%`;
-    border2.style.width = `${scroll / (sectionY.top + section_height) * 30}%`;
+    border1.style.width = `${scroll / (sectionY.top + section_height) * 25}%`;
+    border2.style.width = `${scroll / (sectionY.top + section_height) * 22}%`;
  
 })
 
@@ -231,4 +232,3 @@ $(window).scroll(function(){
 {% include 'footer.html' %}
 {% endblock %}
     
-
