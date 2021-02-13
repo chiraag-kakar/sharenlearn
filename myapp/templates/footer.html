@@ -9,7 +9,8 @@
         
     </head>
         <body>
-            <footer class="container-fluid">
+            <footer class="container-fluid" style="position: relative;">
+                
             <div class="row">
             <div class="col-md-12">
                 <div class="follow-us-container">
@@ -66,15 +67,186 @@
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114227.75039789638!2d88.61168618654064!3d26.532433240692523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e4795a4544dc7b%3A0xfd44f1fea54c9c40!2sJalpaiguri%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1611545843073!5m2!1sen!2sin" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                 </div>
                 
-                        <div class="g-map-desk col-12">
+                <div class="g-map-desk col-12">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d114227.75039789638!2d88.61168618654064!3d26.532433240692523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e4795a4544dc7b%3A0xfd44f1fea54c9c40!2sJalpaiguri%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1611545843073!5m2!1sen!2sin" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                 </div>
-                
+
+                <div class="weather-container">
+                    <div class="notification"></div>
+                    <div class="weather-status">
+                        <div class="weather-icon"><img src="../static/icons/unknown.png" alt=""></div>
+                        <div class="temperature-value">
+                            <p></p>
+                        </div>
+                        <div class="temperature-description">
+                            <p></p>
+                        </div>
+                        <div class="location">
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
                 </div>
                 <div>
                     <p class="p-tag copyright">Share N Learn | 2020 | Copyright | <a href='/sitemap.xml'>Sitemap</a></p>
                 </div>
+           
         </footer>
+        <style>
+
+            .notification{
+                background-color: #f8d7da;
+                display: none;
+                border-radius: 10px;
+            }
+
+            .notification p{
+                color: #721c24;
+                font-size: 1.2em;
+                margin: 0;
+                text-align: center;
+                padding: 18px 0;
+            
+            }
+
+            .weather-container{
+                width: 13%;
+                background-color: #d1d8e0;
+                border-radius: 10px;
+                box-shadow: 5px 5px 4px #888888;
+                margin: 26px 0 0 26px;
+                position: absolute;
+                top: 0;
+            }
+            .weather-container p {
+                font-weight: bold;
+            }
+
+            .weather-icon img{
+                width: 60px;
+            }
+
+            .temperature-value p{
+                padding: 0;
+                margin: 0;
+                color: #293251;
+                font-size: 1.8em;
+                text-align: center;
+                cursor: pointer;
+            }
+
+            .temperature-value span{
+                color: #293251;
+                font-size: 0.5em;
+                text-align: center;
+                
+            }
+
+            .temperature-description p{
+                margin: 0;
+                color: #293251;
+                text-align: center;
+                font-size: 1.2em;
+            }
+
+            .location p{
+                color: #293251;
+                text-align: center;
+                font-size: 0.8em;
+            }
+
+            @media screen and (max-width : 900px){
+                .weather-container{
+                    position: relative;
+                    width: 75%;  
+                    background-color: #d1d8e0;
+                    border-radius: 10px;
+                    box-shadow: 5px 5px 4px #888888;
+                    margin: 20px auto;
+                }
+            }
+</style>
+        <script>
+            const iconElement = document.querySelector(".weather-icon");
+            const tempElement = document.querySelector(".temperature-value p");
+            const descElement = document.querySelector(".temperature-description p");
+            const locationElement = document.querySelector(".location p");
+            const notificationElement = document.querySelector(".notification");
+
+            const weather = {};
+
+            weather.temperature = {
+                unit : "celsius"
+            }
+
+            const KELVIN = 273;
+            const key="6049b1eb81e6da102af4078fd70654b7";
+
+            if('geolocation' in navigator){
+                navigator.geolocation.getCurrentPosition(setPosition, showError);
+            }else{
+                notificationElement.style.display = "block";
+                notificationElement.innerHTML = "<p>Browser doesn't support Geolocation</p>";
+            }
+
+            function setPosition(position){
+                let latitude = position.coords.latitude;
+                let longitude = position.coords.longitude;
+                
+                getWeather(latitude, longitude);
+            }
+
+            function showError(error){
+                notificationElement.style.display = "block";
+                notificationElement.innerHTML = `<p> ${error.message} </p>`;
+            }
+
+            function getWeather(latitude, longitude){
+                let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+                
+                fetch(api)
+                    .then(function(response){
+                        let data = response.json();
+                        return data;
+                    })
+                    .then(function(data){
+                        weather.temperature.value = Math.floor(data.main.temp - KELVIN);
+                        weather.description = data.weather[0].description;
+                        weather.iconId = data.weather[0].icon;
+                        weather.city = data.name;
+                        weather.country = data.sys.country;
+                    })
+                    .then(function(){
+                        displayWeather();
+                    });
+            }
+
+            function displayWeather(){
+                iconElement.innerHTML = `<img src="../static/icons/${weather.iconId}.png"/>`;
+                tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
+                descElement.innerHTML = weather.description;
+                locationElement.innerHTML = `${weather.city}, ${weather.country}`;
+            }
+
+            function celsiusToFahrenheit(temperature){
+                return (temperature * 9/5) + 32;
+            }
+
+            tempElement.addEventListener("click", function(){
+                if(weather.temperature.value === undefined) return;
+                
+                if(weather.temperature.unit == "celsius"){
+                    let fahrenheit = celsiusToFahrenheit(weather.temperature.value);
+                    fahrenheit = Math.floor(fahrenheit);
+                    
+                    tempElement.innerHTML = `${fahrenheit}°<span>F</span>`;
+                    weather.temperature.unit = "fahrenheit";
+                }else{
+                    tempElement.innerHTML = `${weather.temperature.value}°<span>C</span>`;
+                    weather.temperature.unit = "celsius"
+                }
+            });
+        </script>
     </body>
 </html>
-    
