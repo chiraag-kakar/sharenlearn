@@ -38,18 +38,18 @@ body{
     background-color: aliceblue;
 }
 </style>
-{%  if error == "no" %}
+{%  ifequal error "no" %}
 <script>
     alert('Notes Uploaded Successfully');
     window.location.href="{% url 'profile' %}";
 </script>
-{% endif %}
+{% endifequal %}
 
-{% if error =="yes" %}
+{% ifequal error "yes" %}
 <script>
     alert('Something went wrong, Try Again');
 </script>
-{% endif %}
+{% endifequal %}
 
 <div class="form-box" data-aos="fade-up" data-aos-duration="3000">
 <div class="header-box mb-4">
