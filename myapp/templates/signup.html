@@ -18,43 +18,56 @@
 
 <h1>Sign Up Form</h1>
 	<div class="register">
-		<form method="POST" id="register" action="">
+		<form method="POST"  action="">
             {%csrf_token%}
 			<h2>Sign Up Here</h2>
-		
-            <label>First Name</label>
-                <input type="text" class="form-control" placeholder="Enter First Name" name="firstname">
-            <label>Last Name</label>
-                <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname">
-            <label>Contact</label>
-                <input type="number" class="form-control" placeholder="Enter Contact Number" name="contact">
-            <label>Email</label>
-                <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid">
-            <label>Password</label>
-                <input type="password" class="form-control" placeholder="Enter your Password" name="password">
+		<div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname">
+                    <label>Contact</label>
+                    <input class="form-control" placeholder="Enter Contact Number" name="contact">
+
+                </div>
+                <div class="col-sm">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Enter your Password" name="password">
+                    <label>Role</label>
+                    <select class="form-control" name="role">
+                        <option value="student">Student</option>
+                        <option value="faculty">Faculty</option>
+                    </select>
+                    
+                </div>
+            </div>
             <label>Department</label>
-            <select class="form-control" name="branch">
-                <option value="CSE">Computer Science & Engineering</option>
-                <option value="IT">Information Technology</option>
-                <option value="ECE">Electronics & Communication Engineering</option>
-                <option value="EE">Electrical Engineering</option>
-                <option value="ME">Mechanical Engineering</option>
-                <option value="CE">Civil Engineering</option>
-            </select>
-            <label>Role</label>
-            <select class="form-control" name="role">
-                <option value="student">Student</option>
-                <option value="faculty">Faculty</option>
-            </select>
+                    <select class="form-control" name="branch">
+                        <option value="CSE">Computer Science & Engineering</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="ECE">Electronics & Communication Engineering</option>
+                        <option value="EE">Electrical Engineering</option>
+                        <option value="ME">Mechanical Engineering</option>
+                        <option value="CE">Civil Engineering</option>
+                    </select>
             <input type="submit" class="btn btn-danger mt-3" value="Submit">
-
-
+                </div>
 		</form>
     </div>
     <style>
         .container {
             margin-bottom: 10%;
         }
+        @media only screen and (max-width : 500px){
+            .register{
+                width: 90%;
+            }
+}
+
     </style>
     
 {% include 'footer.html' %}
