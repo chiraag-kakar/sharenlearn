@@ -27,11 +27,6 @@ h1:before {
   transform-origin: bottom;
 }
 
-/* .special {
-  color:#e6f7ff;
-} */
-
-
 @keyframes rotate {
   from {
     transform: rotateY(-10deg);
