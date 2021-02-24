@@ -27,13 +27,12 @@
             <form method="POST" >
                 {%csrf_token%}
             <label>UserName</label>
-                    <input type="text" class="form-control" placeholder="enter username" name="uname">
+                    <input type="text" class="form-control" placeholder="enter username" name="uname" required>
             <label>Password</label>
-                    <input type="password" class="form-control"placeholder="enter password" name="pwd">
+                    <input type="password" class="form-control"placeholder="enter password" name="pwd" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_=+-]).{8,}" title="Min 8 char, atlest 1 UpperCase, 1 LowerCase, 1 Number and 1 Special char">
                     <input type="submit" class="btn btn-danger mt-3" value="Sign In">
             </form>
         </div>
-        
     </div>
 </div>
 
