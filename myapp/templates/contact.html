@@ -18,19 +18,19 @@
             <form class="contact-form" method="POST">
                 {%csrf_token%}
  
-                    <input  type="text" placeholder="Your Name" id="name" name="name">
+                    <input  type="text" placeholder="Your Name" id="name" name="name" required>
                     
                     <br>
 
-                    <input  type="text" placeholder="Your E-mail" id="mess" name="mess">
+                    <input  type="text" placeholder="Your E-mail" id="mess" name="mess" required>
                     
                     <br>
 
-                    <input type="text" placeholder="Subject" id="sub" name="sub">
+                    <input type="text" placeholder="Subject" id="sub" name="sub" required>
                     
                     <br>
 
-                    <textarea placeholder="Message" id="msg" name="msg"></textarea>
+                    <textarea placeholder="Message" id="msg" name="msg" required></textarea>
                     
                     <br>
                     
