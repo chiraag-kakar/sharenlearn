@@ -4,9 +4,11 @@ from .models import *
 from django.contrib.auth import authenticate, login, logout
 from datetime import date
 
+import requests
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
 
 # Create your views here.
 def about(request):
@@ -41,6 +43,18 @@ def userlogin(request) :
     if request.method == 'POST':
         u = request.POST['emailid']
         p = request.POST['pwd']
+
+        # Retrieves reCAPTCHA token and verifies with the API 
+        captcha_token = request.POST['g-recaptcha-response']
+        cap_url = "https://www.google.com/recaptcha/api/siteverify"
+        cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            "response": captcha_token}
+        cap_server_response = requests.post(url=cap_url, data=cap_data)
+        cap_json = cap_server_response.json()
+        if cap_json['success'] == False:
+            messages.error(request, "Invalid reCAPTCHA. Please try again.")
+            return redirect('login')
+
         user = authenticate(username=u, password=p)
         try:
             if user:
