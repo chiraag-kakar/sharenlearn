@@ -36,7 +36,7 @@ Latest version of Git
 A PythonAnywhere Account (for deploying the project on a live system)
 ```
 
-### Development Environment Setup : Windows
+### :heavy_check_mark: Development Environment Setup : Windows
 
 
 <details><summary>Step 1 : Downloading and Installing the Code Editor</summary>
@@ -193,8 +193,164 @@ python manage.py runserver
 
 </details>
 
+---
 
-## Congratulations for setting up the project locally.
+### :heavy_check_mark: Development Environment Setup : Linux Platforms
+
+
+<details><summary>Step 1 : Downloading and Installing the Code Editor</summary>
+ 
+ 
+| **Code Editor** | **Link** 	|
+|-	|-	|
+| Visual Studio Code 	| [Download it from here](https://code.visualstudio.com/)	|
+| Sublime Text 3 	| [Download it from here](https://www.sublimetext.com/3) |
+| Atom 	| [Download it from here](https://atom.io/)	|
+
+
+</details>
+
+
+---
+
+
+<details><summary>Step 2 : Installing Python</summary>
+
+* Most of the linux distributions like ubuntu, fedora, etc come with python _pre-installed_. Check your python version using command :
+```
+python --version
+```
+ - In order to install the latest version of python ,use command :
+ ```
+sudo apt install python3.9.1
+```
+- Allow the process to complete and verify the installation from the terminal using command :
+
+```
+python --version
+```
+And the installed version of python will be printed.
+</details>
+
+---
+
+<details><summary>Step 3 : Creating Project Directory </summary>
+
+
+(Note : We are creating project directory in the desktop for easey and fast access)
+
+```
+cd desktop
+
+mkdir myproject
+
+cd myproject
+```
+
+</details>
+
+
+---
+
+
+<details><summary>Step 4 : Fork the Repository Cloning Repository using Git</summary>
+ 
+ 
+```
+git clone https://github.com/chiraag-kakar/sharenlearn.git
+```
+Note: The cloned repo directory need to be renamed as "sharenlearn".
+
+
+</details>
+
+
+---
+
+
+<details><summary>Step 5 : Creating Virtual Environment</summary>
+
+Change the directory to the required one where the virtual environment will be created :
+```
+cd sharenlearn
+```
+Creating Virtual Environment named "myvenv" :
+```
+python -m venv myvenv
+```
+Activating "myvenv" :
+```
+source myvenv/Scripts/activate
+```
+Command to deactivate "myvenv" :
+```
+deactivate
+```
+
+
+</details>
+
+
+---
+
+
+<details><summary>Step 6 : Installing Requirements</summary>
+
+
+Note: Virtual Environment should be activated.
+
+
+Upgrading pip to the latest version :
+```
+python -m pip install --upgrade pip
+```
+
+
+Installing requirements :
+```
+pip install -r requirements.txt
+```
+
+
+</details>
+
+
+---
+
+
+<details><summary>Step 7 : Creating Superuser and making database migrations to access the default Admin Panel</summary>
+ 
+ 
+```
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+```
+
+
+</details>
+
+
+---
+
+
+<details><summary>Step 8 : Running the Project in local server</summary>
+
+
+Note: Virtual Environment should be activated.
+
+
+Run the following command in the terminal :
+```
+python manage.py runserver
+```
+
+
+</details>
+
+---
+
+## Congratulations for setting up the project locally :rocket:.
 
 
 ## Contributing
