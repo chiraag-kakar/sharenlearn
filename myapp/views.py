@@ -37,21 +37,24 @@ def Logout(request) :
     return redirect('index')
 
 def userlogin(request) :
-    error=""
-    if request.method == 'POST':
-        u = request.POST['emailid']
-        p = request.POST['pwd']
-        user = authenticate(username=u, password=p)
-        try:
-            if user:
-                login(request, user)
-                error = "no"
-            else:
+    if request.user.is_authenticated:
+        return redirect('index')
+    else:
+        error=""
+        if request.method == 'POST':
+            u = request.POST['emailid']
+            p = request.POST['pwd']
+            user = authenticate(username=u, password=p)
+            try:
+                if user:
+                    login(request, user)
+                    error = "no"
+                else:
+                    error = "yes"
+            except:
                 error = "yes"
-        except:
-            error = "yes"
-    d = {'error':error}
-    return render(request, 'login.html',d)
+        d = {'error':error}
+        return render(request, 'login.html',d)
 
 def login_admin(request) :
     error=""
