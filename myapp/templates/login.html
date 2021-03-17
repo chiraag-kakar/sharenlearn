@@ -17,6 +17,7 @@
 <div class="container mt-5 text-light">
     <div class="row">
         <div class="col-sm-6">
+            <br><br>
             <h2 class="text-center">
                 NEW USER
             </h2>
@@ -27,20 +28,25 @@
             <a href="{%url 'signup'%}" class="btn btn-danger text-center mt-5">Create New Account</a>
         </div>
         <div class="col-sm-6">
-            <h2 class="text-center">
-                USER LOGIN
-            </h2>
-            <hr>
-            <form method="POST">
-                {%csrf_token%}
-            <label>Email Address</label>
-                    <input type="email" class="form-control" placeholder="enter college mail" name="emailid">
-            <label>Password</label>
-                    <input type="password" class="form-control"placeholder="enter password" name="pwd">
-                    <input type="submit" class="btn btn-danger mt-3" value="Sign In">
-            </form>
-        </div>
-        
+            <div class = "login">
+                <form method="POST" class="login" name="loginform">
+                    {%csrf_token%}
+                    <div class="form-icon">
+                        <i class="icon icon-user"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control item" id="email" placeholder="Enter college email id">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control item" id="password" placeholder="Enter password">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-block submit">SIGN IN</button>
+                    </div>
+                    <center><a href="#" class="forgot">Forgot your email or password?</a></center>
+                </form>
+            </div>
+        </div>   
     </div>
 </div>
 
