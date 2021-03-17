@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import *
@@ -81,6 +82,9 @@ def signup1(request) :
         b = request.POST['branch']
         r = request.POST['role']
         try:
+            if not re.fullmatch(r'[A-Za-z0-9@#$%^&+=]{8,}', p):
+                raise Exception("Password not vaild add number, symbol, lowercase and uppercase letter")
+
             user = User.objects.create_user(username=e,password=p,first_name=f,last_name=l)
             Signup.objects.create(user=user,contact=c,branch=b,role=r)
             error="no"
