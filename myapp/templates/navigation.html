@@ -69,12 +69,21 @@
                     <a id="nav" class="nav-link" href="{%url 'contact'%}"><b>Contact</b></a>
                 </li>
                 {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <li class="navbar-item btn">
+                    <a id="nav" class="nav-link" href="{%url 'admin_home' %}"><b>Admin Panel</b></a>
+                </li>
+                <li class="navbar-item btn">
+                    <a id="nav" class="nav-link" href="{%url 'logout'%}"><b>Logout {{user}}</b></a>
+                </li>                
+                {% else %}
                 <li class="navbar-item btn">
                     <a id="nav" class="nav-link" href="{%url 'profile'%}"><b>Profile</b></a>
                 </li>
                 <li class="navbar-item btn">
                     <a id="nav" class="nav-link" href="{%url 'logout'%}"><b>Logout {{user}}</b></a>
                 </li>
+                {% endif %}
                 {% else %}
                 <li class="navbar-item btn">
                     <a id="nav" class="nav-link" href="{%url 'login'%}"><b>Login</b></a>

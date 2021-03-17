@@ -7,6 +7,7 @@ from datetime import date
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def about(request):
@@ -104,7 +105,8 @@ def admin_home(request) :
     d={'pn':pn,'an':an,'rn':rn,'aln':aln}
     return render(request, 'admin_home.html',d)
 
-def profile(request) :
+
+def profile(request):
     if not request.user:
         return redirect('login')
     user = User.objects.get(id=request.user.id)
