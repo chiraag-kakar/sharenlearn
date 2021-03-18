@@ -11,12 +11,6 @@
         error_message.style.backgroundColor="red";
         error_message.style.padding="15px";
 
-        if(email.indexOf("@")==-1 || email.lastIndexOf(".")==-1){
-            text="Invalid Email Id";
-            error_message.innerHTML=text;
-            return false
-            
-        }
          if(contact.length != 10){
             text = "Contact number should be of 10 digit";
             error_message.innerHTML=text;
