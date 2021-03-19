@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import django_heroku
 from pathlib import Path
 import os
 
@@ -38,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myapp.apps.MyappConfig' ,
+    'myapp.apps.MyappConfig',
     'django.contrib.sitemaps',
     'admin_honeypot',
 ]
@@ -127,10 +128,10 @@ STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-MEDIA_URL='/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-#SMTP backend
+# SMTP backend
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'example@gmail.com'
@@ -140,5 +141,4 @@ EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Configure Django App for Heroku.
-import django_heroku
 django_heroku.settings(locals())

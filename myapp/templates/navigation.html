@@ -45,6 +45,7 @@
 
 </head>
 
+
 <body class="text-light">
     <nav class="navbar sticky-top navbar-light navbar-expand-lg mh-nav nav-btn justify-content-left">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -78,6 +79,16 @@
 
         </div>
     </nav>
+    <div class="col-md-8">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    
+    </div>
     <script> 
         $(document).ready(function () {
         const url = location.href;
