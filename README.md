@@ -9,7 +9,7 @@
 [![](https://img.shields.io/github/issues-pr/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/github/forks/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/github/stars/chiraag-kakar/sharenlearn?style=for-the-badge)]()
-[![](https://img.shields.io/website?style=for-the-badge&url=http%3A%2F%2Fwecreate.pythonanywhere.com)]()
+[![](https://img.shields.io/website?style=for-the-badge&url=https://sharenlearn.herokuapp.com)]()
 
 **Share N Learn is a Common Platform for Students & Faculties to upload and share - files including all sorts of study material which will be accessible to all the registered members built using [Django](https://docs.djangoproject.com/en/3.1/) Framework.**
 
