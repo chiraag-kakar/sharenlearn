@@ -45,6 +45,12 @@
 
 </head>
 
+<div class="preloader" id="preloader">
+    <div class=status id="status">
+       
+    </div>
+  </div>
+
 <body class="text-light">
     <nav class="navbar sticky-top navbar-light navbar-expand-lg mh-nav nav-btn justify-content-left">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -78,7 +84,15 @@
 
         </div>
     </nav>
-    <script> 
+    
+    <script type="text/javascript">
+        $(window).on('load', function() { 
+        $('#status').fadeOut();
+        $('#preloader').delay(2250).fadeOut('slow');
+        $('body').delay(2150).css({'overflow':'visible'});
+      })
+        
+        
         $(document).ready(function () {
         const url = location.href;
         $("ul a").each(function () {
