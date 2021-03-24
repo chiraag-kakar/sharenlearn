@@ -5,6 +5,7 @@
 
 body {
   margin:0;
+	overflow: hidden;
 }
 
 
@@ -256,4 +257,29 @@ iframe {
   .g-map-desk{
     display : block;
   }
+}
+
+
+#preloader {
+  position: fixed;
+  background-image: url("/static/images/preloader.jpg");
+  background-size: 250px 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(218, 206, 206);
+  animation: mymove 3s infinite;
+  z-index: 9999;
+}
+@keyframes mymove {
+    0%   {background-size: 250px 200px;}
+    25%  {background-size: 350px 300px;}
+    50%  {background-size: 250px 200px;}
+    75%  {background-size: 350px 300px;}
+    100% {background-size: 250px 200px;}
+}
+
+  #status {
+  position: relative;
 }
