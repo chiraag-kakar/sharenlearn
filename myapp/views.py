@@ -8,6 +8,21 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
 
+# code added by arpit for message flashing and email validation
+from django.contrib import messages
+import re
+  
+# Make a regular expression
+# for validating an Email
+regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+def check(email):
+    if(re.search(regex,email)): 
+        return True
+          
+    else: 
+        return False
+# arpit code end
+
 # Create your views here.
 def about(request):
     return render(request,'about.html')
@@ -15,20 +30,47 @@ def about(request):
 def index(request) :
     return render(request, 'index.html')
 
-def contact(request) :
-    try:
-        if 'msg' in request.POST:
-            nameee = request.POST['name']
-            emailee = request.POST['mess']
-            subjectee = request.POST['sub']
-            messageee = request.POST['msg']
-            fmessage = "Name : "+nameee+"\n"+"Email : "+emailee+"\n"+"Subject : "+subjectee+"\n"+"Message : "+messageee
-            print(messageee)
-            send_mail('Contact Form',fmessage, settings.EMAIL_HOST_USER,['reciever@gmail.com'], fail_silently=False)
-            return render(request, 'contact.html')
-    except Exception as e:
-        print('post exception  ')
-        print(e)
+def contact(request):
+    
+    if request.method == 'POST':
+        print('post')
+        nameee = request.POST['name']
+        emailee = request.POST['mess']
+        subjectee = request.POST['sub']
+        messageee = request.POST['msg']
+        fmessage = "Name : "+nameee+"\n"+"Email : "+emailee+"\n"+"Subject : "+subjectee+"\n"+"Message : "+messageee
+        print(nameee,emailee,subjectee,messageee,fmessage)
+        # email validation
+        if check(emailee) == True:
+            #email is ok
+            pass
+        else:
+            messages.error(request,"Email is not Valid Please Try Again!")
+            return redirect('/contact')
+        # name validation
+        if len(nameee)<=3:
+            messages.error(request,"Please Enter your Name Correctly!")
+            return redirect('/contact')
+        else:
+            #name is ok
+            pass
+        #subject validation
+        if len(subjectee)>1000 or len(subjectee)<=2:
+            messages.error(request,"Invalid Subject")
+            return redirect('/contact')
+        else:
+            #subject is ok
+            pass
+        try:
+            # send_mail('Contact Form',fmessage, settings.EMAIL_HOST_USER,['reciever@gmail.com'], fail_silently=False)
+            pass
+        except Exception as e:
+            messages.error(request,"Some Error Occured We are sorry for that Please Try again!!")
+        messages.success(request,'Thank You for contacting Us!')
+        return render(request, 'contact.html')
+    else:
+        print('get')
+        messages.success(request,'Please fill this form we will reach you as soon as possible!!')
     return render(request, 'contact.html')
     
 
