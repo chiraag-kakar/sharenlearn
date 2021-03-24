@@ -33,13 +33,11 @@ def index(request) :
 def contact(request):
     
     if request.method == 'POST':
-        print('post')
         nameee = request.POST['name']
         emailee = request.POST['mess']
         subjectee = request.POST['sub']
         messageee = request.POST['msg']
         fmessage = "Name : "+nameee+"\n"+"Email : "+emailee+"\n"+"Subject : "+subjectee+"\n"+"Message : "+messageee
-        print(nameee,emailee,subjectee,messageee,fmessage)
         # email validation
         if check(emailee) == True:
             #email is ok
@@ -69,7 +67,6 @@ def contact(request):
         messages.success(request,'Thank You for contacting Us!')
         return render(request, 'contact.html')
     else:
-        print('get')
         messages.success(request,'Please fill this form we will reach you as soon as possible!!')
     return render(request, 'contact.html')
     
