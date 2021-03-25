@@ -16,9 +16,9 @@
 {% endifequal %}
 <div class="container mt-5">
     <div class="row">
-        <div class="col-sm-3" style="color:white;">
+        <!-- <div class="col-sm-3" style="color:white;">
             
-        </div>
+        </div> -->
         <div class="col-6 text-justify-center">
             <h2>
                 ADMIN LOGIN
@@ -27,10 +27,13 @@
             <form method="POST" >
                 {%csrf_token%}
             <label>UserName</label>
-                    <input type="text" class="form-control" placeholder="enter username" name="uname" required>
+                    <input type="text" class="form-control" placeholder="Enter Username" name="uname" required>
+            
             <label>Password</label>
-                    <input type="password" class="form-control"placeholder="enter password" name="pwd" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_=+-]).{8,}" title="Min 8 char, atlest 1 UpperCase, 1 LowerCase, 1 Number and 1 Special char">
+                    <input type="password" class="form-control"placeholder="Enter Password" name="pwd" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_=+-]).{8,}" title="Min 8 char, atlest 1 UpperCase, 1 LowerCase, 1 Number and 1 Special char">
+                    <div class="submit">
                     <input type="submit" class="btn btn-danger mt-3" value="Sign In">
+            </div>
             </form>
         </div>
     </div>
@@ -40,6 +43,30 @@
     .container{
         margin-bottom: 10%;
     }
+h2{
+  font-size:1.5rem !important;
+  color: #63e063;
+}
+.form-control{
+  margin-bottom: 7px !important;
+  background-color: #c7cbd1  !important;
+}
+.row{
+    display: flex;
+    justify-content: center;
+}
+.submit{
+  display: flex;
+    justify-content: center;
+
+}
+.col-6{
+    flex: none !important;
+    max-width: 65% !important;
+}
+.btn-danger{
+    width: 124px !important;
+}
 </style>
 
 {% include 'footer.html' %}
