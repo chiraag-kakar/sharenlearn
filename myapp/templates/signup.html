@@ -2,54 +2,42 @@
 {%load static%}
 {%block body%}
 
+{%  ifequal error "no" %}
 <script>
-    function validate(){
-        var contact = document.getElementById("contact").value;
-        var error_message = document.getElementById("error_message");
-
-        error_message.style.backgroundColor="red";
-        error_message.style.padding="15px";
-
-        if(isNaN(contact)){
-            text="Enter only numeric value";
-            error_message.innerHTML=text;
-            return false;
-        }
-        if(contact.length != 10){
-            text = "Contact number must  be of 10 digit";
-            error_message.innerHTML=text;
-            return false;
-             
-        }
-
-    }
+    alert('Signed Up Successfully');
+    window.location.href="{% url 'login' %}";
 </script>
+{% endifequal %}
+{% ifequal error "yes" %}
+<script>
+    alert('Something went wrong, Try Again');
+</script>
+{% endifequal %}
 
 
 <h1>Sign Up Form</h1>
 	<div class="register">
-		<form method="POST"  action="" onsubmit="return validate()">
+		<form method="POST"  action="">
             {%csrf_token%}
 			<h2>Sign Up Here</h2>
-            <div id="error_message"></div>
 		<div class="container">
             <div class="row">
                 <div class="col-sm">
                     <label>First Name</label>
-                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname" id="firstname" required>
+                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname">
                     <label>Last Name</label>
-                    <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname" id="lastname" required>
+                    <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname">
                     <label>Contact</label>
-                    <input type="number" class="form-control" placeholder="Enter Contact Number" name="contact" id="contact" required>
+                    <input class="form-control" placeholder="Enter Contact Number" name="contact">
 
                 </div>
                 <div class="col-sm">
                     <label>Email</label>
-                    <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid" id="email" required>
+                    <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid">
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Enter your Password" name="password" id="password" required>
+                    <input type="password" class="form-control" placeholder="Enter your Password" name="password">
                     <label>Role</label>
-                    <select class="form-control" name="role" required>
+                    <select class="form-control" name="role">
                         <option value="student">Student</option>
                         <option value="faculty">Faculty</option>
                     </select>
@@ -57,7 +45,7 @@
                 </div>
             </div>
             <label>Department</label>
-                    <select class="form-control" name="branch" required>
+                    <select class="form-control" name="branch">
                         <option value="CSE">Computer Science & Engineering</option>
                         <option value="IT">Information Technology</option>
                         <option value="ECE">Electronics & Communication Engineering</option>
@@ -65,7 +53,7 @@
                         <option value="ME">Mechanical Engineering</option>
                         <option value="CE">Civil Engineering</option>
                     </select>
-            <input type="submit" class="btn btn-danger mt-3" value="Submit" >
+            <input type="submit" class="btn btn-danger mt-3" value="Submit">
                 </div>
 		</form>
     </div>
