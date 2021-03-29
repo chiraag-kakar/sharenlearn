@@ -59,32 +59,31 @@ body{
 <div style="padding-left: 10%; padding-right:10%">
     {%csrf_token%}
     <div class="row">
-        <div class="col-md-6 mt-3">
+        <div class="col-md-6 mt-2">
             <label>Branch :</label>
             <div class="mt-2">
-                <select class="selectpicker" name="branch" required>
-                    <option value="" disabled selected>---Select Branch---</option>
+                <select class="selectpicker" name="branch" multiple title="---Select Branch---" data-width="fit" data-style="btn-primary">
                     <option value="CSE">CSE</option>
                     <option value="IT">IT</option>
                     <option value="ECE">ECE</option>
                     <option value="EE">EE</option>
                     <option value="ME">ME</option>
                     <option value="CE">CE</option>
-                </select>
+                  </select>
+                  
             </div>
         </div>
         <div class="col-md-6 mt-3">
             <label>File Type :</label>
             <div class="mt-2">
-                <select class="selectpicker" name="filetype" required>
-                    <option value="" disabled selected>---Select Filetype---</option>
+                <select class="selectpicker" name="branch" multiple title="---Select Filetype---" data-width="fit" data-style="btn-primary">
                     <option value="PDF">PDF</option>
                     <option value="PPT">PPT</option>
                     <option value="DOC/DOCX">DOC/DOCX</option>
                     <option value="TXT">TXT</option>
                     <option value="IMG">IMG</option>
                     <option value="ZIP/RAR">ZIP/RAR</option>
-                </select>
+                  </select>
             </div>
         </div>
     </div>
