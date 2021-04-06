@@ -60,8 +60,9 @@ def userlogin(request) :
                 else:
                     error = "yes"
             except:
-
-    error=""
+                error=""
+                
+                
     if request.method == 'POST':
         u = request.POST['emailid']
         p = request.POST['pwd']
