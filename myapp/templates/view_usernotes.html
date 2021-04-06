@@ -2,6 +2,8 @@
 {% load static %}
 {%block body%}
 
+{% include "image_carousel.html" with x=notes %}
+
 {%  ifequal error "no" %}
 <script>
     alert();
@@ -40,6 +42,7 @@ $(document).ready(function() {
                 <th>Uploading Date</th>
                 <th>Branch</th>
                 <th>Subject</th>
+                <th>View Image</th>
                 <th>Download Notes</th>
                 <th>Filetype</th>
                 <th>Description</th>
@@ -54,6 +57,8 @@ $(document).ready(function() {
                 <td>{{i.uploadingdate}}</td>
                 <td>{{i.branch}}</td>
                 <td>{{i.subject}}</td>
+                <td onclick="clicks(this)"> <a href="#" id="myBtn">View Image</a>
+                </td>
                 <td><a href="{{i.notesfile.url}}" download class="btn btn-primary">Download</a></td>
                 <td>{{i.filetype}}</td>
                 <td>{{i.description}}</td>
@@ -98,6 +103,13 @@ $(document).ready(function() {
     let observer = new IntersectionObserver(callback);
     // Finally start observing the target element
     observer.observe(target);
+</script>
+
+<script type="text/javascript">
+    function clicks(obj) {
+        modal.style.display = "block";
+        console.log("Clicked");
+    }
 </script>
 
 {% endblock %}
