@@ -6,6 +6,7 @@
 [![](https://img.shields.io/github/issues-raw/chiraag-kakar/sharenlearn?color=orange&style=for-the-badge)]()
 [![](https://img.shields.io/github/issues-closed/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](https://github.com/chiraag-kakar/sharenlearn/pulls)
+[![](https://img.shields.io/github/issues-pr-closed-raw/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/github/issues-pr/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/github/forks/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/github/stars/chiraag-kakar/sharenlearn?style=for-the-badge)]()
