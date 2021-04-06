@@ -40,6 +40,7 @@ urlpatterns = [
     path('logout',Logout,name="logout"),
     path('profile',profile,name="profile"),
     path('changepassword',changepassword,name="changepassword"),
+    path('Forgot_Password',Forgot_Password,name="Forgot_Password"),
     path('edit_profile',edit_profile,name="edit_profile"),
     path('upload_notes',upload_notes,name="upload_notes"),
     path('view_usernotes',view_usernotes,name="view_usernotes"),

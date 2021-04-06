@@ -5,7 +5,13 @@ from .models import *
 from django.contrib.auth import authenticate, login, logout
 from datetime import date
 
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
+from django.contrib.auth.hashers import make_password, check_password
+
+
 import requests
+
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
@@ -111,6 +117,37 @@ def signup1(request) :
             error="yes"
     d = {'error':error}
     return render(request, 'signup.html',d)
+
+
+
+@csrf_exempt
+def Forgot_Password(request):
+    if(request.method=="POST"):
+        if User.objects.filter(username=request.POST["username"]).exists():
+            user= User.objects.filter(username=request.POST["username"])
+            for object in user:
+                if object.first_name==request.POST["first_name"]:
+                    if object.last_name==request.POST["last_name"]:
+                        if request.POST["password"]==request.POST["rpassword"]:
+                            object.password=make_password(request.POST["password"])
+                            object.save()
+                            print('done')
+                            messages.success(request,"Password Changed")
+                            return redirect('login')
+                        else:
+                            context="Password confirmation doesn't match"
+                            return render(request,'forgotpassword.html',{'ErrorFP':context})
+                    else:
+                        context="Wrong First Name"
+                        return render(request,'forgotpassword.html',{'ErrorFN':context})
+                else:
+                    context="Wrong Last Name"
+                    return render(request,'forgotpassword.html',{'ErrorLN':context})
+        else:
+            context="Email not found"
+            return render(request,'forgotpassword.html',{'ErrorEmail':context})
+    else:
+        return render(request,'forgotpassword.html')
 
 
 def admin_home(request) :

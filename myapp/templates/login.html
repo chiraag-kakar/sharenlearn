@@ -62,6 +62,9 @@
                     <input type="email" class="form-control" placeholder="enter college mail" name="emailid">
             <label>Password</label>
                     <input type="password" class="form-control"placeholder="enter password" name="pwd">
+                    <input type="submit" class="btn btn-danger mt-3" value="Sign In"><br>
+                    <a href="{%url 'Forgot_Password'%}" class="btn btn-danger text-center mt-5">Forgot your login details?</a>
+
                     <br><div class="g-recaptcha" data-sitekey="6Lf3i3waAAAAABaIbVWFi0Cnmq5YQ5JuG_NC2fVd"></div>
                     <input type="submit" class="btn btn-danger mt-3" value="Sign In">
                 <div class="row">
@@ -75,6 +78,7 @@
                   </div>
                   {% endif %}
                 </div>
+
             </form>
         </div>
 
