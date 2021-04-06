@@ -15,58 +15,178 @@
 {% endifequal %}
 
 
-<h1>Sign Up Form</h1>
-	<div class="register">
+<div class="text-center signup-heading">Sign Up</div>
+	<div class="register overlay-box pt-5">
 		<form method="POST"  action="">
             {%csrf_token%}
-			<h2>Sign Up Here</h2>
 		<div class="container">
+
+            <div class="row ">
+                <div class="col-12">
+                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+
             <div class="row">
                 <div class="col-sm">
                     <label>First Name</label>
-                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname">
+                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname" required>
                     <label>Last Name</label>
-                    <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname">
-                    <label>Contact</label>
-                    <input class="form-control" placeholder="Enter Contact Number" name="contact">
 
+                    <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname">
                 </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <input type="text" class="form-control" placeholder="Enter Contact Number" name="contact">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <input type="password" class="form-control" placeholder="Enter your Password" name="password">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 ">
+                   <div class="dropdown-styling">
+                    <select class="form-control " name="role">
+                        <option value="" selected disabled>Choose Role</option>
+
                 <div class="col-sm">
                     <label>Email</label>
-                    <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid">
+                    <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid" required>
                     <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Enter your Password" name="password">
+                    <input type="password" class="form-control" placeholder="Enter your Password" name="password" required>
                     <label>Role</label>
                     <select class="form-control" name="role">
+
                         <option value="student">Student</option>
                         <option value="faculty">Faculty</option>
                     </select>
-                    
+                   </div>
+                </div>
+                <div class="col-6 ">
+                    <div class="dropdown-styling">
+                        <select class="form-control" name="branch">
+                            <option value="" selected disabled>Choose Branch</option>
+                            <option value="CSE">Computer Science & Engineering</option>
+                            <option value="IT">Information Technology</option>
+                            <option value="ECE">Electronics & Communication Engineering</option>
+                            <option value="EE">Electrical Engineering</option>
+                            <option value="ME">Mechanical Engineering</option>
+                            <option value="CE">Civil Engineering</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <label>Department</label>
-                    <select class="form-control" name="branch">
-                        <option value="CSE">Computer Science & Engineering</option>
-                        <option value="IT">Information Technology</option>
-                        <option value="ECE">Electronics & Communication Engineering</option>
-                        <option value="EE">Electrical Engineering</option>
-                        <option value="ME">Mechanical Engineering</option>
-                        <option value="CE">Civil Engineering</option>
-                    </select>
-            <input type="submit" class="btn btn-danger mt-3" value="Submit">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <input type="submit" class="button-styling btn btn-outline-danger rounded-pill mt-4 px-5 " value="SUBMIT">
                 </div>
+            </div>
+            </div>
 		</form>
     </div>
+    <button class="scrollToTopBtn">☝️</button>
+    <script>
+        var target = document.querySelector("footer");
+
+        var scrollToTopBtn = document.querySelector(".scrollToTopBtn")
+        var rootElement = document.documentElement
+
+        // Next we want to create a function that will be called when that element is intersected
+        function callback(entries, observer) {
+        // The callback will return an array of entries, even if you are only observing a single item
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+            // Show button
+            scrollToTopBtn.classList.add("showBtn")
+            } else {
+            // Hide button
+            scrollToTopBtn.classList.remove("showBtn")
+            }
+        });
+        }
+
+        function scrollToTop() {
+        rootElement.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+        }
+        scrollToTopBtn.addEventListener("click", scrollToTop);
+            
+        // Next we instantiate the observer with the function we created above. This takes an optional configuration
+        // object that we will use in the other examples.
+        let observer = new IntersectionObserver(callback);
+        // Finally start observing the target element
+        observer.observe(target);
+    </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+        input[type=text],input[type=email],input[type=password] {
+         padding: 4px 19px;
+         box-shadow:0 0 15px 4px rgba(18,41,74,0.75);
+         width:100%;
+         border-radius: 35px;
+         font-family: 'Montserrat', sans-serif;
+         border:0;
+         outline:none; 
+         margin: 15px 0;
+        }
+        .dropdown-styling{
+        border-radius:30px;
+        display:inline-block;
+        overflow:hidden;
+        box-shadow:0 0 15px 4px rgba(18,41,74,0.75);
+        width:100%;
+        border:0;
+        outline:none; 
+        margin: 15px 0px;
+        }
+        select{
+        border:0px;
+        outline:none;
+        font-family: 'Montserrat', sans-serif;
+        }
+        option{
+        font-family: 'Montserrat', sans-serif;
+        border-radius: 5px;
+        padding: 4px;
+        }
+        .overlay-box{
+        background-color: rgba(0,0,0,0.4);
+        border-radius: 1px;
+        box-shadow: 0px 1px 18px 7px rgba(18,41,74,0.75);
+        }
+        .signup-heading{
+        font-size: 48px;
+        font-family: 'Montserrat', sans-serif;
+        margin: 38px;
+        }
         .container {
-            margin-bottom: 10%;
+        margin-bottom: 10%;
         }
         @media only screen and (max-width : 500px){
-            .register{
-                width: 90%;
-            }
-}
-
+        .register{
+        width: 90%;
+        }
+        input[type=text],input[type=email],input[type=password],select,option{
+        font-size: 12px;
+        }
+        .signup-heading{
+        font-size: 38px;
+        margin: 28px;
+        }
+        }
     </style>
     
 {% include 'footer.html' %}
