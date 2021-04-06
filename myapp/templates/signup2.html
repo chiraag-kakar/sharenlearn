@@ -1,0 +1,104 @@
+{%extends 'navigation.html'%}
+{%load static%}
+{%block body%}
+
+<script>
+    function validate(){
+        var contact = document.getElementById("contact").value;
+        var error_message = document.getElementById("error_message");
+
+
+        mobilepattern = /^[0-9]{10}$/;
+       
+        error_message.style.padding="10px";
+        
+        if(mobilepattern.test(contact)){
+            text="perfect";
+            error_message.innerHTML=text;
+            error_message.style.backgroundColor="green";
+            return false;
+
+        }
+        else{
+            text="Enter only positive and 10 digit number";
+            error_message.innerHTML=text;
+            error_message.style.backgroundColor="red";
+            return false;
+
+        }
+/*
+        if(isNaN(contact)){
+            text="Enter only numeric value";
+            error_message.innerHTML=text;
+            return false;
+        }
+        if(contact.length < 10){
+            text = "Contact number must  be of 10 digit";
+            error_message.innerHTML=text;
+            return false;
+             
+        }
+       
+*/
+
+    }
+</script>
+
+
+<h1>Sign Up Form</h1>
+	<div class="register">
+		<form method="POST"  action="" onsubmit="return validate()">
+            {%csrf_token%}
+			<h2>Sign Up Here</h2>
+            <div id="error_message"></div>
+		<div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <label>First Name</label>
+                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname" id="firstname" required>
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname" id="lastname" required>
+                    <label>Contact</label>
+                    <input type="text" class="form-control" placeholder="Enter Contact Number" name="contact" id="contact" required>
+
+                </div>
+                <div class="col-sm">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid" id="email" required>
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Enter your Password" name="password" id="password" required>
+                    <label>Role</label>
+                    <select class="form-control" name="role" required>
+                        <option value="student">Student</option>
+                        <option value="faculty">Faculty</option>
+                    </select>
+                    
+                </div>
+            </div>
+            <label>Department</label>
+                    <select class="form-control" name="branch" required>
+                        <option value="CSE">Computer Science & Engineering</option>
+                        <option value="IT">Information Technology</option>
+                        <option value="ECE">Electronics & Communication Engineering</option>
+                        <option value="EE">Electrical Engineering</option>
+                        <option value="ME">Mechanical Engineering</option>
+                        <option value="CE">Civil Engineering</option>
+                    </select>
+            <input type="submit" class="btn btn-danger mt-3" value="Submit" >
+                </div>
+		</form>
+    </div>
+    <style>
+        .container {
+            margin-bottom: 10%;
+        }
+        @media only screen and (max-width : 500px){
+            .register{
+                width: 90%;
+            }
+}
+
+    </style>
+    
+{% include 'footer.html' %}
+{% endblock %}
