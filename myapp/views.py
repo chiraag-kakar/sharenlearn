@@ -1,12 +1,19 @@
+import re
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import *
 from django.contrib.auth import authenticate, login, logout
 from datetime import date
 
+import requests
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
+
+from django.contrib.auth.decorators import login_required
+
+from django.contrib import messages
+
 
 # Create your views here.
 def about(request):
@@ -37,21 +44,49 @@ def Logout(request) :
     return redirect('index')
 
 def userlogin(request) :
+
+    if request.user.is_authenticated:
+        return redirect('index')
+    else:
+        error=""
+        if request.method == 'POST':
+            u = request.POST['emailid']
+            p = request.POST['pwd']
+            user = authenticate(username=u, password=p)
+            try:
+                if user:
+                    login(request, user)
+                    error = "no"
+                else:
+                    error = "yes"
+            except:
+
     error=""
     if request.method == 'POST':
         u = request.POST['emailid']
         p = request.POST['pwd']
+
+        # Retrieves reCAPTCHA token and verifies with the API 
+        captcha_token = request.POST['g-recaptcha-response']
+        cap_url = "https://www.google.com/recaptcha/api/siteverify"
+        cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            "response": captcha_token}
+        cap_server_response = requests.post(url=cap_url, data=cap_data)
+        cap_json = cap_server_response.json()
+        if cap_json['success'] == False:
+            messages.error(request, "Invalid reCAPTCHA. Please try again.")
+            return redirect('login')
+
         user = authenticate(username=u, password=p)
         try:
             if user:
                 login(request, user)
                 error = "no"
             else:
+
                 error = "yes"
-        except:
-            error = "yes"
-    d = {'error':error}
-    return render(request, 'login.html',d)
+        d = {'error':error}
+        return render(request, 'login.html',d)
 
 def login_admin(request) :
     error=""
@@ -81,6 +116,9 @@ def signup1(request) :
         b = request.POST['branch']
         r = request.POST['role']
         try:
+            if not re.fullmatch(r'[A-Za-z0-9@#$%^&+=]{8,}', p):
+                raise Exception("Password not vaild add number, symbol, lowercase and uppercase letter")
+
             user = User.objects.create_user(username=e,password=p,first_name=f,last_name=l)
             Signup.objects.create(user=user,contact=c,branch=b,role=r)
             error="no"
@@ -101,7 +139,8 @@ def admin_home(request) :
     d={'pn':pn,'an':an,'rn':rn,'aln':aln}
     return render(request, 'admin_home.html',d)
 
-def profile(request) :
+
+def profile(request):
     if not request.user:
         return redirect('login')
     user = User.objects.get(id=request.user.id)
