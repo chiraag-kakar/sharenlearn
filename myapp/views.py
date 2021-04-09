@@ -14,12 +14,13 @@ import requests
 
 from django.core.mail import send_mail
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse
 
 from django.contrib.auth.decorators import login_required
-
-from django.contrib import messages
-
+from random import randint
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives
 
 # Create your views here.
 def about(request):
@@ -95,6 +96,63 @@ def login_admin(request) :
             error = "yes"
     d = {'error':error}
     return render(request, 'login_admin.html',d)
+
+
+def gen_otp():
+    """This function returns a 6-digit OTP everytime it is called."""
+    return randint(100000, 999999)
+
+
+def send_otp(request):
+    """This function saves the OTP in the database and sends an email to the user with that OTP."""
+    
+    user_email = request.GET['email']
+    try:
+        user_name = request.GET['fname']
+    except Exception:
+        user = User.objects.get(email=user_email)
+        user_name = user.first_name
+    otp = gen_otp()     # Generate OTP
+    # Save OTP in database and send email to user
+    try:
+        OTPModel.objects.create(user=user_email, otp=otp)
+        data = {
+            'receiver': user_name.capitalize(),
+            'otp': otp
+        }
+        html_content = render_to_string("emails/otp.html", data)
+        text_content = strip_tags(html_content)
+
+        email = EmailMultiAlternatives(
+            f"One Time Password | Share N Learn",
+            text_content,
+            "Share N Learn <no-reply@sharenlearn.com>",
+            [user_email]
+        )
+        email.attach_alternative(html_content, "text/html")
+        email.send()
+        return JsonResponse({'otp_sent': f'An OTP has been sent to {user_email}.'})
+    except Exception as e:
+        print(e)
+        return JsonResponse({'otp_error': 'Error while sending OTP, try again'})
+
+
+def match_otp(email, otp):
+    """This function matches the OTP entered by the user with that in the database."""
+    
+    otp_from_db = OTPModel.objects.filter(user=email).last().otp
+    return str(otp) == str(otp_from_db)
+
+
+def check_otp(request):
+    """This function gets the OTP from the user and sends it to match_otp function."""
+    
+    req_otp = request.GET['otp']
+    req_user = request.GET['email']
+    if match_otp(req_user, req_otp):
+        return JsonResponse({'otp_match': True})
+    else:
+        return JsonResponse({'otp_mismatch': 'OTP does not match.'})
 
 def signup1(request) :
     error=""
