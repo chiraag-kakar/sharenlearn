@@ -767,11 +767,12 @@
         .imageContainer svg{
             width: 250px;
         }
-        br:nth-child(2n){
+        br:not(:last-child){
             display: none;
         }
         .container{
             flex-direction: column;
+            padding-top:15px;
         }
         .contact-form input[type=text], .contact-form input[type=email], .contact-form textarea
         {
