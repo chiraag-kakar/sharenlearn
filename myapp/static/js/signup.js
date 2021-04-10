@@ -9,27 +9,46 @@ function sendOTP() {
     '<div class="spinner-border text-light" role="status"><span class="sr-only">Loading...</span></div>';
   let email = $("#emailid").val();
   let fname = $("#firstname").val();
-  $.ajax({
-    url: "/send-otp/",
-    type: "GET",
-    data: {
-      email: email,
-      fname: fname,
-    },
-    success: function (data) {
-      console.log(data);
-      sendOtpBtn.innerHTML = "Send OTP";
-      if (data.otp_error) {
-        otpFeedBackArea.style.display = "block";
-        otpFeedBackArea.innerHTML = `<p class='alert alert-danger'>${data.otp_error}</p>`;
-      } else {
-        otpFeedBackArea.style.display = "block";
-        otpFeedBackArea.innerHTML = `<p class='alert alert-success'>${data.otp_sent}</p>`;
-        $("#sendOtpBtn").hide();
-        $("#afterOTP").slideDown(1000);
-      }
-    },
-  });
+  let lname = $("#lastname").val();
+  let password = $("#password").val();
+  let contact = $("#contact").val();
+  let role = $("#role").val();
+  let branch = $("#branch").val();
+  if (
+    email !== "" &&
+    fname !== "" &&
+    lname !== "" &&
+    password !== "" &&
+    contact !== "" &&
+    role !== null &&
+    branch !== null
+  ) {
+    otpFeedBackArea.style.display = "none";
+    $.ajax({
+      url: "/send-otp/",
+      type: "GET",
+      data: {
+        email: email,
+        fname: fname,
+      },
+      success: function (data) {
+        sendOtpBtn.innerHTML = "Send OTP";
+        if (data.otp_error) {
+          otpFeedBackArea.style.display = "block";
+          otpFeedBackArea.innerHTML = `<p class='alert alert-danger'>${data.otp_error}</p>`;
+        } else {
+          otpFeedBackArea.style.display = "block";
+          otpFeedBackArea.innerHTML = `<p class='alert alert-success'>${data.otp_sent}</p>`;
+          $("#sendOtpBtn").hide();
+          $("#afterOTP").slideDown(1000);
+        }
+      },
+    });
+  } else {
+    sendOtpBtn.innerHTML = "Send OTP";
+    otpFeedBackArea.style.display = "block";
+    otpFeedBackArea.innerHTML = `<p class='alert alert-danger'>Fields are empty.</p>`;
+  }
 }
 
 function verifyOTP() {
