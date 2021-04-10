@@ -15,8 +15,7 @@
 
 **Share N Learn is a Common Platform for Students & Faculties to upload and share - files including all sorts of study material which will be accessible to all the registered members built using [Django](https://docs.djangoproject.com/en/3.1/) Framework.**
 
-The **Goal** of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework , 
-Competitive exams and others hence reducing the dependency on social media platforms.
+The **Goal** of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework, Competitive exams and others hence reducing the dependency on social media platforms.
 In future the platform can also serve as an e-library for the college students.
 
 **So let's grow together.**
@@ -57,10 +56,11 @@ A PythonAnywhere Account (for deploying the project on a live system)
 ---
 
 
-<details><summary>Step 2 : Installing Python 3.7</summary>
+<details><summary>Step 2 : Installing Python 3.7 or any higher version</summary>
  
  
-* **For Windows** :  Click on [Download Python3.7](https://www.python.org/downloads/release/python-379/).
+* **For Windows** : For Python 3.7
+   * * Click on [Download Python3.7](https://www.python.org/downloads/release/python-379/).
    * * Download the Windows x86-64 executable installer for 64-bit version of Windows
    * * Download the Windows x86 executable installer for 32-bit version of Windows.
 
