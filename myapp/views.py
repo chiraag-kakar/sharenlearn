@@ -12,7 +12,6 @@ from django.contrib.auth.hashers import make_password, check_password
 
 import requests
 
-from django.core.mail import send_mail
 from django.conf import settings
 from django.http import JsonResponse
 
@@ -20,7 +19,9 @@ from django.contrib.auth.decorators import login_required
 from random import randint
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, send_mail
+import re
+import json
 
 # Create your views here.
 def about(request):
@@ -28,6 +29,36 @@ def about(request):
 
 def index(request) :
     return render(request, 'index.html')
+
+
+# AJAX Validations Start Here
+
+def email_validation(request):
+    """This function will be used to validate email against a regex pattern as well as to check if a user is already registered."""
+    
+    data = json.loads(request.body)
+    email = data['email']
+    pattern = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    if User.objects.filter(username=email).exists():
+        return JsonResponse({'email_error': 'You are already registered. Please login to continue.'}, status=409)
+    if not bool(re.match(pattern, email)):
+        return JsonResponse({'email_pattern_error': 'Please enter a valid email address.'})
+    return JsonResponse({'email_valid': True})
+
+
+def password_validation(request):
+    """This function will be used to validate password against a regex pattern."""
+    
+    data = json.loads(request.body)
+    password = data['password']
+    pattern = '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&_])(?=\S+$).{8,20}$'
+    if bool(re.match(pattern, password)):
+        return JsonResponse({'password_valid': True})
+    else:
+        return JsonResponse({'password_error': 'Password must be 8-20 characters long and must contain atleast one uppercase letter, one lowercase letter, one number(0-9) and one special character(@,#,$,%,&,_)'})
+
+
+# AJAX Validations End Here
 
 def contact(request) :
     try:
