@@ -104,7 +104,7 @@ to fork [this Repo](https://github.com/chiraag-kakar/sharenlearn)
 <details><summary>Step 5 : Creating Project Directory </summary>
 
 
-(Note : We are creating project directory in the desktop for easey and fast access)
+(Note : We are creating project directory in the desktop for easy and fast access)
 
 ```
 cd desktop
@@ -168,10 +168,11 @@ $ git remote add upstream https://github.com/chiraag-kakar/sharenlearn.git
 Install virtualenv 
 ```
 $ pip3 install virtualenv
+in case it doesn't work try writing-"pip3 install virtualenv"
 ```
 Creating Virtual Environment named "myvenv" :
 ```
-$ virtualenv myvenv -p python3.7
+ virtualenv myvenv -p python3.7
 ```
 Activating "myvenv" :
 * For **Windows cmd** :
@@ -192,8 +193,8 @@ deactivate
 
 <details><summary>Step 10 : Installing Requirements</summary>
 
-
 Note: Virtual Environment should be activated.
+
 
 Installing requirements :
 ```
@@ -209,10 +210,10 @@ pip install -r requirements.txt
 
 <details><summary>Step 11 : Creating Superuser and making database migrations to access the default Admin Panel</summary>
  
- 
+ Note: Virtual Environment should be activated.
 ```
-python manage.py makemigrations
 python manage.py migrate
+python manage.py makemigrations
 python manage.py createsuperuser
 ```
 
