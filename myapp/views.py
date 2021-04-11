@@ -141,7 +141,7 @@ def send_otp(request):
     try:
         user_name = request.GET['fname']
     except Exception:
-        user = User.objects.get(email=user_email)
+        user = User.objects.get(username=user_email)
         user_name = user.first_name
     otp = gen_otp()     # Generate OTP
     # Save OTP in database and send email to user
@@ -212,31 +212,14 @@ def signup1(request) :
 @csrf_exempt
 def Forgot_Password(request):
     if(request.method=="POST"):
-        if User.objects.filter(username=request.POST["username"]).exists():
-            user= User.objects.filter(username=request.POST["username"])
-            for object in user:
-                if object.first_name==request.POST["first_name"]:
-                    if object.last_name==request.POST["last_name"]:
-                        if request.POST["password"]==request.POST["rpassword"]:
-                            object.password=make_password(request.POST["password"])
-                            object.save()
-                            print('done')
-                            messages.success(request,"Password Changed")
-                            return redirect('login')
-                        else:
-                            context="Password confirmation doesn't match"
-                            return render(request,'forgotpassword.html',{'ErrorFP':context})
-                    else:
-                        context="Wrong First Name"
-                        return render(request,'forgotpassword.html',{'ErrorFN':context})
-                else:
-                    context="Wrong Last Name"
-                    return render(request,'forgotpassword.html',{'ErrorLN':context})
-        else:
-            context="Email not found"
-            return render(request,'forgotpassword.html',{'ErrorEmail':context})
-    else:
-        return render(request,'forgotpassword.html')
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        user = User.objects.get(username=email)
+        user.set_password(password)
+        user.save()
+        messages.success(request, "You can now login with your new password.")
+        return redirect("login")
+    return render(request,'forgotpassword.html')
 
 
 def admin_home(request) :

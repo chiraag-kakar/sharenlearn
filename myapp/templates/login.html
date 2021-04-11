@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <input type="submit" id="loginBtn" class="btn btn-block submit" value="LOGIN"/>
                     </div>
-                    <center><a href="#" class="forgot">Forgot your email or password?</a></center>
+                    <center><a href="{% url 'Forgot_Password' %}" class="forgot">Forgot your email or password?</a></center>
                 </form>
             </div>
         </div>   
@@ -74,6 +74,9 @@
                       {% for message in messages %}
                       {% if message.tags == 'error' %}
                       <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                      {% if message.tags == 'success' %}
+                      <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
                       {% endif %}
                       {% endfor %}
                   </div>
