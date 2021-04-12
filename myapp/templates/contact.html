@@ -462,7 +462,7 @@
 
     </div>
 
-    <div class="col-sm-12 col-md-6">
+    <div class="col-sm-12 col-md-6 formContainer">
 
         <div class="contact-form-wrap form-group">
             <div class="text-white">
@@ -540,7 +540,7 @@
     }
 
     .form-group {
-        width: 500px;
+        max-width: 500px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(255, 254, 254, .3);
         font-family: "Montserrat";
 
@@ -760,12 +760,15 @@
         .contact-form{
             padding: 15px;
         }
-        .imageContainer{
+        {
+
+        }
+        .imageContainer, .formContainer{
             display: flex;
             justify-content: center;
         }
         .imageContainer svg{
-            width: 250px;
+            width: 80%;
         }
         br:not(:last-child){
             display: none;
