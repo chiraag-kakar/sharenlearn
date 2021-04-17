@@ -180,9 +180,6 @@ def check_otp(request):
     else:
         return JsonResponse({'otp_mismatch': 'OTP does not match.'})
 
-def signup1(request) :
-    error=""
-    if request.method=='POST':
 
 def signup1(request):
     error = ""
@@ -216,10 +213,6 @@ def signup1(request):
             messages.info(
                 request, f'Something went wrong, Try Again')
     return render(request, 'signup.html')
-
-
-
-def admin_home(request):
 
 
 @csrf_exempt
