@@ -1,12 +1,28 @@
+import re
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import *
 from django.contrib.auth import authenticate, login, logout
 from datetime import date
+
 from django.contrib import messages
+
+
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
+from django.contrib.auth.hashers import make_password, check_password
+
+
+import requests
+
 from django.core.mail import send_mail
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect
+
+from django.contrib.auth.decorators import login_required
+
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -48,6 +64,18 @@ def userlogin(request):
     if request.method == 'POST':
         u = request.POST['emailid']
         p = request.POST['pwd']
+
+        # Retrieves reCAPTCHA token and verifies with the API 
+        captcha_token = request.POST['g-recaptcha-response']
+        cap_url = "https://www.google.com/recaptcha/api/siteverify"
+        cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            "response": captcha_token}
+        cap_server_response = requests.post(url=cap_url, data=cap_data)
+        cap_json = cap_server_response.json()
+        if cap_json['success'] == False:
+            messages.error(request, "Invalid reCAPTCHA. Please try again.")
+            return redirect('login')
+
         user = authenticate(username=u, password=p)
         try:
             if user:
@@ -66,8 +94,13 @@ def userlogin(request):
     return render(request, 'login.html')
 
 
+
 def login_admin(request):
     error = ""
+
+def login_admin(request) :
+    error=""
+
     if request.method == 'POST':
         u = request.POST['uname']
         p = request.POST['pwd']
@@ -100,12 +133,21 @@ def signup1(request):
         b = request.POST['branch']
         r = request.POST['role']
         try:
+
             user = User.objects.create_user(
                 username=e, password=p, first_name=f, last_name=l)
             Signup.objects.create(user=user, contact=c, branch=b, role=r)
             error = "no"
             messages.info(request, f'Signed Up Successfully')
             return redirect('/login')
+
+            if not re.fullmatch(r'[A-Za-z0-9@#$%^&+=]{8,}', p):
+                raise Exception("Password not vaild add number, symbol, lowercase and uppercase letter")
+
+            user = User.objects.create_user(username=e,password=p,first_name=f,last_name=l)
+            Signup.objects.create(user=user,contact=c,branch=b,role=r)
+            error="no"
+
         except:
             error = "yes"
             messages.info(
@@ -113,7 +155,42 @@ def signup1(request):
     return render(request, 'signup.html')
 
 
+
 def admin_home(request):
+
+
+@csrf_exempt
+def Forgot_Password(request):
+    if(request.method=="POST"):
+        if User.objects.filter(username=request.POST["username"]).exists():
+            user= User.objects.filter(username=request.POST["username"])
+            for object in user:
+                if object.first_name==request.POST["first_name"]:
+                    if object.last_name==request.POST["last_name"]:
+                        if request.POST["password"]==request.POST["rpassword"]:
+                            object.password=make_password(request.POST["password"])
+                            object.save()
+                            print('done')
+                            messages.success(request,"Password Changed")
+                            return redirect('login')
+                        else:
+                            context="Password confirmation doesn't match"
+                            return render(request,'forgotpassword.html',{'ErrorFP':context})
+                    else:
+                        context="Wrong First Name"
+                        return render(request,'forgotpassword.html',{'ErrorFN':context})
+                else:
+                    context="Wrong Last Name"
+                    return render(request,'forgotpassword.html',{'ErrorLN':context})
+        else:
+            context="Email not found"
+            return render(request,'forgotpassword.html',{'ErrorEmail':context})
+    else:
+        return render(request,'forgotpassword.html')
+
+
+def admin_home(request) :
+
     if not request.user.is_staff:
         return redirect('login_admin')
 

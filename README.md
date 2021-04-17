@@ -6,10 +6,12 @@
 [![](https://img.shields.io/github/issues-raw/chiraag-kakar/sharenlearn?color=orange&style=for-the-badge)]()
 [![](https://img.shields.io/github/issues-closed/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](https://github.com/chiraag-kakar/sharenlearn/pulls)
+[![](https://img.shields.io/github/issues-pr-closed-raw/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/github/issues-pr/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/github/forks/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/github/stars/chiraag-kakar/sharenlearn?style=for-the-badge)]()
-[![](https://img.shields.io/website?style=for-the-badge&url=http%3A%2F%2Fwecreate.pythonanywhere.com)]()
+[![](https://img.shields.io/website?style=for-the-badge&url=https://sharenlearn.herokuapp.com)](https://sharenlearn.herokuapp.com)
+
 
 **Share N Learn is a Common Platform for Students & Faculties to upload and share - files including all sorts of study material which will be accessible to all the registered members built using [Django](https://docs.djangoproject.com/en/3.1/) Framework.**
 
@@ -55,20 +57,19 @@ A PythonAnywhere Account (for deploying the project on a live system)
 ---
 
 
-<details><summary>Step 2 : Installing Python</summary>
+<details><summary>Step 2 : Installing Python 3.7</summary>
  
  
-* Click on [Download Python](https://www.python.org/downloads/windows/).
-* Click on the "Latest Python 3 Release - Python x.x.x" link.
+* **For Windows** :  Click on [Download Python3.7](https://www.python.org/downloads/release/python-379/).
    * * Download the Windows x86-64 executable installer for 64-bit version of Windows
    * * Download the Windows x86 executable installer for 32-bit version of Windows.
 
 
-* Make sure to check "Add Python 3.x to Path" in the setup window of the Installer.
+   * * Make sure to check "Add Python 3.7 to Path" in the setup window of the Installer.
 
 Verify the installation from the command prompt using following command :
 ```
-python --version
+python3.7 --version
 ```
 And the installed version of python will be printed.
 
@@ -78,8 +79,29 @@ And the installed version of python will be printed.
 
 ---
 
+<details><summary>Step 3 : Installing Git </summary>
 
-<details><summary>Step 3 : Creating Project Directory </summary>
+Click on [Download Git](https://git-scm.com/downloads)
+
+</details>
+
+
+---
+
+
+<details><summary>Step 4 : Fork the Repository </summary>
+
+Click on ![Fork](https://user-images.githubusercontent.com/63921263/110382285-b07bba80-8080-11eb-8407-d354849c1753.png)
+to fork [this Repo](https://github.com/chiraag-kakar/sharenlearn)
+
+</details>
+
+
+---
+
+
+
+<details><summary>Step 5 : Creating Project Directory </summary>
 
 
 (Note : We are creating project directory in the desktop for easey and fast access)
@@ -98,13 +120,12 @@ cd myproject
 ---
 
 
-<details><summary>Step 4 : Fork the Repository Cloning Repository using Git</summary>
+<details><summary>Step 6 : Cloning Repository using Git</summary>
  
  
 ```
-git clone https://github.com/chiraag-kakar/sharenlearn.git
+$ git clone https://github.com/<your-github-username>/sharenlearn.git
 ```
-Note: The cloned repo directory need to be renamed as "sharenlearn".
 
 
 </details>
@@ -113,20 +134,50 @@ Note: The cloned repo directory need to be renamed as "sharenlearn".
 ---
 
 
-<details><summary>Step 5 : Creating Virtual Environment</summary>
+<details><summary>Step 7 : Change directory to sharenlearn</summary>
+ 
 
-Change the directory to the required one where the virtual environment will be created :
 ```
-cd sharenlearn
+$ cd sharenlearn
+```
+
+
+</details>
+
+
+---
+
+
+<details><summary>Step 8 : Add a reference to the original repository
+</summary>
+ 
+
+```
+$ git remote add upstream https://github.com/chiraag-kakar/sharenlearn.git
+```
+
+
+</details>
+
+
+---
+
+
+<details><summary>Step 9 : Creating Virtual Environment</summary>
+
+Install virtualenv 
+```
+$ pip3 install virtualenv
 ```
 Creating Virtual Environment named "myvenv" :
 ```
-python -m venv myvenv
+$ virtualenv myvenv -p python3.7
 ```
 Activating "myvenv" :
-```
-myvenv\Scripts\activate
-```
+* For **Windows cmd** :
+   ```
+   > myvenv\Scripts\activate
+   ```
 Command to deactivate "myvenv" :
 ```
 deactivate
@@ -139,17 +190,10 @@ deactivate
 ---
 
 
-<details><summary>Step 6 : Installing Requirements</summary>
+<details><summary>Step 10 : Installing Requirements</summary>
 
 
 Note: Virtual Environment should be activated.
-
-
-Upgrading pip to the latest version :
-```
-python -m pip install --upgrade pip
-```
-
 
 Installing requirements :
 ```
@@ -163,7 +207,7 @@ pip install -r requirements.txt
 ---
 
 
-<details><summary>Step 7 : Creating Superuser and making database migrations to access the default Admin Panel</summary>
+<details><summary>Step 11 : Creating Superuser and making database migrations to access the default Admin Panel</summary>
  
  
 ```
@@ -179,7 +223,7 @@ python manage.py createsuperuser
 ---
 
 
-<details><summary>Step 8 : Running the Project in local server</summary>
+<details><summary>Step 12 : Running the Project in local server</summary>
 
 
 Note: Virtual Environment should be activated.
@@ -194,6 +238,14 @@ python manage.py runserver
 </details>
 
 
+---
+
+
+### 💡️ **Pro Tip!** 
+  * Always keep your master branch in sync with the main repository (by running `$ git pull upstream master` on your local master branch). 
+  * Always create a new branch before making any changes (`$ git checkout -b <new-branch-name>`), never ever make any changes directly on the master branch.
+
+
 ## Congratulations for setting up the project locally.
 
 
@@ -204,7 +256,7 @@ python manage.py runserver
 
 
 Note : 
-* Please take a moment to review the [Contributing.md](https://github.com/chiraag-kakar/sharenlearn/blob/master/Contributing.md) and [Code of Conduct](https://github.com/chiraag-kakar/sharenlearn/blob/master/Code%20of%20Conduct.pdf) which provides the guidelines for contributing.
+* Please take a moment to review the [Contributing.md](https://github.com/chiraag-kakar/sharenlearn/blob/master/Contributing.md) and [Code of Conduct](./code_of_conduct.md) which provides the guidelines for contributing.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b <your_branch_name>`)
@@ -215,6 +267,17 @@ Note :
 
 
 ---
+
+## Contributor
+<table>
+	<tr>
+		<td>
+			<a href="https://github.com/chiraag-kakar/sharenlearn/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=chiraag-kakar/sharenlearn" />
+</a>
+		</td>
+	</tr>
+</table>
 
 ## License
 

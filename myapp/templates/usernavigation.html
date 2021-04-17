@@ -1,67 +1,102 @@
 <html lang="en">
-    <head>
-        {% load static %}
-        <title>Share N Learn</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="static/images/myicon.png">
-        <link type="text/css" rel="stylesheet" href="static/css/mystyle.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
-         <!-- link static files with templates -->
-        <link type="text/css" rel="stylesheet" href ="{% static 'css/mystyle.css' %}%">
-        
-        <style>
-            ul li:hover {
-                background:#3E92CC;
-                /* background:#4b7bec; */
-                border-radius: 5px;
-            }
-            .navbar {
-                background-color:#d1d8e0 ;
-                margin: 0;
-            }
-            .active{
-                color: black;
-            }
-            body {
-                background:linear-gradient(to top, rgba(0,0,0,20%), rgba(0,0,0,50%) ), 
-                 
-                  
-                   
+<head>
+    {% load static %}
+    <title>Share N Learn</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="static/images/myicon.png">
+    <link type="text/css" rel="stylesheet" href="static/css/mystyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
 
-                url(../static/images/postloginbackground.jpg) no-repeat;
-                background-size: cover;
-                background-position: center;
-            }
-            .nav-link {
-                margin: 0px 20px 0px 20px;
-                font-weight: bold;
-            }
-            .btn-group
-            {
-                margin-left:20px;
-                display: -ms-inline-block;
-                display: inline-block;
-            }
+<!-- link static files with templates -->
+<link type="text/css" rel="stylesheet" href="{% static 'css/mystyle.css' %}%">
 
-            @media screen and (max-width: 768px){
-                 .dropdown-menu{
-                width: 200px;
-            }
-            }
+<style>
+    ul li:hover {
+        background: #3E92CC;
+        /* background:#4b7bec; */
+        border-radius: 5px;
+    }
 
-            @media screen and (max-width: 940px){
-                 .dropdown-menu{
-                width: 200px;
-            }
+    .navbar {
+        background-color: #d1d8e0;
+        margin: 0;
+    }
+
+    .active {
+        color: black;
+    }
+
+    body {
+        background: linear-gradient(to top, rgba(0, 0, 0, 20%), rgba(0, 0, 0, 50%)),
+
+
+
+
+            url(../static/images/postloginbackground.jpg) no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .nav-link {
+        margin: 0px 20px 0px 20px;
+        font-weight: bold;
+    }
+
+    .btn-group {
+        margin-left: 20px;
+        display: -ms-inline-block;
+        display: inline-block;
+    }
+
+    @media screen and (max-width: 768px) {
+        .dropdown-menu {
+            width: 200px;
         }
+    }
+
+    @media screen and (max-width: 940px) {
+        .dropdown-menu {
+            width: 200px;
+        }
+
+    }
+</style>
+</head>
+
+<body>
+    <nav class="navbar sticky-top navbar-light navbar-expand-lg mh-nav nav-btn justify-content-left">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon icon">
+            </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto ml-auto nav">
+                <li class="navbar-item">
+                    <a class="nav-link" href="{%url 'profile'%}">Home</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="{%url 'upload_notes'%}">Upload New</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="{%url 'view_usernotes'%}">My Uploads</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="{%url 'viewall_usernotes'%}">All Uploads</a>
+                </li>
+                <!-- <li class="navbar-item">
+
        </style>
     </head> 
 
@@ -74,7 +109,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto ml-auto nav" >
             <li class="navbar-item">
-                <a class="nav-link" href="{%url 'profile'%}">Home</a>
+                <a class="nav-link" href="{%url 'index'%}">Home</a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{%url 'profile'%}">Profile</a>
             </li>
             <li class="navbar-item">
                 <a class="nav-link" href="{%url 'upload_notes'%}">Upload New</a>
@@ -86,22 +124,24 @@
                 <a class="nav-link" href="{%url 'viewall_usernotes'%}">All Uploads</a>
             </li>
             <!-- <li class="navbar-item">
+
                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             </li> -->
-            <!-- </ul> -->
-            <!-- <li class="navbar-item"> -->
-            <div class="btn-group ">
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Welcome {{request.user.first_name}}</button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item"  href="{% url 'profile' %}">Profile</a>
-                    <a class="dropdown-item"  href="{%url 'edit_profile'%}">Edit Profile</a>
-                    <a class="dropdown-item"  href="{% url 'changepassword' %}">Change Password</a>  
-                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                <!-- </ul> -->
+                <!-- <li class="navbar-item"> -->
+                <div class="btn-group ">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Welcome
+                        {{request.user.first_name}}</button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+                        <a class="dropdown-item" href="{%url 'edit_profile'%}">Edit Profile</a>
+                        <a class="dropdown-item" href="{% url 'changepassword' %}">Change Password</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                    </div>
                 </div>
-            </div>
-        <!-- </li> -->
-        </ul>
-    </div>
+                <!-- </li> -->
+            </ul>
+        </div>
     </nav>
     <div class="col-md-8">
         {% if messages %}
@@ -113,18 +153,85 @@
         {% endif %}
 
     </div>
-    <script> 
-        $(document).ready(function () {
-        const url = location.href;
-        $("ul a").each(function () {
-            if (this.href === url) {
-            $(this).addClass("active");
+
+
+    <script>
+
+    <button class="scrollToTopBtn">☝️</button>
+    <script>
+        var target = document.querySelector("footer");
+
+        var scrollToTopBtn = document.querySelector(".scrollToTopBtn")
+        var rootElement = document.documentElement
+
+        // Next we want to create a function that will be called when that element is intersected
+        function callback(entries, observer) {
+        // The callback will return an array of entries, even if you are only observing a single item
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+            // Show button
+            scrollToTopBtn.classList.add("showBtn")
+            } else {
+            // Hide button
+            scrollToTopBtn.classList.remove("showBtn")
             }
         });
-        }); 
+        }
+
+        function scrollToTop() {
+        rootElement.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+        }
+        scrollToTopBtn.addEventListener("click", scrollToTop);
+            
+        // Next we instantiate the observer with the function we created above. This takes an optional configuration
+        // object that we will use in the other examples.
+        let observer = new IntersectionObserver(callback);
+        // Finally start observing the target element
+        observer.observe(target);
+    </script>
+
+    <script> 
+
+        $(document).ready(function () {
+            const url = location.href;
+            $("ul a").each(function () {
+                if (this.href === url) {
+                    $(this).addClass("active");
+                }
+            });
+        });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    </body>
+    <script>
+        function addDarkmodeWidget() {
+            new Darkmode().showWidget();
+        }
+        window.addEventListener('load', addDarkmodeWidget);
+        import Darkmode from 'darkmode-js';
+
+        new Darkmode().showWidget();
+        const options = {
+            bottom: '300px', // default: '32px'
+            right: 'unset', // default: '32px'
+            left: '32px', // default: 'unset'
+            time: '0.5s', // default: '0.3s'
+            mixColor: '#fff', // default: '#fff'
+            backgroundColor: '#fff',  // default: '#fff'
+            buttonColorDark: '#100f2c',  // default: '#100f2c'
+            buttonColorLight: '#fff', // default: '#fff'
+            saveInCookies: false, // default: true,
+            label: '🌓', // default: ''
+            autoMatchOsTheme: true // default: true
+        }
+
+        const darkmode = new Darkmode(options);
+        darkmode.showWidget();
+    </script>
+</body>
+
 </html>
 
 
