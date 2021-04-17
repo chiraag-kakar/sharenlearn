@@ -22,3 +22,12 @@ class Notes(models.Model):
 
     def __str__(self):
         return self.user.username+" "+self.status
+
+# Model for OTP
+class OTPModel(models.Model):
+    user = models.EmailField(max_length=127)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    otp = models.IntegerField()
+
+    class Meta:
+        verbose_name = 'OTP'
