@@ -1,6 +1,6 @@
-{%extends 'navigation.html'%}
-{%load static%}
-{%block body%}
+{% extends 'navigation.html' %}
+{% load static %}
+{% block body %}
 
 {%  ifequal error "no" %}
 <script>
@@ -20,25 +20,17 @@
 	<div class="register overlay-box pt-5">
 		<form method="POST"  action="">
             {%csrf_token%}
-		<div class="container">
+            <div class="col-12">
 
-            <div class="row ">
+            <div class="row">
                 <div class="col-12">
-                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname">
+                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-
-            <div class="row">
-                <div class="col-sm">
-                    <label>First Name</label>
-                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname" required>
-                    <label>Last Name</label>
-
                     <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname">
                 </div>
-
             </div>
             <div class="row">
                 <div class="col-12">
@@ -60,19 +52,10 @@
                    <div class="dropdown-styling">
                     <select class="form-control " name="role">
                         <option value="" selected disabled>Choose Role</option>
-
-                <div class="col-sm">
-                    <label>Email</label>
-                    <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid" required>
-                    <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Enter your Password" name="password" required>
-                    <label>Role</label>
-                    <select class="form-control" name="role">
-
                         <option value="student">Student</option>
                         <option value="faculty">Faculty</option>
                     </select>
-                   </div>
+                </div>
                 </div>
                 <div class="col-6 ">
                     <div class="dropdown-styling">
@@ -90,7 +73,7 @@
             </div>
             <div class="row">
                 <div class="col-12 text-center">
-                    <input type="submit" class="button-styling btn btn-outline-danger rounded-pill mt-4 px-5 " value="SUBMIT">
+                    <input type="submit" class="button-styling btn btn-outline-danger rounded-pill mt-4 px-5 mb-3" value="SUBMIT">
                 </div>
             </div>
             </div>
