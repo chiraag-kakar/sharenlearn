@@ -90,13 +90,5 @@
     observer.observe(target);
 </script>
 
-{%  if error %}
-<script>
-    alert('Profile Updated Successfully');
-    window.location.href="{% url 'profile' %}";
-</script>
-{% endif %}
-
-
 
 {% endblock %}
