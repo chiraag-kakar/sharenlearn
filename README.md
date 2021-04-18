@@ -124,7 +124,7 @@ cd myproject
  
  
 ```
-$ git clone https://github.com/<your-github-username>/sharenlearn.git
+ git clone https://github.com/<your-github-username>/sharenlearn.git
 ```
 
 
@@ -138,7 +138,7 @@ $ git clone https://github.com/<your-github-username>/sharenlearn.git
  
 
 ```
-$ cd sharenlearn
+ cd sharenlearn
 ```
 
 
@@ -153,7 +153,7 @@ $ cd sharenlearn
  
 
 ```
-$ git remote add upstream https://github.com/chiraag-kakar/sharenlearn.git
+ git remote add upstream https://github.com/chiraag-kakar/sharenlearn.git
 ```
 
 
@@ -167,7 +167,7 @@ $ git remote add upstream https://github.com/chiraag-kakar/sharenlearn.git
 
 Install virtualenv 
 ```
-$ pip3 install virtualenv
+ pip3 install virtualenv
 in case it doesn't work try writing-"pip3 install virtualenv"
 ```
 Creating Virtual Environment named "myvenv" :
