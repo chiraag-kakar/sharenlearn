@@ -277,12 +277,6 @@ iframe {
   transform: translateY(0)
 }
 
-@media screen and (max-width:320px) {
-  .social-icon{
-    margin: 10px ;
-  }
-}
-
 @media screen and (max-width : 900px){
   .g-map{
     display : none;
