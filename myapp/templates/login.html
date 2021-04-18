@@ -32,7 +32,7 @@
             </p>
             <a href="{%url 'signup'%}" class="btn btn-danger text-center mt-5">Create New Account</a>
         </div>
-        <div class="col-sm-6">
+        <div class="col-lg-6 col-sm-12">
 
             <div class = "login">
                 <form method="POST" class="login" name="loginform">
@@ -41,47 +41,30 @@
                         <i class="icon icon-user"></i>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control item" id="email" placeholder="Enter college email id">
+                        <input type="email" class="form-control item" placeholder="enter college mail" name="emailid">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control item" id="password" placeholder="Enter password">
+                    <input type="password" class="form-control item" placeholder="enter password" name="pwd">
                     </div>
+                    <div class="g-recaptcha item" data-sitekey="6Lf3i3waAAAAABaIbVWFi0Cnmq5YQ5JuG_NC2fVd"></div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-block submit">SIGN IN</button>
+                        <input type="submit" class="btn btn-block submit" value="SIGN IN">
                     </div>
-                    <center><a href="#" class="forgot">Forgot your email or password?</a></center>
+                    <center><a href="{%url 'Forgot_Password'%}" class="forgot">Forgot your login details?</a></center>
+                    <div class="row">
+                        {% if messages %}
+                        <div class="col-12">
+                            {% for message in messages %}
+                            {% if message.tags == 'error' %}
+                            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
                 </form>
             </div>
         </div>   
-
-            <h2 class="text-center">
-                USER LOGIN
-            </h2>
-            <hr>
-            <form method="POST">
-                {%csrf_token%}
-            <label>Email Address</label>
-                    <input type="email" class="form-control" placeholder="enter college mail" name="emailid">
-            <label>Password</label>
-                    <input type="password" class="form-control"placeholder="enter password" name="pwd">
-                    <input type="submit" class="btn btn-danger mt-3" value="Sign In"><br>
-                    <a href="{%url 'Forgot_Password'%}" class="btn btn-danger text-center mt-5">Forgot your login details?</a>
-
-                    <br><div class="g-recaptcha" data-sitekey="6Lf3i3waAAAAABaIbVWFi0Cnmq5YQ5JuG_NC2fVd"></div>
-                    <input type="submit" class="btn btn-danger mt-3" value="Sign In">
-                <div class="row">
-                  {% if messages %}
-                  <div class="col-12">
-                      {% for message in messages %}
-                      {% if message.tags == 'error' %}
-                      <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
-                      {% endif %}
-                      {% endfor %}
-                  </div>
-                  {% endif %}
-                </div>
-
-            </form>
         </div>
 
 
