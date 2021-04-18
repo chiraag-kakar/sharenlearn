@@ -215,7 +215,7 @@ li {
   display: inline-block;
   text-decoration: none;
   border-radius: 100%;
-  margin:20px; 
+  margin:20px;
   filter:grayscale(100);
 }
 .social-icon:hover {
