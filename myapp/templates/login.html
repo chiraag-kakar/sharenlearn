@@ -19,22 +19,11 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
-<div class="container mt-5 text-light">
+<div class="container text-light">
     <div class="row">
-        <div class="col-sm-6">
-            <br><br>
-            <h2 class="text-center">
-                NEW USER
-            </h2>
-            <hr>
-            <p class="text-light" style="font-size: larger;">
-                Create an account at Share N Learn to upload and download the notes shared by the peers.
-            </p>
-            <a href="{%url 'signup'%}" class="btn btn-danger text-center mt-5">Create New Account</a>
-        </div>
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-12">
 
-            <div class = "login">
+            <div class="login">
                 <form method="POST" class="login" name="loginform">
                     {%csrf_token%}
                     <div class="form-icon">
@@ -44,9 +33,11 @@
                         <input type="email" class="form-control item" placeholder="enter college mail" name="emailid">
                     </div>
                     <div class="form-group">
-                    <input type="password" class="form-control item" placeholder="enter password" name="pwd">
+                        <input type="password" class="form-control item" placeholder="enter password" name="pwd">
                     </div>
-                    <div class="g-recaptcha item" data-sitekey="6Lf3i3waAAAAABaIbVWFi0Cnmq5YQ5JuG_NC2fVd"></div>
+                    <center>
+                        <div class="g-recaptcha item" data-sitekey="6Lf3i3waAAAAABaIbVWFi0Cnmq5YQ5JuG_NC2fVd"></div>
+                    </center>
                     <div class="form-group">
                         <input type="submit" class="btn btn-block submit" value="SIGN IN">
                     </div>
@@ -61,14 +52,17 @@
                             {% endfor %}
                         </div>
                         {% endif %}
+                    </div> <br>
+                    <div style="color:black">
+                        <b>New user?</b> <a href="{%url 'signup'%}">Create an account</a> at Share N Learn to upload and
+                        download the notes shared by the peers.
                     </div>
                 </form>
             </div>
-        </div>   
         </div>
-
-
     </div>
+
+
 </div>
 <button class="scrollToTopBtn">☝️</button>
 <script>

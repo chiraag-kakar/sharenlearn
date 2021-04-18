@@ -298,7 +298,7 @@ opacity: 0.95;
   background-color: #fff;
   max-width: 600px;
   margin: auto;
-  padding: 50px 70px;
+  padding: 20px 70px;
   border-radius:25px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
 }
@@ -322,7 +322,6 @@ opacity: 0.95;
 .login .item{
   border-radius: 20px;
   margin-bottom: 25px;
-  padding: 10px 20px;
   border-color: rgb(14, 4, 41);
 }
 
