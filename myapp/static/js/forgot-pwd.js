@@ -47,10 +47,10 @@ function sendOTP() {
         sendOtpBtn.innerHTML = "Get OTP";
         if (data.otp_error) {
           otpFeedBackArea.style.display = "block";
-          otpFeedBackArea.innerHTML = `<p class='alert alert-danger'>${data.otp_error}</p>`;
+          otpFeedBackArea.innerHTML = `<p class='text-center alert alert-danger mt-4'>${data.otp_error}</p>`;
         } else {
           otpFeedBackArea.style.display = "block";
-          otpFeedBackArea.innerHTML = `<p class='alert alert-success'>${data.otp_sent}</p>`;
+          otpFeedBackArea.innerHTML = `<p class='text-center alert alert-success mt-4'>${data.otp_sent}</p>`;
           $("#sendOtpBtn").hide();
           $("#afterOTP").slideDown(1000);
         }
@@ -59,7 +59,7 @@ function sendOTP() {
   } else {
     sendOtpBtn.innerHTML = "Send OTP";
     otpFeedBackArea.style.display = "block";
-    otpFeedBackArea.innerHTML = `<p class='alert alert-danger'>Fields are empty.</p>`;
+    otpFeedBackArea.innerHTML = `<p class='text-center alert alert-danger'>Fields are empty.</p>`;
   }
 }
 
