@@ -63,7 +63,6 @@ def password_validation(request):
     else:
         return JsonResponse({'password_error': 'Password must be 8-20 characters long and must contain atleast one uppercase letter, one lowercase letter, one number(0-9) and one special character(@,#,$,%,&,_)'})
 
-
 # AJAX Validations End Here
 
 def contact(request) :
