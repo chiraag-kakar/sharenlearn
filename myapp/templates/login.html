@@ -30,7 +30,6 @@
                         <i class="icon icon-user"></i>
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control item" placeholder="enter college mail" name="emailid">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control item" placeholder="enter password" name="pwd">
@@ -54,6 +53,7 @@
                     <div style="color:black">
                         <b>New user?</b> <a href="{%url 'signup'%}">Create an account</a> at Share N Learn to upload and
                         download the notes shared by the peers.
+                        <input type="submit" id="loginBtn" class="btn btn-block submit" value="LOGIN"/>
                     </div>
                 </form>
             </div>
@@ -63,6 +63,7 @@
 
 </div>
 <button class="scrollToTopBtn">☝️</button>
+<script src="{% static 'js/login.js' %}"></script>
 <script>
     var target = document.querySelector("footer");
 
