@@ -143,6 +143,17 @@
             </ul>
         </div>
     </nav>
+    <div class="col-md-8">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+    </div>
+
 
     <script>
 
@@ -181,6 +192,7 @@
         // Finally start observing the target element
         observer.observe(target);
     </script>
+
     <script> 
 
         $(document).ready(function () {

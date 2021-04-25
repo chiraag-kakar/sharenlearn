@@ -202,13 +202,17 @@ li {
   display: inline-block;
   text-decoration: none;
   border-radius: 100%;
-  margin:20px;
+  margin:15px;
   filter:grayscale(100);
 }
 .social-icon:hover {
   filter: grayscale(0);
 } 
-
+@media screen and (max-width:320px) {
+  .social-icon{
+    margin: 8px ;
+  }
+}
 .svg-instagram {
   width: 40px;
   height: 40px;

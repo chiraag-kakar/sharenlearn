@@ -1,6 +1,6 @@
-{%extends 'navigation.html'%}
-{%load static%}
-{%block body%}
+{% extends 'navigation.html' %}
+{% load static %}
+{% block body %}
 
 {%  ifequal error "no" %}
 <script>
@@ -15,67 +15,53 @@
 {% endifequal %}
 
 
+
 <div class="text-center signup-heading">Sign Up</div>
 	<div class="register overlay-box pt-5">
-		<form method="POST"  action="">
+		<form method="POST"  action="{% url 'signup' %}" id="signupForm">
             {%csrf_token%}
-		<div class="container">
+            <div class="col-12">
 
-            <div class="row ">
+            <div class="row">
                 <div class="col-12">
-                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname">
+                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname" id="firstname" required>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-
-            <div class="row">
-                <div class="col-sm">
-                    <label>First Name</label>
-                    <input type="text" class="form-control" placeholder="Enter First Name" name="firstname" required>
-                    <label>Last Name</label>
-
-                    <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname">
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <input type="text" class="form-control" placeholder="Enter Contact Number" name="contact">
+                    <input type="text" class="form-control" placeholder="Enter Last Name" name="lastname" id="lastname">
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid">
+                    <input type="text" class="form-control" placeholder="Enter Contact Number" name="contact" id="contact">
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <input type="password" class="form-control" placeholder="Enter your Password" name="password">
+                    <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid" id="emailid">
+                    <div class="emailFeedBackArea invalid-feedback" style="display:none"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <input type="password" class="form-control" placeholder="Enter your Password" name="password" id="password">
+                    <div class="passwordFeedBackArea invalid-feedback" style="display:none"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6 ">
                    <div class="dropdown-styling">
-                    <select class="form-control " name="role">
+                    <select class="form-control" name="role" id="role">
                         <option value="" selected disabled>Choose Role</option>
-
-                <div class="col-sm">
-                    <label>Email</label>
-                    <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid" required>
-                    <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Enter your Password" name="password" required>
-                    <label>Role</label>
-                    <select class="form-control" name="role">
-
                         <option value="student">Student</option>
                         <option value="faculty">Faculty</option>
                     </select>
-                   </div>
+                </div>
                 </div>
                 <div class="col-6 ">
                     <div class="dropdown-styling">
-                        <select class="form-control" name="branch">
+                        <select class="form-control" name="branch" id="branch">
                             <option value="" selected disabled>Choose Branch</option>
                             <option value="CSE">Computer Science & Engineering</option>
                             <option value="IT">Information Technology</option>
@@ -89,13 +75,28 @@
             </div>
             <div class="row">
                 <div class="col-12 text-center">
-                    <input type="submit" class="button-styling btn btn-outline-danger rounded-pill mt-4 px-5 " value="SUBMIT">
+                    <button type="button" id="sendOtpBtn" onClick="sendOTP()" class="button-styling btn btn-outline-danger rounded-pill mt-4 px-5 mb-3">Send OTP</button>
+                    <div class="OTPStatusFeedBackArea invalid-feedback" style="display: none"></div>
+                </div>
+                <a href="{% url 'login' %}"><p id="already_registered" style="float: left; color: white;">Already have an account?</p></a>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group" style="display: none" id="afterOTP">
+                    <input type="text" id="otp" name="otp" class="form-control" placeholder="Enter OTP" required>
+                    <div
+                      class="OTPFeedBackArea invalid-feedback"
+                      style="display: none"
+                    ></div>
+                    <center>
+                    <button type="button" class="button-styling btn btn-outline-success rounded-pill mt-4 px-5" id="verifyOtpBtn" onClick="verifyOTP()">Verify OTP</button>
+                    </center>
                 </div>
             </div>
             </div>
 		</form>
     </div>
     <button class="scrollToTopBtn">☝️</button>
+    <script src="{% static 'js/signup.js' %}"></script>
     <script>
         var target = document.querySelector("footer");
 
@@ -132,6 +133,9 @@
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+        .invalid-feedback{
+            color: white;
+        }
         input[type=text],input[type=email],input[type=password] {
          padding: 4px 19px;
          box-shadow:0 0 15px 4px rgba(18,41,74,0.75);
