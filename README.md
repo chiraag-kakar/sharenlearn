@@ -6,13 +6,11 @@
 [![](https://img.shields.io/github/issues-raw/chiraag-kakar/sharenlearn?color=orange&style=for-the-badge)]()
 [![](https://img.shields.io/github/issues-closed/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge)](https://github.com/chiraag-kakar/sharenlearn/pulls)
+[![](https://img.shields.io/github/issues-pr-closed-raw/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/github/issues-pr/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/github/forks/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/github/stars/chiraag-kakar/sharenlearn?style=for-the-badge)]()
-
-![Website](https://img.shields.io/website?style=for-the-badge&url=https%3A%2F%2Fsharenlearn.herokuapp.com%2F)
-
-[![](https://img.shields.io/website?style=for-the-badge&url=https://sharenlearn.herokuapp.com)]()
+[![](https://img.shields.io/website?style=for-the-badge&url=https://sharenlearn.herokuapp.com)](https://sharenlearn.herokuapp.com)
 
 
 **Share N Learn is a Common Platform for Students & Faculties to upload and share - files including all sorts of study material which will be accessible to all the registered members built using [Django](https://docs.djangoproject.com/en/3.1/) Framework.**
@@ -258,7 +256,7 @@ python manage.py runserver
 
 
 Note : 
-* Please take a moment to review the [Contributing.md](https://github.com/chiraag-kakar/sharenlearn/blob/master/Contributing.md) and [Code of Conduct](https://github.com/chiraag-kakar/sharenlearn/blob/master/Code%20of%20Conduct.pdf) which provides the guidelines for contributing.
+* Please take a moment to review the [Contributing.md](https://github.com/chiraag-kakar/sharenlearn/blob/master/Contributing.md) and [Code of Conduct](./code_of_conduct.md) which provides the guidelines for contributing.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b <your_branch_name>`)

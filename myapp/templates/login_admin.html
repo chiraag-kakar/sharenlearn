@@ -2,18 +2,6 @@
 {%load static%}
 {%block body%}
 
-{%  ifequal error "no" %}
-<script>
-    alert('Logged in Successfully');
-    window.location.href="{% url 'admin_home' %}";
-</script>
-{% endifequal %}
-
-{% ifequal error "yes" %}
-<script>
-    alert('Invalid Login Credentials, Try Again');
-</script>
-{% endifequal %}
 <div class="container mt-5">
     <div class="row">
         <div class="col-sm-3" style="color:white;">

@@ -18,6 +18,10 @@
     </head> 
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+    </head> 
+
     
 </head> 
 
@@ -52,6 +56,7 @@
 </style>
 
 </head>
+
 
 <body class="text-light">
     <nav class="navbar sticky-top navbar-light navbar-expand-lg mh-nav nav-btn justify-content-left">
@@ -106,6 +111,7 @@
     </nav>
 
 
+
     <!-- code added by arpit for flashing message -->
     {% for message in messages %}
     <div class="pb-2 my-1 alert alert-{{message.tags}} alert-dismissible fade show" role="alert" style="width:90v;">
@@ -113,6 +119,18 @@
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
     {% endfor %}
+
+    <div class="col-md-8">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    
+    </div>
+
 
     <button class="scrollToTopBtn">☝️</button>
     <script>
@@ -161,7 +179,11 @@
         }); 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+
 
 </html>
 
