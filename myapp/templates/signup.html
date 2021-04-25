@@ -40,11 +40,13 @@
             <div class="row">
                 <div class="col-12">
                     <input type="email" class="form-control" placeholder="Enter College Mail" name="emailid" id="emailid">
+                    <div class="emailFeedBackArea invalid-feedback" style="display:none"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <input type="password" class="form-control" placeholder="Enter your Password" name="password" id="password">
+                    <div class="passwordFeedBackArea invalid-feedback" style="display:none"></div>
                 </div>
             </div>
             <div class="row">
@@ -76,6 +78,7 @@
                     <button type="button" id="sendOtpBtn" onClick="sendOTP()" class="button-styling btn btn-outline-danger rounded-pill mt-4 px-5 mb-3">Send OTP</button>
                     <div class="OTPStatusFeedBackArea invalid-feedback" style="display: none"></div>
                 </div>
+                <a href="{% url 'login' %}"><p id="already_registered" style="float: left; color: white;">Already have an account?</p></a>
             </div>
             <div class="row">
                 <div class="col-md-12 form-group" style="display: none" id="afterOTP">
