@@ -2,19 +2,6 @@
 {% load static%}
 {% block body %}
 
-{%  ifequal error "no" %}
-<script>
-    alert('Status Updated Successfullly');
-    window.location.href="{% url 'all_notes' %}";
-</script>
-{% endifequal %}
-
-{% ifequal error "yes" %}
-<script>
-    alert('Something went wrong, Try Again');
-</script>
-{% endifequal %}
-
 <style>
     .container1 {
         background-color: lightgrey;

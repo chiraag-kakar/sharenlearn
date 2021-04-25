@@ -7,6 +7,11 @@
 
 {%block body%}
 
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm">
+
 <br>
 <br>
 <br>
@@ -15,7 +20,7 @@
 
 
 
-    <div class="col-md-6 col-12 col-sm">
+    <div class="col-md-6 col-sm-12 imageContainer">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 563" fill="none">
             <g id="Image">
                 <g id="g14">
@@ -462,7 +467,8 @@
 
     </div>
 
-    <div class="col-sm col-12 col-md-6">
+    <div class="col-sm-12 col-md-6 formContainer">
+
 
         <div class="contact-form-wrap form-group">
             <div class="text-white">
@@ -472,6 +478,29 @@
             </div>
             <form class="contact-form" method="POST">
                 {%csrf_token%}
+
+ 
+                    <input  type="text" placeholder="Your Name" id="name" name="name" required>
+                    
+                    <br>
+
+                    <input  type="email" placeholder="Your E-mail" id="mess" name="mess" required>
+                    
+                    <br>
+
+                    <input type="text" placeholder="Subject" id="sub" name="sub" required>
+                    
+                    <br>
+
+                    <textarea placeholder="Message" id="msg" name="msg" required></textarea>
+                    
+                    <br>
+                    
+                    <button class="site-btn">Send Message</button>
+                    
+                    <br>
+                
+
                 <input type="text" class="form-control" id="name" name="name" required placeholder="Enter Name">
 
                 <input class="form-control" type="email" id="mess" aria-describedby="emailHelp" name="mess" required
@@ -489,6 +518,7 @@
 
                 <br>
 
+
             </form>
         </div>
     </div>
@@ -504,26 +534,26 @@
 
     // Next we want to create a function that will be called when that element is intersected
     function callback(entries, observer) {
-    // The callback will return an array of entries, even if you are only observing a single item
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-        // Show button
-        scrollToTopBtn.classList.add("showBtn")
-        } else {
-        // Hide button
-        scrollToTopBtn.classList.remove("showBtn")
-        }
-    });
+        // The callback will return an array of entries, even if you are only observing a single item
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Show button
+                scrollToTopBtn.classList.add("showBtn")
+            } else {
+                // Hide button
+                scrollToTopBtn.classList.remove("showBtn")
+            }
+        });
     }
 
     function scrollToTop() {
-    rootElement.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    })
+        rootElement.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
     }
     scrollToTopBtn.addEventListener("click", scrollToTop);
-        
+
     // Next we instantiate the observer with the function we created above. This takes an optional configuration
     // object that we will use in the other examples.
     let observer = new IntersectionObserver(callback);
@@ -540,7 +570,7 @@
     }
 
     .form-group {
-        width: 500px;
+        max-width: 500px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(255, 254, 254, .3);
         font-family: "Montserrat";
 
@@ -751,10 +781,47 @@
         }
     }
 
-
+    @media only screen and (max-width: 768px) {
+        .form-group{
+            width: 100%;
+        }
+    }
     @media only screen and (max-width: 545px) {
+        .contact-form{
+            padding: 15px;
+        }
+        .imageContainer, .formContainer{
+            display: flex;
+            justify-content: center;
+        }
+        .imageContainer svg{
+            width: 50%;
+        }
+        br:not(:last-child){
+            display: none;
+        }
+        .container{
+            flex-direction: column;
+            padding-top:15px;
+        }
+        .contact-form input[type=text], .contact-form input[type=email], .contact-form textarea
+        {
+            margin-bottom: 8px;
+            border-radius: 5px;
+        }
+        #name, #mess, #sub{
+            border-radius: 5px;
+            height: max-content;
+        }
+        .site-btn{
+            padding: 7px;
+            font-size: 13px;
+        }
         .contact-form-wrap {
             width: 400px;
+        }
+        .form-group{
+            padding: 5px;
         }
     }
 
