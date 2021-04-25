@@ -339,3 +339,6 @@ opacity: 0.95;
 .forgot{
   color:#03163b;
 }
+.g-recaptcha div{
+  width:380px;
+}
