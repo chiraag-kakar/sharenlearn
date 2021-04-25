@@ -7,6 +7,11 @@
 
 {%block body%}
 
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm">
+
 <br>
 <br>
 <br>
@@ -464,6 +469,7 @@
 
     <div class="col-sm col-12 col-md-6">
 
+
         <div class="contact-form-wrap form-group">
             <div class="text-white">
                 <br>
@@ -472,6 +478,29 @@
             </div>
             <form class="contact-form" method="POST">
                 {%csrf_token%}
+
+ 
+                    <input  type="text" placeholder="Your Name" id="name" name="name" required>
+                    
+                    <br>
+
+                    <input  type="email" placeholder="Your E-mail" id="mess" name="mess" required>
+                    
+                    <br>
+
+                    <input type="text" placeholder="Subject" id="sub" name="sub" required>
+                    
+                    <br>
+
+                    <textarea placeholder="Message" id="msg" name="msg" required></textarea>
+                    
+                    <br>
+                    
+                    <button class="site-btn">Send Message</button>
+                    
+                    <br>
+                
+
                 <input type="text" class="form-control" id="name" name="name" required placeholder="Enter Name">
 
                 <input class="form-control" type="email" id="mess" aria-describedby="emailHelp" name="mess" required
@@ -488,6 +517,7 @@
                 <button class="site-btn">Send Message</button>
 
                 <br>
+
 
             </form>
         </div>
