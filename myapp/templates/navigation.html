@@ -53,12 +53,118 @@
         background-size: cover;
         background-position: center;
     }  
+    .preloader{
+	background-color: #222222;
+	position: fixed;
+	height: 100%;
+	width:100%;
+        z-index: 9999;
+        display: -ms-flexbox;
+        display: flex;
+	-ms-flex-align:center;
+         align-items:center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-transition: all 1s ease;
+	transition: all 1s ease;
+}
+.preloader .opacity-0{
+	opacity: 0;
+}
+
+.preloader .loader {
+    width: 20em;
+    height: 20em;
+    font-size: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.preloader .loader .face {
+    position: absolute;
+    border-radius: 50%;
+    border-style: solid;
+    animation: animate 3s linear infinite;
+}
+
+.preloader .loader .face:nth-child(1) {
+    width: 100%;
+    height: 100%;
+    color: #d1d8e0;
+    border-color: currentColor transparent transparent currentColor;
+    border-width: 0.2em 0.2em 0em 0em;
+    --deg: -45deg;
+    animation-direction: normal;
+}
+
+.preloader .loader .face:nth-child(2) {
+    width: 70%;
+    height: 70%;
+    color: #05668d;
+    border-color: currentColor currentColor transparent transparent;
+    border-width: 0.2em 0em 0em 0.2em;
+    --deg: -135deg;
+    animation-direction: reverse;
+}
+
+.preloader .loader .face .circle {
+    position: absolute;
+    width: 50%;
+    height: 0.1em;
+    top: 50%;
+    left: 50%;
+    background-color: transparent;
+    transform: rotate(var(--deg));
+    transform-origin: left;
+}
+
+.preloader .loader .face .circle::before {
+    position: absolute;
+    top: -0.5em;
+    right: -0.5em;
+    content: '';
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    border-radius: 50%;
+    box-shadow: 0 0 2em,
+                0 0 4em,
+                0 0 6em,
+                0 0 8em,
+                0 0 10em,
+                0 0 0 0.5em rgba(255, 255, 0, 0.1);
+}
+
+@keyframes animate {
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+
 </style>
 
 </head>
+ <!-- preloader -->
+<div class="preloader">
+    <div class="loader">
+        <div class="face">
+          <div class="circle"></div>
+        </div>
+        <div class="face">
+          <div class="circle"></div>
+        </div>
+      </div>
+</div>
 
+
+
+<!-- preloader end -->
 
 <body class="text-light">
+   
     <nav class="navbar sticky-top navbar-light navbar-expand-lg mh-nav nav-btn justify-content-left">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -183,8 +289,15 @@
     
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
-
-
+    <script>
+    window.addEventListener("load", function(){
+        document.querySelector(".preloader").classList.add("opacity-0");
+        setTimeout(function(){
+          document.querySelector(".preloader").style.display="none";
+      
+        },1000)
+      })
+</script>
 </html>
 
 {% block body %}
