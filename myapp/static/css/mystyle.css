@@ -137,19 +137,6 @@ p {
     transform: translate3d(85px,0,0);
   }
 }
-/*Shrinking for mobile*/
-@media (max-width: 768px) {
-  .waves {
-    height:40px;
-    min-height:40px;
-  }
-  .content {
-    height:30vh;
-  }
-  h1 {
-    font-size:24px;
-  }
-}
 
 /* css for signup/signin page */
 
@@ -343,4 +330,28 @@ opacity: 0.95;
 }
 .forgot{
   color:#03163b;
+}
+
+
+
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+
+  .login form{
+    padding: 30px;
+  }
+
+  .login form h2{
+    font-size: 25px;
+  }
+  .waves {
+    height:40px;
+    min-height:40px;
+  }
+  .content {
+    height:30vh;
+  }
+  h1 {
+    font-size:24px;
+  }
 }
