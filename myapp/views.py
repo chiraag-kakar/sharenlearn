@@ -1,3 +1,9 @@
+from django.contrib.auth.decorators import login_required
+import json
+from django.core.mail import EmailMultiAlternatives, send_mail
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
+from random import randint
 import re
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -18,16 +24,29 @@ import requests
 from django.conf import settings
 from django.http import JsonResponse
 
-from django.contrib.auth.decorators import login_required
-from random import randint
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-from django.core.mail import EmailMultiAlternatives, send_mail
+
+# code added by arpit for message flashing and email validation
+from django.contrib import messages
 import re
-import json
+
+# Make a regular expression
+# for validating an Email
+regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+
+
+def check(email):
+    if(re.search(regex, email)):
+        return True
+
+    else:
+        return False
+# arpit code end
+
 
 # Create your views here.
 
+
+# Create your views here.
 
 def about(request):
     return render(request, 'about.html')
@@ -37,11 +56,12 @@ def index(request):
     return render(request, 'index.html')
 
 
+
 # AJAX Validations Start Here
 
 def email_validation(request):
     """This function will be used to validate email against a regex pattern as well as to check if a user is already registered."""
-    
+
     data = json.loads(request.body)
     email = data['email']
     pattern = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
@@ -54,7 +74,7 @@ def email_validation(request):
 
 def password_validation(request):
     """This function will be used to validate password against a regex pattern."""
-    
+
     data = json.loads(request.body)
     password = data['password']
     pattern = '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&_])(?=\S+$).{8,20}$'
@@ -63,25 +83,52 @@ def password_validation(request):
     else:
         return JsonResponse({'password_error': 'Password must be 8-20 characters long and must contain atleast one uppercase letter, one lowercase letter, one number(0-9) and one special character(@,#,$,%,&,_)'})
 
+
+
 # AJAX Validations End Here
 
-def contact(request) :
-    try:
-        if 'msg' in request.POST:
-            nameee = request.POST['name']
-            emailee = request.POST['mess']
-            subjectee = request.POST['sub']
-            messageee = request.POST['msg']
-            fmessage = "Name : "+nameee+"\n"+"Email : "+emailee + \
-                "\n"+"Subject : "+subjectee+"\n"+"Message : "+messageee
-            print(messageee)
-            send_mail('Contact Form', fmessage, settings.EMAIL_HOST_USER, [
-                      'reciever@gmail.com'], fail_silently=False)
-            return render(request, 'contact.html')
-    except Exception as e:
-        print('post exception  ')
-        print(e)
-    return render(request, 'contact.html')
+def contact(request):
+
+    if request.method == 'POST':
+        nameee = request.POST['name']
+        emailee = request.POST['mess']
+        subjectee = request.POST['sub']
+        messageee = request.POST['msg']
+        fmessage = "Name : "+nameee+"\n"+"Email : "+emailee + \
+            "\n"+"Subject : "+subjectee+"\n"+"Message : "+messageee
+        # email validation
+        if check(emailee) == True:
+            #email is ok
+            pass
+        else:
+            messages.error(request, "Email is not Valid Please Try Again!")
+            return redirect('/contact')
+        # name validation
+        if len(nameee) <= 3:
+            messages.error(request, "Please Enter your Name Correctly!")
+            return redirect('/contact')
+        else:
+            #name is ok
+            pass
+        #subject validation
+        if len(subjectee) > 1000 or len(subjectee) <= 2:
+            messages.error(request, "Invalid Subject")
+            return redirect('/contact')
+        else:
+            #subject is ok
+            pass
+        try:
+            # send_mail('Contact Form',fmessage, settings.EMAIL_HOST_USER,['reciever@gmail.com'], fail_silently=False)
+            pass
+        except Exception as e:
+            messages.error(
+                request, "Some Error Occured We are sorry for that Please Try again!!")
+        messages.success(request, 'Thank You for contacting Us!')
+        return render(request, 'contact.html')
+    else:
+        messages.success(
+            request, 'Please fill this form we will reach you as soon as possible!!')
+
 
 
 def Logout(request):
@@ -95,11 +142,11 @@ def userlogin(request):
         u = request.POST['emailid']
         p = request.POST['pwd']
 
-        # Retrieves reCAPTCHA token and verifies with the API 
+        # Retrieves reCAPTCHA token and verifies with the API
         captcha_token = request.POST['g-recaptcha-response']
         cap_url = "https://www.google.com/recaptcha/api/siteverify"
         cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-            "response": captcha_token}
+                    "response": captcha_token}
         cap_server_response = requests.post(url=cap_url, data=cap_data)
         cap_json = cap_server_response.json()
         if cap_json['success'] == False:
@@ -124,12 +171,12 @@ def userlogin(request):
     return render(request, 'login.html')
 
 
-
 def login_admin(request):
     error = ""
 
+
 def login_admin(request) :
-    error=""
+    error = ""
 
     if request.method == 'POST':
         u = request.POST['uname']
@@ -152,7 +199,6 @@ def login_admin(request) :
     return render(request, 'login_admin.html', d)
 
 
-
 def gen_otp():
     """This function returns a 6-digit OTP everytime it is called."""
     return randint(100000, 999999)
@@ -160,7 +206,7 @@ def gen_otp():
 
 def send_otp(request):
     """This function saves the OTP in the database and sends an email to the user with that OTP."""
-    
+
     user_email = request.GET['email']
     try:
         user_name = request.GET['fname']
@@ -194,14 +240,14 @@ def send_otp(request):
 
 def match_otp(email, otp):
     """This function matches the OTP entered by the user with that in the database."""
-    
+
     otp_from_db = OTPModel.objects.filter(user=email).last().otp
     return str(otp) == str(otp_from_db)
 
 
 def check_otp(request):
     """This function gets the OTP from the user and sends it to match_otp function."""
-    
+
     req_otp = request.GET['otp']
     req_user = request.GET['email']
     if match_otp(req_user, req_otp):
@@ -229,14 +275,6 @@ def signup1(request):
             error = "no"
             messages.info(request, f'Signed Up Successfully')
             return redirect('/login')
-
-            if not re.fullmatch(r'[A-Za-z0-9@#$%^&+=]{8,}', p):
-                raise Exception("Password not vaild add number, symbol, lowercase and uppercase letter")
-
-            user = User.objects.create_user(username=e,password=p,first_name=f,last_name=l)
-            Signup.objects.create(user=user,contact=c,branch=b,role=r)
-            error="no"
-
         except:
             error = "yes"
             messages.info(
@@ -246,7 +284,7 @@ def signup1(request):
 
 @csrf_exempt
 def Forgot_Password(request):
-    if(request.method=="POST"):
+    if(request.method =="POST"):
         email = request.POST.get("email")
         password = request.POST.get("password")
         user = User.objects.get(username=email)
@@ -254,10 +292,10 @@ def Forgot_Password(request):
         user.save()
         messages.success(request, "You can now login with your new password.")
         return redirect("login")
-    return render(request,'forgotpassword.html')
+    return render(request, 'forgotpassword.html')
 
 
-def admin_home(request) :
+def admin_home(request):
 
     if not request.user.is_staff:
         return redirect('login_admin')

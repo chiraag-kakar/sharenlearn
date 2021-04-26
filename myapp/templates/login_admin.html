@@ -2,6 +2,41 @@
 {%load static%}
 {%block body%}
 
+
+{%  ifequal error "no" %}
+<script>
+    alert('Logged in Successfully');
+    window.location.href="{% url 'admin_home' %}";
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert('Invalid Login Credentials, Try Again');
+</script>
+{% endifequal %}
+<div class="container text-light">
+    <div class="row justify-content-center">
+        <div class="col-sm-6 text-justify-center">
+            <div class="login" style="padding-bottom: 30px;padding-top: 30px;">
+                <form method="POST" class="login" name="loginform">
+                    {%csrf_token%}
+                    <h2 style="color: black;padding-bottom: 0px;padding-top: 0px;">ADMIN LOGIN</h2>
+                    <div class="form-icon">
+                        <i class="icon icon-user"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control item" placeholder="Enter Username" name="uname" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control item"placeholder="Enter Password" name="pwd" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_=+-]).{8,}" title="Min 8 char, atlest 1 UpperCase, 1 LowerCase, 1 Number and 1 Special char">
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-block mt-3 submit" value="SIGN IN">
+                    </div>
+                </form>
+            </div>
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-sm-3" style="color:white;">
@@ -20,6 +55,7 @@
                     <input type="password" class="form-control"placeholder="enter password" name="pwd" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_=+-]).{8,}" title="Min 8 char, atlest 1 UpperCase, 1 LowerCase, 1 Number and 1 Special char">
                     <input type="submit" class="btn btn-danger mt-3" value="Sign In">
             </form>
+
         </div>
     </div>
 </div>
@@ -58,11 +94,7 @@
     // Finally start observing the target element
     observer.observe(target);
 </script>
-<style>
-    .container{
-        margin-bottom: 10%;
-    }
-</style>
+
 
 {% include 'footer.html' %}
 {% endblock %}
