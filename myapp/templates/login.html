@@ -55,8 +55,47 @@
                         download the notes shared by the peers.
                         <input type="submit" id="loginBtn" class="btn btn-block submit" value="LOGIN"/>
                     </div>
+
+                    <center><a href="{% url 'Forgot_Password' %}" class="forgot">Forgot your email or password?</a></center>
                 </form>
             </div>
+        </div>   
+
+            <h2 class="text-center">
+                USER LOGIN
+            </h2>
+            <hr>
+            <form method="POST">
+                {%csrf_token%}
+            <label>Email Address</label>
+                    <input type="email" class="form-control" placeholder="enter college mail" name="emailid">
+            <label>Password</label>
+                    <input type="password" class="form-control"placeholder="enter password" name="pwd">
+                    <input type="submit" class="btn btn-danger mt-3" value="Sign In"><br>
+                    <a href="{%url 'Forgot_Password'%}" class="btn btn-danger text-center mt-5">Forgot your login details?</a>
+
+                    <br><div class="g-recaptcha" data-sitekey="6Lf3i3waAAAAABaIbVWFi0Cnmq5YQ5JuG_NC2fVd"></div>
+                    <input type="submit" class="btn btn-danger mt-3" value="Sign In">
+                <div class="row">
+                  {% if messages %}
+                  <div class="col-12">
+                      {% for message in messages %}
+                      {% if message.tags == 'error' %}
+                      <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                      {% if message.tags == 'success' %}
+                      <div class="alert alert-success" style="margin-top:10px">{{ message }}</div>
+                      {% endif %}
+                      {% endfor %}
+                  </div>
+                  {% endif %}
+                </div>
+
+            </form>
+
+                </form>
+            </div>
+
         </div>
     </div>
 
