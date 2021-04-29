@@ -19,74 +19,48 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
-<div class="container mt-5 text-light">
+<div class="container text-light">
     <div class="row">
-        <div class="col-sm-6">
-            <br><br>
-            <h2 class="text-center">
-                NEW USER
-            </h2>
-            <hr>
-            <p class="text-light" style="font-size: larger;">
-                Create an account at Share N Learn to upload and download the notes shared by the peers.
-            </p>
-            <a href="{%url 'signup'%}" class="btn btn-danger text-center mt-5">Create New Account</a>
-        </div>
-        <div class="col-sm-6">
+        <div class="col-12">
 
-            <div class = "login">
+            <div class="login">
                 <form method="POST" class="login" name="loginform">
                     {%csrf_token%}
                     <div class="form-icon">
                         <i class="icon icon-user"></i>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control item" id="email" placeholder="Enter college email id">
-                        <div class="emailFeedBackArea invalid-feedback" style="display:none"></div>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control item" id="password" placeholder="Enter password">
+                        <input type="password" class="form-control item" placeholder="enter password" name="pwd">
                     </div>
+                        <div class="g-recaptcha item" data-sitekey="6Lf3i3waAAAAABaIbVWFi0Cnmq5YQ5JuG_NC2fVd"></div>
                     <div class="form-group">
+                        <input type="submit" class="btn btn-block submit" value="SIGN IN">
+                    </div>
+                    <center><a href="{%url 'Forgot_Password'%}" class="forgot">Forgot your login details?</a></center>
+                    <div class="row">
+                        {% if messages %}
+                        <div class="col-12">
+                            {% for message in messages %}
+                            {% if message.tags == 'error' %}
+                            <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div> <br>
+                    <div style="color:black">
+                        <b>New user?</b> <a href="{%url 'signup'%}">Create an account</a> at Share N Learn to upload and
+                        download the notes shared by the peers.
                         <input type="submit" id="loginBtn" class="btn btn-block submit" value="LOGIN"/>
                     </div>
-                    <center><a href="#" class="forgot">Forgot your email or password?</a></center>
                 </form>
             </div>
-        </div>   
-
-            <h2 class="text-center">
-                USER LOGIN
-            </h2>
-            <hr>
-            <form method="POST">
-                {%csrf_token%}
-            <label>Email Address</label>
-                    <input type="email" class="form-control" placeholder="enter college mail" name="emailid">
-            <label>Password</label>
-                    <input type="password" class="form-control"placeholder="enter password" name="pwd">
-                    <input type="submit" class="btn btn-danger mt-3" value="Sign In"><br>
-                    <a href="{%url 'Forgot_Password'%}" class="btn btn-danger text-center mt-5">Forgot your login details?</a>
-
-                    <br><div class="g-recaptcha" data-sitekey="6Lf3i3waAAAAABaIbVWFi0Cnmq5YQ5JuG_NC2fVd"></div>
-                    <input type="submit" class="btn btn-danger mt-3" value="Sign In">
-                <div class="row">
-                  {% if messages %}
-                  <div class="col-12">
-                      {% for message in messages %}
-                      {% if message.tags == 'error' %}
-                      <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
-                      {% endif %}
-                      {% endfor %}
-                  </div>
-                  {% endif %}
-                </div>
-
-            </form>
         </div>
-
-
     </div>
+
+
 </div>
 <button class="scrollToTopBtn">☝️</button>
 <script src="{% static 'js/login.js' %}"></script>
