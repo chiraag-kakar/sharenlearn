@@ -1,0 +1,112 @@
+/* COLORS */
+:root {
+  --clr-primary-bg: hsl(240, 3%, 12%);
+  --clr-primary-txt: hsl(0, 0%, 100%);
+  --clr-secondary-bg: hsl(225, 65%, 44%);
+  --clr-secondary-txt: hsl(0, 0%, 98%);
+  --clr-neutral-txt: hsl(209, 100%, 56%);
+}
+
+/* FONTS */
+:root {
+  --ff-pp: "Poppins", sans-serif;
+  --fw-lt: 300;
+  --fw-rg: 400;
+  --fw-md: 500;
+  --fw-bd: 600;
+  --fw-sb: 700;
+  --fw-xb: 800;
+}
+
+/* RESETS */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  position: relative;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+img {
+  user-select: none;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button,
+.button {
+  cursor: pointer;
+  transition: color 0.4s, background-color 0.4s, transform 0.4s;
+  font: inherit;
+  border: none;
+  background: transparent;
+}
+
+button,
+.button:active {
+  transform: scale(0.95);
+}
+
+.button {
+  background-color: var(--clr-secondary-bg);
+  color: var(--clr-primary-txt);
+  padding: 0.6rem 2.1rem;
+  border-radius: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: var(--fw-md);
+}
+
+a.button:hover {
+  text-decoration: none;
+}
+
+/* BODY */
+body {
+  background-color: var(--clr-primary-bg);
+  padding-top: 3.9rem;
+  width: 85%;
+  margin: auto;
+  font: var(--fw-rg) 1.6rem var(--ff-pp);
+}
+
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  width: 10rem;
+}
+
+header .logo + .button {
+  margin-right: 1.6rem;
+}
+
+header .nav-btn {
+  display: flex;
+}
