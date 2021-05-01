@@ -2,9 +2,9 @@
 <header>
   <img src="{% static 'images/logo.svg' %}" alt="share and learn logo" class="logo">
   {% if auth %}
-  <a href="{% url 'logout' %}" class="button">Logout</a>
+  <a href="{% url 'logout' %}" class="button auth-log">Logout</a>
   {% else %}
-  <a href="{% url 'login' %}" class="button">Login</a>
+  <a href="{% url 'login' %}" class="button auth-log">Login</a>
   {% endif %}
   <nav>
     <button class="nav-btn">
