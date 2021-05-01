@@ -1,0 +1,10 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect x="9" y="11" width="32" height="26" fill="white"/>
+<rect width="48" height="48" fill="url(#pattern0)"/>
+<defs>
+<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0" transform="translate(-0.0844156) scale(0.0021645)"/>
+</pattern>
+<image id="image0" width="540" height="462" xlink:href="https://user-images.githubusercontent.com/58631762/116773765-36125a00-aa75-11eb-96fb-3ad297103904.png"/>
+</defs>
+</svg>
