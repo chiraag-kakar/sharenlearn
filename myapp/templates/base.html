@@ -1,0 +1,24 @@
+{% comment %} HTML Boilerplate{% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Share N Learn</title>
+    <meta name="description"
+        content="Share N Learn is a common platform for students and faculties to upload files which will be accessible to all registered member" />
+    <link rel="icon" type="image/png" sizes="32x32" href={% static 'images/favicon.png' %} />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href={% static 'css/styles.css'%}>
+</head>
+
+<body>
+    {% block content %} {% endblock content %}
+</body>
+
+</html>
