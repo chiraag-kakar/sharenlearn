@@ -1,4 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 {% include "header.html" %}
+<main>
+  <div class="hero">
+    <div class="hero-content">
+      <h1 class="hero-h1">Share your files and learn, <span class="colored">success</span></h1>
+      <img src="{% static 'images/illustration-learn.svg' %}" alt="">
+    </div>
+    <div class="hero-illust">
+      <img src="{% static 'images/illustration-phone.svg' %}" alt="">
+    </div>
+  </div>
+</main>
+{% include "footer1.html" %}
 {% endblock content %}
