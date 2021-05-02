@@ -6,6 +6,7 @@
   <div class="signup">
     <h1 class="colored title">Get Started</h1>
     <form action="#" method="POST">
+      {% csrf_token %}
       <div class="input-group">
         <label for="fname">First Name</label>
         <div class="input-field">
