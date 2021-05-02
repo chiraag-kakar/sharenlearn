@@ -72,7 +72,7 @@ button,
   background: transparent;
 }
 
-button,
+button:active,
 .button:active {
   transform: scale(0.95);
 }
@@ -199,15 +199,10 @@ main {
 
 .signup form {
   margin-top: 4rem;
-  text-align: center;
 }
 
 form > * + * {
   margin-top: 2.4rem;
-}
-
-form .input-group {
-  text-align: left;
 }
 
 form label {
@@ -251,7 +246,7 @@ form .input-field select {
   width: 100%;
   background: transparent;
   border: none;
-  color: inherit;
+  color: var(--clr-primary-txt);
   font: inherit;
   font-size: var(--fs-xs);
 }
@@ -266,8 +261,19 @@ form .input-field select:focus {
   outline: none;
 }
 
-form .button {
+form .form-footer {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+form .form-footer .button {
   padding: 0.8rem 2.4rem;
+}
+
+form .form-footer .tip {
+  font-size: var(--fs-xs);
+  margin-top: 1.2rem;
+  font-weight: var(--fw-md);
 }
 
 /* FOOTER */
@@ -368,13 +374,18 @@ footer .cright {
     display: grid;
     grid-template-columns: calc(50% - 1.5rem) calc(50% - 1.5rem);
     gap: 3rem;
+    position: relative;
   }
   .signup form > * + * {
     margin: 0;
   }
-  .signup form > button {
+  .signup form .form-footer {
     align-self: end;
     justify-self: right;
+  }
+  .signup form .form-footer .tip {
+    position: absolute;
+    right: 0;
   }
 }
 
