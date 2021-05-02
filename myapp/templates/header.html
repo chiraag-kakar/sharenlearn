@@ -1,0 +1,28 @@
+{% load static %}
+<header>
+  <img src="{% static 'images/logo.svg' %}" alt="share and learn logo" class="logo">
+  {% if auth %}
+  <a href="{% url 'logout' %}" class="button auth-log">Logout</a>
+  {% else %}
+  <a href="{% url 'login' %}" class="button auth-log">Login</a>
+  {% endif %}
+  <nav>
+    <button class="nav-btn">
+      <img src="{% static 'images/icon-hamburger.svg' %}" alt="Open menu">
+    </button>
+    <ul class="nav-list">
+      <li>
+        <a href="{% url 'index' %}">Home</a>
+      </li>
+      <li>
+        <a href="{% url 'about' %}">About</a>
+      </li>
+      <li>
+        <a href="{% url 'contact' %}">Contact</a>
+      </li>
+      <li>
+        <a href="#">Admin Login</a>
+      </li>
+    </ul>
+  </nav>
+</header>

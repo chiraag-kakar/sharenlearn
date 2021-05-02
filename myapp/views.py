@@ -53,7 +53,7 @@ def about(request):
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'home.html')
 
 
 
