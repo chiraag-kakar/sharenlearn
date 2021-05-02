@@ -137,19 +137,6 @@ p {
     transform: translate3d(85px,0,0);
   }
 }
-/*Shrinking for mobile*/
-@media (max-width: 768px) {
-  .waves {
-    height:40px;
-    min-height:40px;
-  }
-  .content {
-    height:30vh;
-  }
-  h1 {
-    font-size:24px;
-  }
-}
 
 /* css for signup/signin page */
 
@@ -302,7 +289,7 @@ opacity: 0.95;
   background-color: #fff;
   max-width: 600px;
   margin: auto;
-  padding: 50px 70px;
+  padding: 20px 70px;
   border-radius:25px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
 }
@@ -326,7 +313,6 @@ opacity: 0.95;
 .login .item{
   border-radius: 20px;
   margin-bottom: 25px;
-  padding: 10px 20px;
   border-color: rgb(14, 4, 41);
 }
 
@@ -343,4 +329,31 @@ opacity: 0.95;
 }
 .forgot{
   color:#03163b;
+}
+
+.g-recaptcha div{
+  width:380px;
+
+
+
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+
+  .login form{
+    padding: 30px;
+  }
+
+  .login form h2{
+    font-size: 25px;
+  }
+  .waves {
+    height:40px;
+    min-height:40px;
+  }
+  .content {
+    height:30vh;
+  }
+  h1 {
+    font-size:24px;
+  }
 }
