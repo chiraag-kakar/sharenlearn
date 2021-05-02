@@ -267,6 +267,7 @@ footer .cright {
     box-shadow: none;
     transform: scale(1);
     font-size: var(--fs-xs);
+    pointer-events: all;
   }
   .nav-list li {
     padding: 0;
