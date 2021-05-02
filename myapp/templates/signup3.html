@@ -5,42 +5,42 @@
 <main>
   <div class="signup">
     <h1 class="colored title">Get Started</h1>
-    <form action="#" method="POST">
+    <form action="{% url "signup" %}" method="POST" class="signup-form">
       {% csrf_token %}
       <div class="input-group">
         <label for="fname">First Name</label>
         <div class="input-field">
-          <input type="text" name="fname" id="fname" autocomplete="off" spellcheck="false">
+          <input type="text" name="fname" id="fname" autocomplete="off" spellcheck="false" data-type="text">
         </div>
       </div>
       <div class="input-group">
         <label for="lname">Last Name</label>
         <div class="input-field">
-          <input type="text" name="lname" id="lname" autocomplete="off" spellcheck="false">
+          <input type="text" name="lname" id="lname" autocomplete="off" spellcheck="false" data-type="text">
         </div>
       </div>
       <div class="input-group">
         <label for="email">Email</label>
         <div class="input-field">
-          <input type="email" name="email" id="email" autocomplete="off" spellcheck="false">
+          <input type="email" name="email" id="email" autocomplete="off" spellcheck="false" data-type="email">
         </div>
       </div>
       <div class="input-group">
         <label for="password">Password</label>
         <div class="input-field">
-          <input type="password" name="password" id="password" autocomplete="off" spellcheck="false">
+          <input type="password" name="password" id="password" autocomplete="off" spellcheck="false" data-type="password">
         </div>
       </div>
       <div class="input-group">
         <label for="contact">Contact Number</label>
         <div class="input-field">
-          <input type="tel" name="contact" id="contact" autocomplete="off" spellcheck="false">
+          <input type="tel" name="contact" id="contact" autocomplete="off" spellcheck="false" data-type="tel">
         </div>
       </div>
       <div class="input-group">
         <label for="role">Role</label>
         <div class="input-field">
-          <select name="role" id="role">
+          <select name="role" id="role" data-type="select">
             <option value="0" selected disabled>Select Role</option>
             <option value="1">
               Student
@@ -52,7 +52,7 @@
       <div class="input-group">
         <label for="dept">Department</label>
         <div class="input-field">
-          <select name="dept" id="dept">
+          <select name="dept" id="dept" data-type="select">
             <option value="0" selected disabled>Select Department</option>
             <option value="1">Computer Science and Engg.</option>
             <option value="2">Electrical Engg.</option>
@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="form-footer">
-        <button type="submit" class="button">Sign Up</button>
+        <button type="submit" class="button" id="form-btn">Sign Up</button>
         <p class="tip">Already have an account? <a class="colored" href="/login">Login</a></p>
       </div>
     </form>
