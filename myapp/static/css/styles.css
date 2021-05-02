@@ -223,7 +223,7 @@ footer .cright {
 @media (min-width: 731px) {
   .hero {
     display: flex;
-    width: 90%;
+    width: 85%;
     margin: auto;
     height: 31rem;
     justify-content: space-between;
@@ -239,7 +239,7 @@ footer .cright {
     width: 25rem;
   }
   .hero-illust {
-    width: calc(50% - 5rem);
+    width: 50%;
     display: initial;
     display: flex;
   }
@@ -251,6 +251,9 @@ footer .cright {
 @media (min-width: 768px) {
   html {
     font-size: 1.1vw;
+  }
+  .hero {
+    width: 80%;
   }
   .nav-btn {
     display: none;
@@ -272,6 +275,9 @@ footer .cright {
   .nav-list li {
     padding: 0;
   }
+  .nav-list li:hover {
+    background: none;
+  }
   .nav-list > * + * {
     margin-left: 2.5rem;
   }
@@ -280,5 +286,8 @@ footer .cright {
 @media (min-width: 1441px) {
   html {
     font-size: 0.9vw;
+  }
+  .hero {
+    width: 65%;
   }
 }
