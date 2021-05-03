@@ -126,8 +126,8 @@ def contact(request):
         messages.success(request, 'Thank You for contacting Us!')
         return render(request, 'contact.html')
     else:
-        messages.success(
-            request, 'Please fill this form we will reach you as soon as possible!!')
+        messages.success(request, 'Please fill this form we will reach you as soon as possible!!')
+        return render(request, 'contact.html')
 
 
 
