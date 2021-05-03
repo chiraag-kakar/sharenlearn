@@ -8,6 +8,7 @@
   --clr-black: rgb(0, 0, 0);
   --clr-bs-black: rgba(0, 0, 0, 0.6);
   --clr-gray: hsl(0, 0%, 23%);
+  --clr-accent: #884e88;
 }
 
 /* FONTS */
@@ -190,6 +191,62 @@ main {
 .hero-illust {
   display: none;
 }
+/* ABOUT PAGE */
+.about-hero {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  align-items: center;
+  width: 100%;
+  margin: 1em auto;
+}
+
+.about-hero .hero-content .hero-h1 {
+  width: 28.875rem;
+}
+
+.about-hero .hero-illust {
+  display: block;
+  margin: 0 auto;
+}
+.about-hero .hero-illust img {
+  width: 225px;
+  margin: 0 auto;
+}
+
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  row-gap: 3em;
+  width: 100%;
+  margin: 1.5em auto;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.feature-img {
+  color: var(--clr-accent);
+  font-size: var(--fs-lg);
+  margin-bottom: 0.5em;
+}
+
+.feature-heading {
+  font-size: var(--fs-md);
+  margin-bottom: 0.5em;
+}
+
+.feature-text {
+  width: 90%;
+  margin: 0.5em auto;
+  font-size: var(--fs-sm);
+  text-align: center;
+}
 
 /* SIGNUP */
 
@@ -355,6 +412,46 @@ footer .cright {
   }
   .hero-illust img {
     width: 100%;
+  }
+  /* styles for about page */
+  .about-hero {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+  }
+  .about-hero .hero-content {
+    width: 80%;
+    text-align: left;
+  }
+  .about-hero .hero-illust {
+    width: 70%;
+    display: initial;
+    display: flex;
+  }
+  .about-hero .hero-illust img {
+    width: 100%;
+ }
+  .about-features {
+    display: grid;
+    grid-template-columns: 1fr 0.4fr 1fr;
+    grid-template-rows: auto;
+    width: 95%;
+    margin: 2em auto;
+    padding: 1.5em 0;
+  }  
+  .feature-text{
+    width: 80%;
+  }
+  .essence-div {
+    grid-column: 1/2;
+    grid-row: auto;
+  }
+  .goal-div {
+    grid-column: 3/4;
+    grid-row: auto;
   }
 }
 

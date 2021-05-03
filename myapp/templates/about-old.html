@@ -1,0 +1,270 @@
+{%extends 'navigation.html'%}
+{%block body%}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+
+.container{
+    max-width: 70rem;
+    padding: 0 2rem;
+    margin: 0 auto;
+}
+
+header{
+    width: 100%;
+    height: 90vh;
+    position: relative;
+    overflow: hidden;
+}
+
+header:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    z-index: 25;
+}
+
+.big-title{
+    position: absolute;
+    z-index: 30;
+    line-height: 4rem;
+    top: calc(30% - 2rem);
+    width: 100%;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+#sub-title{
+     font-size:4rem;
+}
+
+section{
+    width: 100%;
+    background-color: #151515;
+    position: relative;
+}
+
+section .container{
+    padding: 3rem;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    min-height: 37vh;
+}
+
+section .container > *{
+    margin: 2rem;
+}
+
+.content{
+    color: #fff;
+    transform: translateY(-50px);
+}
+
+.title{
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    position: relative;
+}
+
+.border-1{
+    position: absolute;
+    width: 0%;
+    height: 3px;
+    background-color: #fff;
+    bottom: 0;
+    left: 0;
+}
+
+.border-2{
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #fff;
+    bottom: 0;
+    left: 0;
+}
+
+.shadow{
+    position: absolute;
+    bottom: 100%;
+    height: 300px;
+    width: 100%;
+    left: 0;
+    z-index: 20;
+    background: linear-gradient(to top, #151515, transparent);
+}
+
+.sky{
+    position: absolute;
+    width: 100%;
+    bottom:0px;
+    right: 0;
+    height:100%;
+}
+
+.opacity{
+    opacity: 0;
+}
+
+@media (max-width: 850px){
+    section .container{
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 600px){
+    .big-title{
+        font-size: 2rem;
+    }
+    #sub-title{
+       font-size:2.8rem;
+    }
+
+    .text{
+        font-size: .8rem;
+    }
+
+    .title{
+        font-size: 1.2rem;
+    }
+}
+</style>
+</head>
+<body>
+    <header>
+        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/927610/pexels-photo-587409.jpeg" class="sky translate" data-speed="0.5" alt="">
+        <h2 class="big-title translate" data-speed="0.1"><u>About Share N Learn.</u><br><br><span id="sub-title">Our mission is to Grow Together.</span></h2>
+    </header>
+
+    <section>
+        <div class="shadow"></div>
+        <div class="container">
+            <div class="content">
+                <h3 class="title">
+                    Our Essence
+                    <div class="border-1"></div>
+                </h3>
+                <h6 class="text">Share N Learn is a Common Platform for Students & Faculties to upload and share - files including study material which will be accessible to all the registered members.</h6>
+            </div>
+        </div>
+    </section>
+    
+    <section>
+       <div class="shadow"></div>
+        <div class="container">
+            <div class="content">
+                <h3 class="title">
+                    Our Goal
+                    <div class="border-2"></div>
+                </h3>
+                <h6 class="text">The Goal of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework , Competitive exams and others hence reducing the dependency on social media platforms. In future the platform can also serve as an online library for the college students.</h6>
+            </div>
+        </div>
+    </section>
+    
+    <button class="scrollToTopBtn">☝️</button>
+    <script>
+        var target = document.querySelector("footer");
+
+        var scrollToTopBtn = document.querySelector(".scrollToTopBtn")
+        var rootElement = document.documentElement
+
+        // Next we want to create a function that will be called when that element is intersected
+        function callback(entries, observer) {
+        // The callback will return an array of entries, even if you are only observing a single item
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+            // Show button
+            scrollToTopBtn.classList.add("showBtn")
+            } else {
+        
+            scrollToTopBtn.classList.remove("showBtn")
+            }
+        });
+        }
+
+        function scrollToTop() {
+        rootElement.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+        }
+        scrollToTopBtn.addEventListener("click", scrollToTop);
+            
+        // Next we instantiate the observer with the function we created above. This takes an optional configuration
+        // object that we will use in the other examples.
+        let observer = new IntersectionObserver(callback);
+        // Finally start observing the target element
+        observer.observe(target);
+    </script>
+
+    <script>
+const translate = document.querySelectorAll(".translate");
+const big_title = document.querySelector(".big-title");
+const header = document.querySelector("header");
+const shadow = document.querySelector(".shadow");
+const content = document.querySelector(".content");
+const section = document.querySelector("section");
+const opacity = document.querySelectorAll(".opacity");
+const border1 = document.querySelector(".border-1");
+const border2 = document.querySelector(".border-2");
+
+let header_height = header.offsetHeight;
+let section_height = 2.4*section.offsetHeight;
+
+window.addEventListener('scroll', () => {
+    let scroll = window.pageYOffset;
+    let sectionY =section.getBoundingClientRect();
+    
+    translate.forEach(element => {
+        let speed = element.dataset.speed;
+        element.style.transform = `translateY(${scroll * speed}px)`;
+    });
+
+    opacity.forEach(element => {
+        element.style.opacity = scroll / (sectionY.top + section_height);
+    })
+
+    big_title.style.opacity = - scroll / (header_height / 2) + 1;
+    shadow.style.height = `${scroll * 0.5 + 300}px`;
+
+    content.style.transform = `translateY(${scroll / (section_height + sectionY.top) * 80 - 80}px)`;
+
+    border1.style.width = `${scroll / (sectionY.top + section_height) * 25}%`;
+    border2.style.width = `${scroll / (sectionY.top + section_height) * 22}%`;
+ 
+})
+
+</script>
+<script>
+$(window).scroll(function(){
+        var scroll = $(window).scrollTop();
+        $(".sky").css({
+            width: (100 + scroll/5) + "%"
+        })
+    })
+
+</script>
+
+{% include 'footer.html' %}
+{% endblock %}
+    
