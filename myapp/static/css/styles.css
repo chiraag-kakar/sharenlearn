@@ -202,7 +202,12 @@ main {
 }
 
 .about-hero .hero-illust {
-  display: none;
+  display: block;
+  margin: 0 auto;
+}
+.about-hero .hero-illust img {
+  width: 225px;
+  margin: 0 auto;
 }
 
 .about-features {
@@ -316,6 +321,9 @@ footer .cright {
     display: initial;
     display: flex;
   }
+  .about-hero .hero-illust img {
+    width: 100%;
+ }
   .about-features {
     display: grid;
     grid-template-columns: 1fr 0.4fr 1fr;
