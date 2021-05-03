@@ -345,6 +345,7 @@ footer .cright {
 /* MESSAGES AT TOP */
 .success,
 .error,
+.danger,
 .info {
   width: 100%;
   position: absolute;
@@ -375,7 +376,8 @@ footer .cright {
   color: #ffffff;
 }
 
-.error {
+.error,
+.danger {
   background-color: #bd2130;
   color: #ffffff;
 }
