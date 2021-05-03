@@ -41,7 +41,6 @@ html {
   font-size: 62.5%;
   position: relative;
   scroll-behavior: smooth;
-  overflow-x: hidden;
 }
 
 html,
@@ -347,11 +346,10 @@ footer .cright {
 .error,
 .danger,
 .info {
-  width: 100%;
   position: absolute;
   top: -1.2rem;
-  left: -10%;
-  width: 120%;
+  left: -8.84%;
+  width: calc(100% + 8.84% + 8.84%);
   font-size: var(--fs-xs);
   font-weight: var(--fs-lt);
   padding: 0.4rem 0;
