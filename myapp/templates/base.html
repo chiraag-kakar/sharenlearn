@@ -19,7 +19,13 @@
 
 <body>
   {% block content %} {% endblock content %}
+  <div class="msgs">
+    {% for message in messages %}
+    <p class={{message.tags}}>{{message}}</p>
+    {% endfor %}
+  </div>
   <script src="{% static 'js/scripts.js' %}"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 
 </html>

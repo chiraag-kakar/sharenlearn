@@ -137,39 +137,28 @@ def Logout(request):
 
 
 def userlogin(request):
-    error = ""
-    if request.method == 'POST':
-        u = request.POST['emailid']
-        p = request.POST['pwd']
-
-        # Retrieves reCAPTCHA token and verifies with the API
-        captcha_token = request.POST['g-recaptcha-response']
-        cap_url = "https://www.google.com/recaptcha/api/siteverify"
-        cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-                    "response": captcha_token}
-        cap_server_response = requests.post(url=cap_url, data=cap_data)
-        cap_json = cap_server_response.json()
-        if cap_json['success'] == False:
-            messages.error(request, "Invalid reCAPTCHA. Please try again.")
-            return redirect('login')
-
-        user = authenticate(username=u, password=p)
-        try:
-            if user:
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            captcha_token = request.POST['g-recaptcha-response']
+            cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            cap_server_response = requests.post(url=cap_url, data=cap_data)
+            cap_json = cap_server_response.json()
+            if cap_json['success'] == False:
+                messages.error(request, "Captcha Invalid. Please Try Again")
+                return redirect('login')
+            u = request.POST['email']
+            p = request.POST['password']
+            user = authenticate(username=u, password=p)
+            if user is not None:
                 login(request, user)
-                error = "no"
-                messages.info(request, f'Logged in Successfully')
+                messages.success(request, "Logged In Successfully")
                 return redirect('/profile')
-
             else:
-                error = "yes"
-                messages.info(request, f'Invalid Login Credentials, Try Again')
-
-        except:
-            messages.info(request, f'Invalid Login Credentials, Try Again')
-
-    return render(request, 'login.html')
-
+                messages.error(request, "Invalid Login Credentials")
+        return render(request, 'login.html')
+    else:
+        return redirect('/profile')
 
 def login_admin(request):
     error = ""
