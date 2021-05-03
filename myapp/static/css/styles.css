@@ -273,7 +273,26 @@ form .form-footer .button {
 form .form-footer .tip {
   font-size: var(--fs-xs);
   margin-top: 1.2rem;
+  font-weight: var(--fw-lt);
+}
+
+.tip .colored {
   font-weight: var(--fw-md);
+}
+
+/* FIELD INVALID */
+form .input-group {
+  position: relative;
+}
+
+form .invalid {
+  position: absolute;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-md);
+  color: #ff7a7a;
+  margin-top: 0.5rem;
+  top: 0;
+  right: 0;
 }
 
 /* FOOTER */
