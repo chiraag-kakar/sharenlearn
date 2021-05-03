@@ -19,7 +19,6 @@ inputs.forEach(function (input) {
 document
   .querySelector(".signup-form")
   .addEventListener("submit", async function (event) {
-    console.log(await validate_form());
     if (!(await validate_form())) event.preventDefault();
   });
 
