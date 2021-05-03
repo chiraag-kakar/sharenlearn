@@ -12,10 +12,10 @@ from django.contrib.auth import authenticate, login, logout
 from datetime import date
 
 from django.contrib import messages
+from django.db import IntegrityError
 
 
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 
 
@@ -257,30 +257,27 @@ def check_otp(request):
 
 
 def signup1(request):
-    error = ""
     if request.method == 'POST':
-
-        f = request.POST['firstname']
-        l = request.POST['lastname']
-        c = request.POST['contact']
-        e = request.POST['emailid']
-        p = request.POST['password']
-        b = request.POST['branch']
-        r = request.POST['role']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email']
+        password = request.POST['password']
+        contact = request.POST['contact']
+        role = request.POST['role']
+        dept = request.POST['dept']
         try:
-
-            user = User.objects.create_user(
-                username=e, password=p, first_name=f, last_name=l)
-            Signup.objects.create(user=user, contact=c, branch=b, role=r)
-            error = "no"
-            messages.info(request, f'Signed Up Successfully')
-            return redirect('/login')
-        except:
-            error = "yes"
-            messages.info(
-                request, f'Something went wrong, Try Again')
+            user = User.objects.create_user(username=email, password=password, first_name=fname, last_name=lname)
+            user.save();
+            signup = Signup.objects.create(user=user, contact=contact, branch=dept, role=role)
+            signup.save();
+            messages.success(request, "Account Created")
+            return redirect("login")
+        except IntegrityError:
+            messages.info(request, "Username taken, Try different")
+            return render(request, "signup.html")
+    if request.user.is_authenticated:
+        return redirect('index')
     return render(request, 'signup.html')
-
 
 @csrf_exempt
 def Forgot_Password(request):
