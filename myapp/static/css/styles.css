@@ -41,6 +41,7 @@ html {
   font-size: 62.5%;
   position: relative;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 html,
@@ -339,6 +340,49 @@ footer .social a:nth-child(2) {
 
 footer .cright {
   font-size: var(--fs-xs);
+}
+
+/* MESSAGES AT TOP */
+.success,
+.error,
+.info {
+  width: 100%;
+  position: absolute;
+  top: -1.2rem;
+  left: -10%;
+  width: 120%;
+  font-size: var(--fs-xs);
+  font-weight: var(--fs-lt);
+  padding: 0.4rem 0;
+  text-align: center;
+  animation: comefromtop 0.3s forwards ease, gototop 0.5s forwards ease 2s;
+}
+
+@keyframes comefromtop {
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes gototop {
+  100% {
+    top: -4rem;
+  }
+}
+
+.success {
+  background-color: #218838;
+  color: #ffffff;
+}
+
+.error {
+  background-color: #bd2130;
+  color: #ffffff;
+}
+
+.info {
+  background-color: #525158;
+  color: #ffffff;
 }
 
 @media (max-width: 375px) {
