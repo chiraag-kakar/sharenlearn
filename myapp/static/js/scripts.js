@@ -16,37 +16,35 @@ inputs.forEach(function (input) {
   });
 });
 
-document
-  .querySelector(".signup-form")
-  .addEventListener("submit", async function (event) {
-    if (!(await validate_form())) event.preventDefault();
-  });
+if (document.querySelector(".signup-form")) {
+  document
+    .querySelector(".signup-form")
+    .addEventListener("submit", async function (event) {
+      if (!(await validate_form(this))) event.preventDefault();
+    });
+}
 
-// VALIDATE FORM - SIGNUP
-async function validate_form() {
+if (document.querySelector(".login-form")) {
+  document
+    .querySelector(".login-form")
+    .addEventListener("submit", async function (event) {
+      if (!(await validate_form(this))) event.preventDefault();
+    });
+}
+
+// VALIDATE FORM
+async function validate_form(form) {
   const removeSpans = () => {
     if (document.querySelector("form .input-group .invalid")) {
       const spans = document.querySelectorAll("form .input-group .invalid");
       spans.forEach((span) => span.remove());
     }
   };
-  const fname = document.getElementById("fname");
-  const lname = document.getElementById("lname");
-  const email = document.getElementById("email");
-  const contact = document.getElementById("contact");
-  const password = document.getElementById("password");
-  const dept = document.getElementById("dept");
-  const role = document.getElementById("role");
+  const inputs = [...form.querySelectorAll("input[type]")];
+  const selects = [...form.querySelectorAll("select")];
+  const fields = inputs.concat(selects);
   try {
-    const validationResponse = await validation([
-      fname,
-      lname,
-      email,
-      contact,
-      password,
-      dept,
-      role,
-    ]);
+    const validationResponse = await validation(fields);
     if (validationResponse) return true;
   } catch (err) {
     removeSpans();
@@ -95,7 +93,7 @@ function validation(fields) {
       }
     } else if (type === "select")
       return value != "0" ? res : { ...res, error: "Please fill this field" };
-    else return null;
+    else return res;
   };
   return new Promise((resolve, reject) => {
     for (let field of fields) {
