@@ -18,12 +18,19 @@ inputs.forEach(function (input) {
 
 document
   .querySelector(".signup-form")
-  .addEventListener("submit", function (event) {
-    if (!validate_form()) event.preventDefault();
+  .addEventListener("submit", async function (event) {
+    console.log(await validate_form());
+    if (!(await validate_form())) event.preventDefault();
   });
 
 // VALIDATE FORM - SIGNUP
-function validate_form() {
+async function validate_form() {
+  const removeSpans = () => {
+    if (document.querySelector("form .input-group .invalid")) {
+      const spans = document.querySelectorAll("form .input-group .invalid");
+      spans.forEach((span) => span.remove());
+    }
+  };
   const fname = document.getElementById("fname");
   const lname = document.getElementById("lname");
   const email = document.getElementById("email");
@@ -31,17 +38,27 @@ function validate_form() {
   const password = document.getElementById("password");
   const dept = document.getElementById("dept");
   const role = document.getElementById("role");
-
-  validation([fname, lname, email, contact, password, dept, role])
-    .then((data) => {
-      return true;
-    })
-    .catch((err) => {
-      const elem = document.querySelector(`[name = ${err.name}]`);
-      elem.focus();
-      console.log(`Error in ${elem}`);
-      return false;
-    });
+  try {
+    const validationResponse = await validation([
+      fname,
+      lname,
+      email,
+      contact,
+      password,
+      dept,
+      role,
+    ]);
+    if (validationResponse) return true;
+  } catch (err) {
+    removeSpans();
+    const elem = document.querySelector(`[name = ${err.name}]`);
+    elem.focus();
+    const span = document.createElement("span");
+    span.classList.add("invalid");
+    span.textContent = err.error;
+    elem.parentElement.parentElement.appendChild(span);
+    return false;
+  }
 }
 
 function validation(fields) {
@@ -51,7 +68,6 @@ function validation(fields) {
     const name = field.name;
     const valid = field.validity && field.validity.valid;
     const res = { name, error: null };
-    console.log(name, type);
     if (
       type === "text" ||
       type === "email" ||
