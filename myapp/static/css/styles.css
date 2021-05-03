@@ -1,0 +1,293 @@
+/* COLORS */
+:root {
+  --clr-primary-bg: hsl(240, 3%, 12%);
+  --clr-primary-txt: hsl(0, 0%, 100%);
+  --clr-secondary-bg: hsl(225, 65%, 44%);
+  --clr-secondary-txt: hsl(0, 0%, 98%);
+  --clr-neutral-txt: hsl(209, 100%, 56%);
+  --clr-bs-black: rgba(0, 0, 0, 0.6);
+}
+
+/* FONTS */
+:root {
+  --ff-pp: "Poppins", sans-serif;
+  --fw-lt: 300;
+  --fw-rg: 400;
+  --fw-md: 500;
+  --fw-bd: 600;
+  --fw-sb: 700;
+  --fw-xb: 800;
+  --fs-xs: 1.2rem;
+  --fs-sm: 1.4rem;
+  --fs-md: 1.6rem;
+  --fs-lg: 2.6rem;
+}
+
+/* RESETS */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  position: relative;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+img {
+  user-select: none;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button,
+.button {
+  cursor: pointer;
+  transition: color 0.4s, background-color 0.4s, transform 0.4s;
+  font: inherit;
+  border: none;
+  background: transparent;
+}
+
+button,
+.button:active {
+  transform: scale(0.95);
+}
+
+.button {
+  background-color: var(--clr-secondary-bg);
+  color: var(--clr-primary-txt);
+  padding: 0.6rem 2.1rem;
+  border-radius: 0.4rem;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-md);
+}
+
+a.button:hover {
+  text-decoration: none;
+}
+
+/* BODY */
+body {
+  background-color: var(--clr-primary-bg);
+  padding: 3.9rem 0;
+  width: 85%;
+  margin: auto;
+  font: var(--fw-rg) var(--fs-md) var(--ff-pp);
+  color: var(--clr-secondary-txt);
+  position: relative;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .logo {
+  width: 10rem;
+}
+
+header .logo + .button {
+  margin-right: 1.6rem;
+}
+
+.nav-btn {
+  display: flex;
+}
+
+.nav-btn img {
+  width: 2rem;
+}
+
+.nav-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-top: 1.6rem;
+  background-color: var(--clr-primary-bg);
+  border-radius: 0.8rem;
+  box-shadow: 0.3rem 0.3rem 2rem var(--clr-bs-black);
+  font-size: var(--fs-sm);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  pointer-events: none;
+}
+
+.nav-list.view {
+  opacity: 1;
+  pointer-events: all;
+  transform: scale(1);
+}
+
+.nav-list li {
+  padding: 2rem;
+}
+
+.nav-list li:hover {
+  background-color: var(--clr-bs-black);
+}
+
+.nav-list a {
+  color: inherit;
+  width: 100%;
+  display: inline-block;
+}
+
+/* MAIN */
+main {
+  margin: 7rem 0;
+}
+
+.hero-content {
+  text-align: center;
+}
+
+.hero-content .hero-h1 {
+  color: var(--clr-primary-txt);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bd);
+  margin: auto;
+  margin-bottom: 5rem;
+  width: 31.875rem;
+}
+
+.colored {
+  color: var(--clr-neutral-txt);
+}
+
+.hero-content img {
+  width: min(80%, 44rem);
+}
+
+.hero-illust {
+  display: none;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+}
+
+footer .social {
+  margin-bottom: 2rem;
+}
+
+footer .social a {
+  width: 3.4rem;
+  height: 3.4rem;
+  display: inline-block;
+}
+
+footer .social a img {
+  width: 100%;
+}
+
+footer .social a:nth-child(2) {
+  margin: 0 2rem;
+}
+
+footer .cright {
+  font-size: var(--fs-xs);
+}
+
+@media (max-width: 375px) {
+  html {
+    font-size: 2.649vw;
+  }
+}
+
+@media (min-width: 731px) {
+  .hero {
+    display: flex;
+    width: 85%;
+    margin: auto;
+    height: 31rem;
+    justify-content: space-between;
+  }
+  .hero-content {
+    width: 50%;
+    text-align: left;
+  }
+  .hero-content .hero-h1 {
+    width: auto;
+  }
+  .hero-content img {
+    width: 25rem;
+  }
+  .hero-illust {
+    width: 50%;
+    display: initial;
+    display: flex;
+  }
+  .hero-illust img {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 1.1vw;
+  }
+  .hero {
+    width: 80%;
+  }
+  .nav-btn {
+    display: none;
+  }
+  .auth-log {
+    order: 1;
+  }
+  .nav-list {
+    display: flex;
+    position: static;
+    background: none;
+    opacity: 1;
+    margin-top: 0;
+    box-shadow: none;
+    transform: scale(1);
+    font-size: var(--fs-xs);
+    pointer-events: all;
+  }
+  .nav-list li {
+    padding: 0;
+  }
+  .nav-list li:hover {
+    background: none;
+  }
+  .nav-list > * + * {
+    margin-left: 2.5rem;
+  }
+}
+
+@media (min-width: 1441px) {
+  html {
+    font-size: 0.9vw;
+  }
+  .hero {
+    width: 65%;
+  }
+}
