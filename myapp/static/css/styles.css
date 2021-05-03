@@ -297,6 +297,23 @@ form .invalid {
   right: 0;
 }
 
+/* LOGIN */
+.login h1 {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bd);
+  text-align: center;
+}
+
+.login form {
+  margin-top: 4rem;
+}
+
+.g-recaptcha > div {
+  margin: auto;
+  margin-top: 3rem;
+  text-align: center;
+}
+
 /* FOOTER */
 footer {
   text-align: center;
@@ -410,11 +427,27 @@ footer .cright {
   }
 }
 
+@media (min-width: 980px) {
+  .login form {
+    width: 38rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 @media (min-width: 1441px) {
   html {
     font-size: 0.7vw;
   }
   .hero {
     width: 65%;
+  }
+}
+
+/* captcha resize */
+@media (max-width: 359px) {
+  .g-recaptcha > div {
+    transform: scale(0.7);
+    text-align: left;
   }
 }
