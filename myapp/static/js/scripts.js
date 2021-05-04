@@ -32,6 +32,14 @@ if (document.querySelector(".login-form")) {
     });
 }
 
+if (document.querySelector(".contact-form")) {
+  document
+    .querySelector(".contact-form")
+    .addEventListener("submit", async function (event) {
+      if (!(await validate_form(this))) event.preventDefault();
+    });
+}
+
 // VALIDATE FORM
 async function validate_form(form) {
   const removeSpans = () => {
@@ -42,7 +50,8 @@ async function validate_form(form) {
   };
   const inputs = [...form.querySelectorAll("input[type]")];
   const selects = [...form.querySelectorAll("select")];
-  const fields = inputs.concat(selects);
+  const areas = [...form.querySelectorAll("textarea")];
+  const fields = inputs.concat(selects.concat(areas));
   try {
     const validationResponse = await validation(fields);
     if (validationResponse) return true;

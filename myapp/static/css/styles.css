@@ -283,6 +283,10 @@ form .input-field {
   transition: border-color 0.4s ease-in-out;
 }
 
+form .input-field.t-area {
+  height: 18rem;
+}
+
 form .input-field:hover {
   border-color: var(--clr-black);
 }
@@ -301,7 +305,8 @@ form .input-field.focusing {
 }
 
 form .input-field input,
-form .input-field select {
+form .input-field select,
+form .input-field textarea {
   width: 100%;
   background: transparent;
   border: none;
@@ -310,13 +315,19 @@ form .input-field select {
   font-size: var(--fs-xs);
 }
 
+form .input-field textarea {
+  height: 14.5rem;
+  resize: none;
+}
+
 form .input-field select option {
   background-color: var(--clr-primary-bg);
   box-shadow: 0.3rem 0.3rem 2rem var(--clr-bs-black);
 }
 
 form .input-field input:focus,
-form .input-field select:focus {
+form .input-field select:focus,
+form .input-field textarea:focus {
   outline: none;
 }
 
@@ -369,6 +380,22 @@ form .invalid {
   margin: auto;
   margin-top: 3rem;
   text-align: center;
+}
+
+/* CONTACT */
+.contact h1 {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bd);
+  text-align: center;
+}
+
+.contact .form-container {
+  width: 100%;
+  margin-top: 4rem;
+}
+
+.form-container .form-illust {
+  display: none;
 }
 
 /* FOOTER */
@@ -494,7 +521,7 @@ footer .cright {
   }
   .about-hero .hero-illust img {
     width: 100%;
- }
+  }
   .about-features {
     display: grid;
     grid-template-columns: 1fr 0.4fr 1fr;
@@ -502,8 +529,8 @@ footer .cright {
     width: 95%;
     margin: 2em auto;
     padding: 1.5em 0;
-  }  
-  .feature-text{
+  }
+  .feature-text {
     width: 80%;
   }
   .essence-div {
@@ -565,6 +592,47 @@ footer .cright {
   .signup form .form-footer .tip {
     position: absolute;
     right: 0;
+  }
+  .form-container {
+    margin-top: 3rem;
+    display: flex;
+    height: 48rem;
+    justify-content: space-between;
+  }
+  .form-container .form-illust {
+    display: initial;
+    display: flex;
+    width: 20%;
+  }
+  .form-container .contact-form {
+    width: 74%;
+    display: grid;
+    grid-template-columns: calc(50% - 1.5rem) calc(50% - 1.5rem);
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 3rem;
+    height: 34rem;
+    align-self: center;
+  }
+  .form-container .contact-form > * + * {
+    margin: 0;
+  }
+  .form-container .contact-form .input-group:nth-child(3),
+  .form-container .contact-form .input-group:nth-child(4) {
+    grid-column: 1/2;
+  }
+  .form-container .contact-form .input-group:nth-child(5) {
+    grid-column: 2/3;
+    grid-row: 1/4;
+  }
+  .form-container .contact-form .input-field.t-area {
+    height: calc(100% - 3rem);
+  }
+  .form-container .contact-form .input-field.t-area textarea {
+    height: 19.5rem;
+  }
+  .form-container .contact-form .form-footer {
+    grid-column: 2/3;
+    justify-self: right;
   }
 }
 
