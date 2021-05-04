@@ -103,9 +103,9 @@ def contact(request):
         #     messages.error(
         #         request, "Some Error Occured We are sorry for that Please Try again!!")
         messages.success(request, 'Thanks for contacting us, we will reach you soon')
-        return render(request, 'contact2.html')
+        return render(request, 'contact.html')
     else:
-        return render(request, 'contact2.html')
+        return render(request, 'contact.html')
 
 
 
