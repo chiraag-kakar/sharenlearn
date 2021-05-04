@@ -19,6 +19,10 @@
           <input type="password" name="password" id="password" autocomplete="off" spellcheck="false" data-type="password">
         </div>
       </div>
+      <div class="input-group">
+        <input type="checkbox" id="box" onclick="box1()">
+                <span id="notice">show password</span>
+      </div>
       <div class="g-recaptcha" data-sitekey="6Lf3i3waAAAAABaIbVWFi0Cnmq5YQ5JuG_NC2fVd"></div>
       <div class="form-footer">
         <button type="submit" class="button" id="form-btn">Login</button>
@@ -27,5 +31,23 @@
     </form>
   </div>
 </main>
+<script>
+  function box1()
+{
+  
+  var password=document.getElementById("password");
+  var x=document.getElementById("box").checked;
+  if(x==true)
+  {
+    password.type="text";
+    
+  }
+  else
+  {
+    password.type="password";;
+    
+  }
+}
+</script>
 {% include "footer1.html" %}
 {% endblock content %}
