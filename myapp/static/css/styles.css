@@ -5,7 +5,10 @@
   --clr-secondary-bg: hsl(225, 65%, 44%);
   --clr-secondary-txt: hsl(0, 0%, 98%);
   --clr-neutral-txt: hsl(209, 100%, 56%);
+  --clr-black: rgb(0, 0, 0);
   --clr-bs-black: rgba(0, 0, 0, 0.6);
+  --clr-gray: hsl(0, 0%, 23%);
+  --clr-accent: #884e88;
 }
 
 /* FONTS */
@@ -38,6 +41,7 @@
 html {
   font-size: 62.5%;
   position: relative;
+  scroll-behavior: smooth;
 }
 
 html,
@@ -70,7 +74,7 @@ button,
   background: transparent;
 }
 
-button,
+button:active,
 .button:active {
   transform: scale(0.95);
 }
@@ -135,6 +139,7 @@ header .logo + .button {
   transform: scale(0.5);
   transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
   pointer-events: none;
+  z-index: 1;
 }
 
 .nav-list.view {
@@ -186,6 +191,185 @@ main {
 .hero-illust {
   display: none;
 }
+/* ABOUT PAGE */
+.about-hero {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  align-items: center;
+  width: 100%;
+  margin: 1em auto;
+}
+
+.about-hero .hero-content .hero-h1 {
+  width: 28.875rem;
+}
+
+.about-hero .hero-illust {
+  display: block;
+  margin: 0 auto;
+}
+.about-hero .hero-illust img {
+  width: 225px;
+  margin: 0 auto;
+}
+
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: auto;
+  row-gap: 3em;
+  width: 100%;
+  margin: 1.5em auto;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.feature-img {
+  color: var(--clr-accent);
+  font-size: var(--fs-lg);
+  margin-bottom: 0.5em;
+}
+
+.feature-heading {
+  font-size: var(--fs-md);
+  margin-bottom: 0.5em;
+}
+
+.feature-text {
+  width: 90%;
+  margin: 0.5em auto;
+  font-size: var(--fs-sm);
+  text-align: center;
+}
+
+/* SIGNUP */
+
+.signup h1 {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bd);
+  text-align: center;
+}
+
+.signup form {
+  margin-top: 4rem;
+}
+
+form > * + * {
+  margin-top: 2.4rem;
+}
+
+form label {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-lt);
+  margin-left: 0.2rem;
+}
+
+form .input-field {
+  width: 100%;
+  height: 3.8rem;
+  background-color: var(--clr-gray);
+  border-radius: 0.6rem;
+  margin-top: 0.8rem;
+  padding: 0.5rem 1.5rem;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 0.17rem;
+  transition: border-color 0.4s ease-in-out;
+}
+
+form .input-field:hover {
+  border-color: var(--clr-black);
+}
+
+form .input-field.focusing {
+  border-color: var(--clr-secondary-bg);
+}
+
+@supports (display: flex) {
+  form .input-field {
+    display: flex;
+    padding: 0 1.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+form .input-field input,
+form .input-field select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--clr-primary-txt);
+  font: inherit;
+  font-size: var(--fs-xs);
+}
+
+form .input-field select option {
+  background-color: var(--clr-primary-bg);
+  box-shadow: 0.3rem 0.3rem 2rem var(--clr-bs-black);
+}
+
+form .input-field input:focus,
+form .input-field select:focus {
+  outline: none;
+}
+
+form .form-footer {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+form .form-footer .button {
+  padding: 0.8rem 2.4rem;
+}
+
+form .form-footer .tip {
+  font-size: var(--fs-xs);
+  margin-top: 1.2rem;
+  font-weight: var(--fw-lt);
+}
+
+.tip .colored {
+  font-weight: var(--fw-md);
+}
+
+/* FIELD INVALID */
+form .input-group {
+  position: relative;
+}
+
+form .invalid {
+  position: absolute;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-md);
+  color: #ff7a7a;
+  margin-top: 0.5rem;
+  top: 0;
+  right: 0;
+}
+
+/* LOGIN */
+.login h1 {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bd);
+  text-align: center;
+}
+
+.login form {
+  margin-top: 4rem;
+}
+
+.g-recaptcha > div {
+  margin: auto;
+  margin-top: 3rem;
+  text-align: center;
+}
 
 /* FOOTER */
 footer {
@@ -212,6 +396,50 @@ footer .social a:nth-child(2) {
 
 footer .cright {
   font-size: var(--fs-xs);
+}
+
+/* MESSAGES AT TOP */
+.success,
+.error,
+.danger,
+.info {
+  position: absolute;
+  top: -1.2rem;
+  left: -8.84%;
+  width: calc(100% + 8.84% + 8.84%);
+  font-size: var(--fs-xs);
+  font-weight: var(--fs-lt);
+  padding: 0.4rem 0;
+  text-align: center;
+  animation: comefromtop 0.3s forwards ease, gototop 0.5s forwards ease 2s;
+}
+
+@keyframes comefromtop {
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes gototop {
+  100% {
+    top: -4rem;
+  }
+}
+
+.success {
+  background-color: #218838;
+  color: #ffffff;
+}
+
+.error,
+.danger {
+  background-color: #bd2130;
+  color: #ffffff;
+}
+
+.info {
+  background-color: #525158;
+  color: #ffffff;
 }
 
 @media (max-width: 375px) {
@@ -246,11 +474,51 @@ footer .cright {
   .hero-illust img {
     width: 100%;
   }
+  /* styles for about page */
+  .about-hero {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+  }
+  .about-hero .hero-content {
+    width: 80%;
+    text-align: left;
+  }
+  .about-hero .hero-illust {
+    width: 70%;
+    display: initial;
+    display: flex;
+  }
+  .about-hero .hero-illust img {
+    width: 100%;
+ }
+  .about-features {
+    display: grid;
+    grid-template-columns: 1fr 0.4fr 1fr;
+    grid-template-rows: auto;
+    width: 95%;
+    margin: 2em auto;
+    padding: 1.5em 0;
+  }  
+  .feature-text{
+    width: 80%;
+  }
+  .essence-div {
+    grid-column: 1/2;
+    grid-row: auto;
+  }
+  .goal-div {
+    grid-column: 3/4;
+    grid-row: auto;
+  }
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 1.1vw;
+    font-size: 0.92vw;
   }
   .hero {
     width: 80%;
@@ -281,13 +549,46 @@ footer .cright {
   .nav-list > * + * {
     margin-left: 2.5rem;
   }
+  .signup form {
+    display: grid;
+    grid-template-columns: calc(50% - 1.5rem) calc(50% - 1.5rem);
+    gap: 3rem;
+    position: relative;
+  }
+  .signup form > * + * {
+    margin: 0;
+  }
+  .signup form .form-footer {
+    align-self: end;
+    justify-self: right;
+  }
+  .signup form .form-footer .tip {
+    position: absolute;
+    right: 0;
+  }
+}
+
+@media (min-width: 980px) {
+  .login form {
+    width: 38rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 @media (min-width: 1441px) {
   html {
-    font-size: 0.9vw;
+    font-size: 0.7vw;
   }
   .hero {
     width: 65%;
+  }
+}
+
+/* captcha resize */
+@media (max-width: 359px) {
+  .g-recaptcha > div {
+    transform: scale(0.7);
+    text-align: left;
   }
 }

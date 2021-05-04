@@ -12,10 +12,10 @@ from django.contrib.auth import authenticate, login, logout
 from datetime import date
 
 from django.contrib import messages
+from django.db import IntegrityError
 
 
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib import messages
 from django.contrib.auth.hashers import make_password, check_password
 
 
@@ -126,8 +126,8 @@ def contact(request):
         messages.success(request, 'Thank You for contacting Us!')
         return render(request, 'contact.html')
     else:
-        messages.success(
-            request, 'Please fill this form we will reach you as soon as possible!!')
+        messages.success(request, 'Please fill this form we will reach you as soon as possible!!')
+        return render(request, 'contact.html')
 
 
 
@@ -137,39 +137,28 @@ def Logout(request):
 
 
 def userlogin(request):
-    error = ""
-    if request.method == 'POST':
-        u = request.POST['emailid']
-        p = request.POST['pwd']
-
-        # Retrieves reCAPTCHA token and verifies with the API
-        captcha_token = request.POST['g-recaptcha-response']
-        cap_url = "https://www.google.com/recaptcha/api/siteverify"
-        cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-                    "response": captcha_token}
-        cap_server_response = requests.post(url=cap_url, data=cap_data)
-        cap_json = cap_server_response.json()
-        if cap_json['success'] == False:
-            messages.error(request, "Invalid reCAPTCHA. Please try again.")
-            return redirect('login')
-
-        user = authenticate(username=u, password=p)
-        try:
-            if user:
+    if not request.user.is_authenticated:
+        if request.method == "POST":
+            captcha_token = request.POST['g-recaptcha-response']
+            cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            cap_server_response = requests.post(url=cap_url, data=cap_data)
+            cap_json = cap_server_response.json()
+            if cap_json['success'] == False:
+                messages.error(request, "Captcha Invalid. Please Try Again")
+                return redirect('login')
+            u = request.POST['email']
+            p = request.POST['password']
+            user = authenticate(username=u, password=p)
+            if user is not None:
                 login(request, user)
-                error = "no"
-                messages.info(request, f'Logged in Successfully')
+                messages.success(request, "Logged In Successfully")
                 return redirect('/profile')
-
             else:
-                error = "yes"
-                messages.info(request, f'Invalid Login Credentials, Try Again')
-
-        except:
-            messages.info(request, f'Invalid Login Credentials, Try Again')
-
-    return render(request, 'login.html')
-
+                messages.error(request, "Invalid Login Credentials")
+        return render(request, 'login.html')
+    else:
+        return redirect('/profile')
 
 def login_admin(request):
     error = ""
@@ -257,30 +246,27 @@ def check_otp(request):
 
 
 def signup1(request):
-    error = ""
     if request.method == 'POST':
-
-        f = request.POST['firstname']
-        l = request.POST['lastname']
-        c = request.POST['contact']
-        e = request.POST['emailid']
-        p = request.POST['password']
-        b = request.POST['branch']
-        r = request.POST['role']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email']
+        password = request.POST['password']
+        contact = request.POST['contact']
+        role = request.POST['role']
+        dept = request.POST['dept']
         try:
-
-            user = User.objects.create_user(
-                username=e, password=p, first_name=f, last_name=l)
-            Signup.objects.create(user=user, contact=c, branch=b, role=r)
-            error = "no"
-            messages.info(request, f'Signed Up Successfully')
-            return redirect('/login')
-        except:
-            error = "yes"
-            messages.info(
-                request, f'Something went wrong, Try Again')
+            user = User.objects.create_user(username=email, password=password, first_name=fname, last_name=lname)
+            user.save();
+            signup = Signup.objects.create(user=user, contact=contact, branch=dept, role=role)
+            signup.save();
+            messages.success(request, "Account Created")
+            return redirect("login")
+        except IntegrityError:
+            messages.info(request, "Username taken, Try different")
+            return render(request, "signup.html")
+    if request.user.is_authenticated:
+        return redirect('index')
     return render(request, 'signup.html')
-
 
 @csrf_exempt
 def Forgot_Password(request):
