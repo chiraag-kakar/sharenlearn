@@ -605,7 +605,7 @@ footer .cright {
     width: 20%;
   }
   .form-container .contact-form {
-    width: 72%;
+    width: 74%;
     display: grid;
     grid-template-columns: calc(50% - 1.5rem) calc(50% - 1.5rem);
     grid-template-rows: 1fr 1fr 1fr 1fr;
