@@ -604,7 +604,7 @@ footer .cright {
     display: flex;
     width: 20%;
   }
-  .form-container form {
+  .form-container .contact-form {
     width: 72%;
     display: grid;
     grid-template-columns: calc(50% - 1.5rem) calc(50% - 1.5rem);
@@ -613,24 +613,24 @@ footer .cright {
     height: 34rem;
     align-self: center;
   }
-  .form-container form > * + * {
+  .form-container .contact-form > * + * {
     margin: 0;
   }
-  .form-container form .input-group:nth-child(3),
-  .form-container form .input-group:nth-child(4) {
+  .form-container .contact-form .input-group:nth-child(3),
+  .form-container .contact-form .input-group:nth-child(4) {
     grid-column: 1/2;
   }
-  .form-container form .input-group:nth-child(5) {
+  .form-container .contact-form .input-group:nth-child(5) {
     grid-column: 2/3;
     grid-row: 1/4;
   }
-  .form-container form .input-field.t-area {
+  .form-container .contact-form .input-field.t-area {
     height: calc(100% - 3rem);
   }
-  .form-container form .input-field.t-area textarea {
+  .form-container .contact-form .input-field.t-area textarea {
     height: 19.5rem;
   }
-  .form-container form .form-footer {
+  .form-container .contact-form .form-footer {
     grid-column: 2/3;
     justify-self: right;
   }
