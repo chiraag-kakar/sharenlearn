@@ -88,46 +88,24 @@ def password_validation(request):
 # AJAX Validations End Here
 
 def contact(request):
-
     if request.method == 'POST':
-        nameee = request.POST['name']
-        emailee = request.POST['mess']
-        subjectee = request.POST['sub']
-        messageee = request.POST['msg']
-        fmessage = "Name : "+nameee+"\n"+"Email : "+emailee + \
-            "\n"+"Subject : "+subjectee+"\n"+"Message : "+messageee
-        # email validation
-        if check(emailee) == True:
-            #email is ok
-            pass
-        else:
-            messages.error(request, "Email is not Valid Please Try Again!")
+        name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+        if check(email) == False:
+            messages.error(request, "Looks like email is not valid")
             return redirect('/contact')
-        # name validation
-        if len(nameee) <= 3:
-            messages.error(request, "Please Enter your Name Correctly!")
-            return redirect('/contact')
-        else:
-            #name is ok
-            pass
-        #subject validation
-        if len(subjectee) > 1000 or len(subjectee) <= 2:
-            messages.error(request, "Invalid Subject")
-            return redirect('/contact')
-        else:
-            #subject is ok
-            pass
-        try:
-            # send_mail('Contact Form',fmessage, settings.EMAIL_HOST_USER,['reciever@gmail.com'], fail_silently=False)
-            pass
-        except Exception as e:
-            messages.error(
-                request, "Some Error Occured We are sorry for that Please Try again!!")
-        messages.success(request, 'Thank You for contacting Us!')
-        return render(request, 'contact.html')
+        # try:
+        #     # send_mail('Contact Form',fmessage, settings.EMAIL_HOST_USER,['reciever@gmail.com'], fail_silently=False)
+        #     pass
+        # except Exception as e:
+        #     messages.error(
+        #         request, "Some Error Occured We are sorry for that Please Try again!!")
+        messages.success(request, 'Thanks for contacting us, we will reach you soon')
+        return render(request, 'contact2.html')
     else:
-        messages.success(request, 'Please fill this form we will reach you as soon as possible!!')
-        return render(request, 'contact.html')
+        return render(request, 'contact2.html')
 
 
 
