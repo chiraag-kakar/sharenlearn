@@ -9,7 +9,7 @@
       <div class="form-illust">
         <img src="{% static 'images/illustration-contact.svg' %}" alt="">
       </div>
-      <form action="#" method="POST">
+      <form action="{% url "contact" %}" method="POST" class="contact-form">
         {% csrf_token %}
         <div class="input-group">
           <label for="name">Name</label>
