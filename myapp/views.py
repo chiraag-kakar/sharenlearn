@@ -112,9 +112,9 @@ def contact(request):
         #     messages.error(
         #         request, "Some Error Occured We are sorry for that Please Try again!!")
         messages.success(request, 'Thanks for contacting us, we will reach you soon')
-        return render(request, 'contact.html', auth)
+        return render(request, 'contact.html', context)
     else:
-        return render(request, 'contact.html', auth)
+        return render(request, 'contact.html', context)
 
 
 
@@ -286,8 +286,8 @@ def profile(request):
         return redirect('login')
     user = User.objects.get(id=request.user.id)
     data = Signup.objects.get(user=user)
-    d = {'data': data, 'user': user}
-    return render(request, 'profile.html', d)
+    d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
+    return render(request, 'profile2.html', d)
 
 
 def edit_profile(request):
