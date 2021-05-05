@@ -126,14 +126,14 @@ def Logout(request):
 def userlogin(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            captcha_token = request.POST['g-recaptcha-response']
-            cap_url = "https://www.google.com/recaptcha/api/siteverify"
-            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
-            cap_server_response = requests.post(url=cap_url, data=cap_data)
-            cap_json = cap_server_response.json()
-            if cap_json['success'] == False:
-                messages.error(request, "Captcha Invalid. Please Try Again")
-                return redirect('login')
+            # captcha_token = request.POST['g-recaptcha-response']
+            # cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            # cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            # cap_server_response = requests.post(url=cap_url, data=cap_data)
+            # cap_json = cap_server_response.json()
+            # if cap_json['success'] == False:
+            #     messages.error(request, "Captcha Invalid. Please Try Again")
+            #     return redirect('login')
             u = request.POST['email']
             p = request.POST['password']
             user = authenticate(username=u, password=p)
@@ -291,31 +291,23 @@ def profile(request):
 
 
 def edit_profile(request):
-    if not request.user:
+    if not request.user.is_authenticated:
+        messages.info(request, "Please login first")
         return redirect('login')
     user = User.objects.get(id=request.user.id)
     data = Signup.objects.get(user=user)
-    error = False
     if request.method == 'POST':
-        f = request.POST['firstname']
-        l = request.POST['lastname']
-        c = request.POST['contact']
-        b = request.POST['branch']
-
-        user.first_name = f
-        user.last_name = l
-        datacontact = c
-        data.branch = b
-
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        contact = request.POST['contact']
+        user.first_name, user.last_name, data.contact = fname, lname, contact
         user.save()
         data.save()
-        error = True
-        messages.info(request, f'Profile Updated Successfully')
+        messages.success(request, "Profile Updated Successfully")
         return redirect('/profile')
-
-    d = {'data': data, 'user': user, 'error': error}
-    return render(request, 'edit_profile.html', d)
-
+    d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
+    return render(request, 'edit_profile1.html', d)
+    
 
 def changepassword(request):
     if not request.user:
