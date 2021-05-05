@@ -48,12 +48,20 @@ def check(email):
 
 # Create your views here.
 
+def home(request):
+    context = {'auth': request.user.is_authenticated}
+    if request.user.is_authenticated:
+        return redirect('/profile');
+    return render(request, 'home.html', context);
+
 def about(request):
-    return render(request, 'about.html')
+    context = {'auth': request.user.is_authenticated}
+    return render(request, 'about.html', context)
 
 
 def index(request):
-    return render(request, 'home.html')
+    context = {'auth': request.user.is_authenticated}
+    return render(request, 'home.html', context)
 
 
 
@@ -88,6 +96,7 @@ def password_validation(request):
 # AJAX Validations End Here
 
 def contact(request):
+    context = {'auth': request.user.is_authenticated}
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
@@ -103,9 +112,9 @@ def contact(request):
         #     messages.error(
         #         request, "Some Error Occured We are sorry for that Please Try again!!")
         messages.success(request, 'Thanks for contacting us, we will reach you soon')
-        return render(request, 'contact.html')
+        return render(request, 'contact.html', auth)
     else:
-        return render(request, 'contact.html')
+        return render(request, 'contact.html', auth)
 
 
 
@@ -117,14 +126,14 @@ def Logout(request):
 def userlogin(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            captcha_token = request.POST['g-recaptcha-response']
-            cap_url = "https://www.google.com/recaptcha/api/siteverify"
-            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
-            cap_server_response = requests.post(url=cap_url, data=cap_data)
-            cap_json = cap_server_response.json()
-            if cap_json['success'] == False:
-                messages.error(request, "Captcha Invalid. Please Try Again")
-                return redirect('login')
+            # captcha_token = request.POST['g-recaptcha-response']
+            # cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            # cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            # cap_server_response = requests.post(url=cap_url, data=cap_data)
+            # cap_json = cap_server_response.json()
+            # if cap_json['success'] == False:
+            #     messages.error(request, "Captcha Invalid. Please Try Again")
+            #     return redirect('login')
             u = request.POST['email']
             p = request.POST['password']
             user = authenticate(username=u, password=p)
@@ -136,7 +145,7 @@ def userlogin(request):
                 messages.error(request, "Invalid Login Credentials")
         return render(request, 'login.html')
     else:
-        return redirect('/profile')
+        return redirect('index')
 
 def login_admin(request):
     error = ""
