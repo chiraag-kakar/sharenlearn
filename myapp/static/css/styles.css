@@ -480,6 +480,18 @@ form .invalid {
   font-weight: var(--fs-rg);
 }
 
+/* EDIT PROFILE disabled inputs */
+
+input[disabled],
+select[disabled] {
+  pointer-events: none;
+}
+
+.input-field.disabled {
+  background-color: hsl(0, 0%, 8%);
+  pointer-events: none;
+}
+
 /* FOOTER */
 footer {
   text-align: center;
