@@ -306,7 +306,7 @@ def edit_profile(request):
         messages.success(request, "Profile Updated Successfully")
         return redirect('/profile')
     d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
-    return render(request, 'edit_profile1.html', d)
+    return render(request, 'edit_profile.html', d)
     
 
 def changepassword(request):
