@@ -11,8 +11,9 @@
       <img src="{% static 'images/icon-hamburger.svg' %}" alt="Open menu">
     </button>
     <ul class="nav-list">
+      {% if not auth %}
       <li>
-        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'home' %}">Home</a>
       </li>
       <li>
         <a href="{% url 'about' %}">About</a>
@@ -23,6 +24,20 @@
       <li>
         <a href="#">Admin Login</a>
       </li>
+      {% else %}
+      <li>
+        <a href="{% url 'home' %}">Home</a>
+      </li>
+      <li>
+        <a href="{% url 'upload_notes' %}">Upload New</a>
+      </li>
+      <li>
+        <a href="{% url 'view_usernotes' %}">My Uploads</a>
+      </li>
+      <li>
+        <a href="{% url "viewall_usernotes" %}">All Uploads</a>
+      </li>
+      {% endif %}
     </ul>
   </nav>
 </header>
