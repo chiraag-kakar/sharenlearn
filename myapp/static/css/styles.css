@@ -250,13 +250,15 @@ main {
 
 /* SIGNUP */
 
-.signup h1 {
+.signup h1,
+.edit-profile h1 {
   font-size: var(--fs-lg);
   font-weight: var(--fw-bd);
   text-align: center;
 }
 
-.signup form {
+.signup form,
+.edit-profile form {
   margin-top: 4rem;
 }
 
@@ -682,18 +684,22 @@ footer .cright {
   .nav-list > * + * {
     margin-left: 2.5rem;
   }
-  .signup form {
+  .signup form,
+  .edit-profile form {
     display: grid;
     grid-template-columns: calc(50% - 1.5rem) calc(50% - 1.5rem);
     gap: 3rem;
     position: relative;
   }
-  .signup form > * + * {
+  .signup form > * + *,
+  .edit-profile form > * + * {
     margin: 0;
   }
-  .signup form .form-footer {
+  .signup form .form-footer,
+  .edit-profile form .form-footer {
     align-self: end;
     justify-self: right;
+    grid-column: 2/3;
   }
   .signup form .form-footer .tip {
     position: absolute;
