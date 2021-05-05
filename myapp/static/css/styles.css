@@ -398,6 +398,86 @@ form .invalid {
   display: none;
 }
 
+/* PROFILE */
+.profile-section {
+  /* border: 0.1rem solid pink; */
+  width: 90%;
+  margin: 0 auto;
+  /* height: 33rem; */
+  margin-bottom: 11rem;
+  text-align: center;
+}
+
+.profile-section .profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-section .profile .avatar {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: url("/static/images/icon-avatar.svg") no-repeat top center / cover;
+  position: relative;
+  cursor: pointer;
+}
+
+.avatar .avatar-input,
+.avatar img {
+  position: absolute;
+  bottom: 0;
+  right: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile-section .profile .avatar:hover img {
+  opacity: 1;
+}
+
+.avatar .avatar-input {
+  z-index: 1;
+}
+
+.profile-section .profile .profile-main .user-name {
+  color: var(--clr-primary-txt);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-md);
+}
+
+.profile-section .profile .profile-main .user-email {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-lt);
+}
+
+.profile-section .profile-data {
+  margin: 4rem 0;
+}
+
+.profile-data > * + * {
+  margin-top: 2rem;
+}
+
+.profile-data .field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.field .field-name,
+.field .field-value {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-lt);
+}
+
+.field .field-value {
+  color: var(--clr-primary-txt);
+  font-weight: var(--fs-rg);
+}
+
 /* FOOTER */
 footer {
   text-align: center;
@@ -540,6 +620,32 @@ footer .cright {
   .goal-div {
     grid-column: 3/4;
     grid-row: auto;
+  }
+  .profile-section {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    text-align: left;
+    position: relative;
+    width: 75%;
+  }
+  .profile-section .profile {
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    align-items: start;
+  }
+  .profile-section .profile .avatar {
+    width: 9rem;
+    height: 9rem;
+  }
+  .profile-section .profile .profile-main .user-email {
+    margin-top: 0.5rem;
+  }
+  .profile-data + a.button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -5rem;
   }
 }
 
