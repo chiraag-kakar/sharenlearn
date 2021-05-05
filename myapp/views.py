@@ -48,12 +48,20 @@ def check(email):
 
 # Create your views here.
 
+def home(request):
+    context = {'auth': request.user.is_authenticated}
+    if request.user.is_authenticated:
+        return redirect('/profile');
+    return render(request, 'home.html', context);
+
 def about(request):
-    return render(request, 'about.html')
+    context = {'auth': request.user.is_authenticated}
+    return render(request, 'about.html', context)
 
 
 def index(request):
-    return render(request, 'home.html')
+    context = {'auth': request.user.is_authenticated}
+    return render(request, 'home.html', context)
 
 
 
@@ -88,6 +96,7 @@ def password_validation(request):
 # AJAX Validations End Here
 
 def contact(request):
+    context = {'auth': request.user.is_authenticated}
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
@@ -103,9 +112,9 @@ def contact(request):
         #     messages.error(
         #         request, "Some Error Occured We are sorry for that Please Try again!!")
         messages.success(request, 'Thanks for contacting us, we will reach you soon')
-        return render(request, 'contact.html')
+        return render(request, 'contact.html', context)
     else:
-        return render(request, 'contact.html')
+        return render(request, 'contact.html', context)
 
 
 
@@ -136,7 +145,7 @@ def userlogin(request):
                 messages.error(request, "Invalid Login Credentials")
         return render(request, 'login.html')
     else:
-        return redirect('/profile')
+        return redirect('index')
 
 def login_admin(request):
     error = ""
@@ -273,11 +282,11 @@ def admin_home(request):
 
 
 def profile(request):
-    if not request.user:
+    if not request.user.is_authenticated:
         return redirect('login')
     user = User.objects.get(id=request.user.id)
     data = Signup.objects.get(user=user)
-    d = {'data': data, 'user': user}
+    d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
     return render(request, 'profile.html', d)
 
 
