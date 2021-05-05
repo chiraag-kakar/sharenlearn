@@ -282,12 +282,12 @@ def admin_home(request):
 
 
 def profile(request):
-    if not request.user:
+    if not request.user.is_authenticated:
         return redirect('login')
     user = User.objects.get(id=request.user.id)
     data = Signup.objects.get(user=user)
     d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
-    return render(request, 'profile2.html', d)
+    return render(request, 'profile.html', d)
 
 
 def edit_profile(request):
