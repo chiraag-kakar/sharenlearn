@@ -35,6 +35,7 @@ urlpatterns = [
     path('',index,name='index') ,
     path('contact/',contact,name='contact'),
     path('login/',userlogin,name='login'),
+    path('home/',home,name='home'),
     path('login_admin/',login_admin,name='login_admin'),
     path('send-otp/', send_otp, name='send_otp'),
     path('check-otp/', check_otp, name='check_otp'),
