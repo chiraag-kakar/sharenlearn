@@ -40,6 +40,14 @@ if (document.querySelector(".contact-form")) {
     });
 }
 
+if (document.querySelector(".edit-profile-form")) {
+  document
+    .querySelector(".edit-profile-form")
+    .addEventListener("submit", async function (event) {
+      if (!(await validate_form(this))) event.preventDefault();
+    });
+}
+
 // VALIDATE FORM
 async function validate_form(form) {
   const removeSpans = () => {
