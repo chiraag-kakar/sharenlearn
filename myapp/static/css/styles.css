@@ -581,6 +581,7 @@ select[disabled] {
   right: -0.4rem;
   opacity: 0;
   pointer-events: none;
+  cursor: pointer;
   transition: opacity 0.4s ease-in-out;
 }
 
