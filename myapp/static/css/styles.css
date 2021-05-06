@@ -23,6 +23,7 @@
   --fs-xs: 1.2rem;
   --fs-sm: 1.4rem;
   --fs-md: 1.6rem;
+  --fs-md-2: 2rem;
   --fs-lg: 2.6rem;
 }
 
@@ -492,6 +493,112 @@ select[disabled] {
   pointer-events: none;
 }
 
+/* VIEW USERNOTES */
+.list-uploads h1 {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bd);
+  text-align: center;
+}
+
+.list-uploads .cards {
+  margin: 5rem 0;
+}
+
+.cards > * + * {
+  margin-top: 3rem;
+}
+
+.cards .card {
+  width: 100%;
+  background-color: var(--clr-gray);
+  border-radius: 0.8rem;
+  padding: 2.2rem 2.5rem;
+  position: relative;
+}
+
+.card .card-header {
+  height: 6.8rem;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: 50% 50%;
+  align-items: center;
+  margin-bottom: 2.2rem;
+}
+
+.card-header > p,
+.card-header > a {
+  color: var(--clr-secondary-txt);
+  font-weight: var(--fw-md);
+}
+
+.card-header > p:nth-child(2) {
+  grid-column: 1/2;
+}
+
+.card-header > a:nth-child(3) {
+  grid-row: 2/3;
+  grid-column: 2/3;
+  justify-self: right;
+  transition: color 0.4s ease;
+}
+
+.card-header > a:nth-child(3):hover {
+  color: var(--clr-neutral-txt);
+}
+
+.card-header > img.status {
+  grid-row: 1/2;
+  grid-column: 2/3;
+  justify-self: right;
+}
+
+.card-body .card-body-title {
+  color: var(--clr-neutral-txt);
+  font-weight: var(--fw-md);
+  font-size: var(--fs-md-2);
+}
+
+.card-body .card-body-desc {
+  margin-top: 1.5rem;
+  font-weight: var(--fw-rg);
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--clr-primary-txt);
+  opacity: 0.8;
+}
+
+.card a.delete {
+  width: 2.4rem;
+  height: 2.4rem;
+  background-color: hsl(0, 0%, 8%);
+  display: inline-block;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -0.8rem;
+  right: -0.4rem;
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.card a.delete img {
+  width: 0.6rem;
+}
+
+.card:hover a.delete {
+  opacity: 0.8;
+  pointer-events: all;
+}
+
+.cards p.msg {
+  font-weight: var(--fs-md);
+  text-align: center;
+}
+
 /* FOOTER */
 footer {
   text-align: center;
@@ -660,6 +767,14 @@ footer .cright {
     left: 50%;
     transform: translateX(-50%);
     bottom: -5rem;
+  }
+  .cards > * + * {
+    margin-top: 0;
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(27.8rem, 1fr));
+    gap: 3rem;
   }
 }
 
