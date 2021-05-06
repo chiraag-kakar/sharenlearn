@@ -353,12 +353,13 @@ def upload_notes(request):
 
 
 def view_usernotes(request):
-    if not request.user:
+    if not request.user.is_authenticated:
+        messages.info(request, "Please login to access your notes")
         return redirect('login')
     user = User.objects.get(id=request.user.id)
     notes = Notes.objects.filter(user=user)
-    d = {'notes': notes, }
-    return render(request, 'view_usernotes.html', d)
+    d = {'notes': notes }
+    return render(request, 'view_usernotes1.html', d)
 
 
 def delete_usernotes(request, pid):
