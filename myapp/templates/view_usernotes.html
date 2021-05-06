@@ -1,115 +1,37 @@
-{%extends 'usernavigation.html'%}
+{% extends "base.html" %}
 {% load static %}
-{%block body%}
-
-{% include "image_carousel.html" with x=notes %}
-
-{%  ifequal error "no" %}
-<script>
-    alert();
-    // window.location.href="{% url 'profile' %}";
-</script>
-{% endifequal %}
-
-{% ifequal error "yes" %}
-<script>
-    alert('Something went wrong, Try Again');
-</script>
-{% endifequal %}
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-
-
-
-<script>
-$(document).ready(function() {
-    $('#example').DataTable();
-});
-</script>
-
-<div class="container mt-5">
-    <h2 class="text-center">View My Notes</h2>
-    <hr>
-    <table id="example" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Sr. No.</th>
-                <th>Uploading Date</th>
-                <th>Branch</th>
-                <th>Subject</th>
-                <th>View Image</th>
-                <th>Download Notes</th>
-                <th>Filetype</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for i in notes %}
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{i.uploadingdate}}</td>
-                <td>{{i.branch}}</td>
-                <td>{{i.subject}}</td>
-                <td onclick="clicks(this)"> <a href="#" id="myBtn">View Image</a>
-                </td>
-                <td><a href="{{i.notesfile.url}}" download class="btn btn-primary">Download</a></td>
-                <td>{{i.filetype}}</td>
-                <td>{{i.description}}</td>
-                <td>{{i.status}}</td>
-                <td><a href="{% url 'delete_usernotes' i.id %}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-<button class="scrollToTopBtn">☝️</button>
-<script>
-    var target = document.querySelector("footer");
-
-    var scrollToTopBtn = document.querySelector(".scrollToTopBtn")
-    var rootElement = document.documentElement
-
-    // Next we want to create a function that will be called when that element is intersected
-    function callback(entries, observer) {
-    // The callback will return an array of entries, even if you are only observing a single item
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-        // Show button
-        scrollToTopBtn.classList.add("showBtn")
-        } else {
-        // Hide button
-        scrollToTopBtn.classList.remove("showBtn")
-        }
-    });
-    }
-
-    function scrollToTop() {
-    rootElement.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    })
-    }
-    scrollToTopBtn.addEventListener("click", scrollToTop);
-        
-    // Next we instantiate the observer with the function we created above. This takes an optional configuration
-    // object that we will use in the other examples.
-    let observer = new IntersectionObserver(callback);
-    // Finally start observing the target element
-    observer.observe(target);
-</script>
-
-<script type="text/javascript">
-    function clicks(obj) {
-        modal.style.display = "block";
-        console.log("Clicked");
-    }
-</script>
-
-{% endblock %}
+{% block content %}
+{% include "header.html" %}
+<main class="list">
+  <div class="list-uploads">
+    <h1 class="colored title">My Uploads</h1>
+    <div class="cards">
+      {% if notes|length == 0  %}
+      <p class="msg">Looks like you haven't uploaded anything..</p>
+      {% endif %}
+      {% for i in notes %}
+      <div class="card">
+        <div class="card-header">
+          <p title="Date Uploaded">{{i.uploadingdate}}</p>
+          <p title="Branch">{{i.branch}}</p>
+          <a title="Download" href="{{i.notesfile.url}}" download>{{i.filetype}}</a>
+          {% if i.status == True %}
+          <img class="status" src="{% static "images/icon-approved.svg" %}" alt="approved" title="Approved">
+          {% else %}
+          <img class="status" src="{% static "images/icon-pending.svg" %}" alt="pending on review" title="Pending (On Review)">
+          {% endif %}
+        </div>
+        <div class="card-body">
+          <h2 class="card-body-title">{{i.subject|title}}</h2>
+          <p class="card-body-desc">{{i.description|truncatechars:125}}</p>
+        </div>
+        <a href="{% url "delete_usernotes" i.id %}" class="delete">
+          <img src="{% static 'images/icon-clear.svg' %}" alt="Delete this upload">
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</main>
+{% include "footer1.html" %}
+{% endblock content %}
