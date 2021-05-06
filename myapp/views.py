@@ -291,31 +291,23 @@ def profile(request):
 
 
 def edit_profile(request):
-    if not request.user:
+    if not request.user.is_authenticated:
+        messages.info(request, "Please login first")
         return redirect('login')
     user = User.objects.get(id=request.user.id)
     data = Signup.objects.get(user=user)
-    error = False
     if request.method == 'POST':
-        f = request.POST['firstname']
-        l = request.POST['lastname']
-        c = request.POST['contact']
-        b = request.POST['branch']
-
-        user.first_name = f
-        user.last_name = l
-        datacontact = c
-        data.branch = b
-
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        contact = request.POST['contact']
+        user.first_name, user.last_name, data.contact = fname, lname, contact
         user.save()
         data.save()
-        error = True
-        messages.info(request, f'Profile Updated Successfully')
+        messages.success(request, "Profile Updated Successfully")
         return redirect('/profile')
-
-    d = {'data': data, 'user': user, 'error': error}
+    d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
     return render(request, 'edit_profile.html', d)
-
+    
 
 def changepassword(request):
     if not request.user:
