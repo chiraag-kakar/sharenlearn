@@ -16,14 +16,14 @@
           <p title="Branch">{{i.branch}}</p>
           <a title="Download" href="{{i.notesfile.url}}" download>{{i.filetype}}</a>
           {% if i.status == True %}
-          <img src="{% url "images/icon-approved.svg" %}" alt="approved" title="Approved">
+          <img class="status" src="{% static "images/icon-approved.svg" %}" alt="approved" title="Approved">
           {% else %}
-          <img src="{% url "images/icon-pending.svg" %}" alt="pending on review" title="Pending (On Review)">
+          <img class="status" src="{% static "images/icon-pending.svg" %}" alt="pending on review" title="Pending (On Review)">
           {% endif %}
         </div>
         <div class="card-body">
           <h2 class="card-body-title">{{i.subject|title}}</h2>
-          <p class="card-body-desc">{{i.description|truncatechars:85}}</p>
+          <p class="card-body-desc">{{i.description|truncatechars:125}}</p>
         </div>
         <a href="{% url "delete_usernotes" i.id %}" class="delete">
           <img src="{% static 'images/icon-clear.svg' %}" alt="Delete this upload">
