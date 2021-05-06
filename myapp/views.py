@@ -343,7 +343,7 @@ def upload_notes(request):
         u = User.objects.filter(username=request.user.username).first()
         try:
             Notes.objects.create(user=u, uploadingdate=date.today(), branch=b, subject=s,
-                                 notesfile=n, filetype=f, description=d, status='pending')
+                                 notesfile=n, filetype=f, description=d, status=False)
             messages.info(request, f'Notes Uploaded Successfully')
             return redirect('/profile')
         except:
@@ -358,8 +358,8 @@ def view_usernotes(request):
         return redirect('login')
     user = User.objects.get(id=request.user.id)
     notes = Notes.objects.filter(user=user)
-    d = {'notes': notes }
-    return render(request, 'view_usernotes1.html', d)
+    d = {'notes': notes, 'auth': request.user.is_authenticated }
+    return render(request, 'view_usernotes.html', d)
 
 
 def delete_usernotes(request, pid):
@@ -452,8 +452,8 @@ def delete_notes(request, pid):
 def viewall_usernotes(request):
     if not request.user.is_authenticated:
         return redirect('login')
-    notes = Notes.objects.filter(status="Accepted")
-    d = {'notes': notes}
+    notes = Notes.objects.filter(status=True)
+    d = {'notes': notes, 'auth': request.user.is_authenticated}
     return render(request, 'viewall_usernotes.html', d)
 
 
