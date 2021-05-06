@@ -15,9 +15,9 @@
 
 **Share N Learn is a Common Platform for Students & Faculties to upload and share - files including all sorts of study material which will be accessible to all the registered members built using [Django](https://docs.djangoproject.com/en/3.1/) Framework.**
 
-The **Goal** of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files / resources related to coursework , 
+The **Goal** of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files/resources related to coursework, 
 Competitive exams and others hence reducing the dependency on social media platforms.
-In future the platform can also serve as an e-library for the college students.
+In the future, the platform can also serve as an e-library for college students.
 
 **So let's grow together.**
 
@@ -34,11 +34,11 @@ These instructions will get you a copy of the project up and running on your loc
 ```
 Any Code Editor (VS Code preferred)
 Python version 3.7 or higher
-Latest version of Git
+The latest version of Git
 A PythonAnywhere Account (for deploying the project on a live system)
 ```
 
-### Development Environment Setup : Windows
+### Development Environment Setup: Windows
 
 
 <details><summary>Step 1 : Downloading and Installing the Code Editor</summary>
@@ -61,13 +61,13 @@ A PythonAnywhere Account (for deploying the project on a live system)
  
  
 * **For Windows** :  Click on [Download Python3.7](https://www.python.org/downloads/release/python-379/).
-   * * Download the Windows x86-64 executable installer for 64-bit version of Windows
-   * * Download the Windows x86 executable installer for 32-bit version of Windows.
+   * * Download the Windows x86-64 executable installer for the 64-bit version of Windows
+   * * Download the Windows x86 executable installer for the 32-bit version of Windows.
 
 
    * * Make sure to check "Add Python 3.7 to Path" in the setup window of the Installer.
 
-Verify the installation from the command prompt using following command :
+Verify the installation from the command prompt using the following command :
 ```
 python3.7 --version
 ```
@@ -104,7 +104,7 @@ to fork [this Repo](https://github.com/chiraag-kakar/sharenlearn)
 <details><summary>Step 5 : Creating Project Directory </summary>
 
 
-(Note : We are creating project directory in the desktop for easey and fast access)
+(Note: We are creating a project directory on the desktop for easy and fast access)
 
 ```
 cd desktop
@@ -231,7 +231,7 @@ Note: Virtual Environment should be activated.
 
 Run the following command in the terminal :
 ```
-python manage.py runserver
+python manage.py run server
 ```
 
 
@@ -246,12 +246,12 @@ python manage.py runserver
   * Always create a new branch before making any changes (`$ git checkout -b <new-branch-name>`), never ever make any changes directly on the master branch.
 
 
-## Congratulations for setting up the project locally.
+## Congratulations on setting up the project locally.
 
 
 ## Contributing
 
-* Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+* Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 * For major changes, please open an [issue](https://github.com/chiraag-kakar/sharenlearn/issues) first to discuss what you would like to change.
 
 
