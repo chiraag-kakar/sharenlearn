@@ -126,14 +126,14 @@ def Logout(request):
 def userlogin(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            # captcha_token = request.POST['g-recaptcha-response']
-            # cap_url = "https://www.google.com/recaptcha/api/siteverify"
-            # cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
-            # cap_server_response = requests.post(url=cap_url, data=cap_data)
-            # cap_json = cap_server_response.json()
-            # if cap_json['success'] == False:
-            #     messages.error(request, "Captcha Invalid. Please Try Again")
-            #     return redirect('login')
+            captcha_token = request.POST['g-recaptcha-response']
+            cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            cap_server_response = requests.post(url=cap_url, data=cap_data)
+            cap_json = cap_server_response.json()
+            if cap_json['success'] == False:
+                messages.error(request, "Captcha Invalid. Please Try Again")
+                return redirect('login')
             u = request.POST['email']
             p = request.POST['password']
             user = authenticate(username=u, password=p)
@@ -354,7 +354,7 @@ def upload_notes(request):
 
 def view_usernotes(request):
     if not request.user.is_authenticated:
-        messages.info(request, "Please login to access your notes")
+        messages.info(request, "Please login to access your uploads")
         return redirect('login')
     user = User.objects.get(id=request.user.id)
     notes = Notes.objects.filter(user=user)
@@ -451,6 +451,7 @@ def delete_notes(request, pid):
 
 def viewall_usernotes(request):
     if not request.user.is_authenticated:
+        messages.info(request, "Please login to access all uploads")
         return redirect('login')
     notes = Notes.objects.filter(status=True)
     d = {'notes': notes, 'auth': request.user.is_authenticated}
