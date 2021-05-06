@@ -2,36 +2,35 @@
 {% load static %}
 {% block content %}
 {% include "header.html" %}
-<main>
+<main class="list">
   <div class="list-uploads">
     <h1 class="colored title">My Uploads</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>S.No.</th>
-          <th>Date</th>
-          <th>Branch</th>
-          <th>Subject</th>
-          <th>Download</th>
-          <th>File Type</th>
-          <th>Description</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for i in notes %}
-        <tr>
-          <td>{{forloop.counter}}</td>
-          <td>{{i.uploadingdate}}</td>
-          <td>{{i.branch}}</td>
-          <td>{{i.notesfile.url}}</td>
-          <td>{{i.filetype}}</td>
-          <td>{{i.description}}</td>
-          <td>{{i.status}}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <div class="cards">
+      {% if notes|length == 0  %}
+      <p class="msg">Looks like you haven't uploaded anything..</p>
+      {% endif %}
+      {% for i in notes %}
+      <div class="card">
+        <div class="card-header">
+          <p title="Date Uploaded">{{i.uploadingdate}}</p>
+          <p title="Branch">{{i.branch}}</p>
+          <a title="Download" href="{{i.notesfile.url}}" download>{{i.filetype}}</a>
+          {% if i.status == True %}
+          <img src="{% url "images/icon-approved.svg" %}" alt="approved" title="Approved">
+          {% else %}
+          <img src="{% url "images/icon-pending.svg" %}" alt="pending on review" title="Pending (On Review)">
+          {% endif %}
+        </div>
+        <div class="card-body">
+          <h2 class="card-body-title">{{i.subject|title}}</h2>
+          <p class="card-body-desc">{{i.description|truncatechars:85}}</p>
+        </div>
+        <a href="{% url "delete_usernotes" i.id %}" class="delete">
+          <img src="{% static 'images/icon-clear.svg' %}" alt="Delete this upload">
+        </a>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </main>
 {% include "footer1.html" %}
