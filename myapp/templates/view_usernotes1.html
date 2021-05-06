@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% include "header.html" %}
+<main>
+  <div class="list-uploads">
+    <h1 class="colored title">My Uploads</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Date</th>
+          <th>Branch</th>
+          <th>Subject</th>
+          <th>Download</th>
+          <th>File Type</th>
+          <th>Description</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in notes %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{i.uploadingdate}}</td>
+          <td>{{i.branch}}</td>
+          <td>{{i.notesfile.url}}</td>
+          <td>{{i.filetype}}</td>
+          <td>{{i.description}}</td>
+          <td>{{i.status}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% include "footer1.html" %}
+{% endblock content %}
