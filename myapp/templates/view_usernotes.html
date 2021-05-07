@@ -13,8 +13,22 @@
       <div class="card">
         <div class="card-header">
           <p title="Date Uploaded">{{i.uploadingdate}}</p>
-          <p title="Branch">{{i.branch}}</p>
-          <a title="Download" href="{{i.notesfile.url}}" download>{{i.filetype}}</a>
+          <p title="Branch">
+            {% if i.branch == "1" %}
+            CSE
+            {% elif i.branch == "2" %}
+            EEE
+            {% elif i.branch == "3" %}
+            ECE
+            {% elif i.branch == "4" %}
+            IT
+            {% elif i.branch == "5" %}
+            ME
+            {% else %}
+            Engg.
+            {% endif %}
+          </p>
+          <a title="Download" href="{{i.notesfile.url}}" download>{{i.filetype|upper}}</a>
           {% if i.status == True %}
           <img class="status" src="{% static "images/icon-approved.svg" %}" alt="approved" title="Approved">
           {% else %}
