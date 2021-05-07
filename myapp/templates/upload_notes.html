@@ -6,7 +6,7 @@
   <div class="upload-new">
     <h1 class="colored title">Upload New</h1>
     <input type="hidden" name="ftype" id="ftype" value="" style="display: none;pointer-events: none;" form="upload-new-form">
-    <form action="#" method="POST" class="upload-new-form" id="upload-new-form" enctype="multipart/form-data">
+    <form action="{% url "upload_notes" %}" method="POST" class="upload-new-form" id="upload-new-form" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="input-group file-grp">
         <label for="file">Upload Here</label>
