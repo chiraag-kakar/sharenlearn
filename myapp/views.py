@@ -126,14 +126,14 @@ def Logout(request):
 def userlogin(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            captcha_token = request.POST['g-recaptcha-response']
-            cap_url = "https://www.google.com/recaptcha/api/siteverify"
-            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
-            cap_server_response = requests.post(url=cap_url, data=cap_data)
-            cap_json = cap_server_response.json()
-            if cap_json['success'] == False:
-                messages.error(request, "Captcha Invalid. Please Try Again")
-                return redirect('login')
+            # captcha_token = request.POST['g-recaptcha-response']
+            # cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            # cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            # cap_server_response = requests.post(url=cap_url, data=cap_data)
+            # cap_json = cap_server_response.json()
+            # if cap_json['success'] == False:
+            #     messages.error(request, "Captcha Invalid. Please Try Again")
+            #     return redirect('login')
             u = request.POST['email']
             p = request.POST['password']
             user = authenticate(username=u, password=p)
@@ -333,23 +333,24 @@ def changepassword(request):
 
 def upload_notes(request):
     if not request.user.is_authenticated:
+        messages.info(request, "Login to Upload Notes")
         return redirect('login')
     if request.method == 'POST':
-        b = request.POST['branch']
+        b = request.POST['dept']
         s = request.POST['subject']
-        n = request.FILES['notesfile']
-        f = request.POST['filetype']
-        d = request.POST['description']
+        n = request.FILES['file']
+        f = request.POST['ftype']
+        d = request.POST['desc']
         u = User.objects.filter(username=request.user.username).first()
         try:
             Notes.objects.create(user=u, uploadingdate=date.today(), branch=b, subject=s,
                                  notesfile=n, filetype=f, description=d, status=False)
-            messages.info(request, f'Notes Uploaded Successfully')
-            return redirect('/profile')
+            messages.success(request, f'Notes Uploaded Successfully')
+            return redirect('view_usernotes');
         except:
-            messages.info(request, f'Something went wrong, Try Again')
+            messages.error(request, f'Something went wrong, Try Again')
 
-    return render(request, 'upload_notes.html')
+    return render(request, 'upload_notes1.html', {'auth': request.user.is_authenticated})
 
 
 def view_usernotes(request):
