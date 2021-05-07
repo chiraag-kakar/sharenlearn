@@ -350,7 +350,7 @@ def upload_notes(request):
         except:
             messages.error(request, f'Something went wrong, Try Again')
 
-    return render(request, 'upload_notes1.html', {'auth': request.user.is_authenticated})
+    return render(request, 'upload_notes.html', {'auth': request.user.is_authenticated})
 
 
 def view_usernotes(request):
