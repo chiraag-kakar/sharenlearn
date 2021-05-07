@@ -1,151 +1,54 @@
-{%extends 'usernavigation.html'%}
+{% extends "base.html" %}
 {% load static %}
-{%block body%}
-<!-- Aos css -->
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-<style>
-  body {
-    background: linear-gradient(-45deg, #EE7752, #E73C73, #23A6D5, #23D5AB);
-  }
-
-  .form-box {
-    margin-top: 10%;
-    margin-bottom: 5%;
-    margin-left: 12%;
-    margin-right: 12%;
-    -webkit-box-shadow: 0 0 20px white;
-    box-shadow: 0 0 20px white;
-    border-radius: 10px;
-    padding: 10px;
-    background-color: white;
-  }
-
-  .header-box {
-    border-bottom: 1px solid rgb(223, 215, 215);
-    padding-left: 20px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    font-family: 'Russo One';
-    color: teal;
-  }
-
-  .filname {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    height: 37px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border: 1px solid lightgray;
-    background-color: aliceblue;
-  }
-</style>
-
-<div class="form-box" data-aos="fade-up" data-aos-duration="3000">
-  <div class="header-box mb-4">
-    <h2 data-aos="fade-left" data-aos-duration="3000">Upload My Notes</h2>
-  </div>
-  <form method="post" enctype="multipart/form-data">
-    <div style="padding-left: 10%; padding-right:10%">
-      {%csrf_token%}
-      <div class="row">
-        <div class="col-md-6 mt-3">
-          <label>Branch :</label>
-          <div class="mt-2">
-            <select class="selectpicker show-tick" name="branch" title="---Select Branch---" data-width="fit" data-style="btn-primary">
-              <option value="CSE">CSE</option>
-              <option value="IT">IT</option>
-              <option value="ECE">ECE</option>
-              <option value="EE">EE</option>
-              <option value="ME">ME</option>
-              <option value="CE">CE</option>
-            </select>
-
+{% block content %}
+{% include "header.html" %}
+<main>
+  <div class="upload-new">
+    <h1 class="colored title">Upload New</h1>
+    <input type="hidden" name="ftype" id="ftype" value="" style="display: none;pointer-events: none;" form="upload-new-form">
+    <form action="{% url "upload_notes" %}" method="POST" class="upload-new-form" id="upload-new-form" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="input-group file-grp">
+        <label for="file">Upload Here</label>
+        <div class="input-field file-input">
+          <div>
+            <input type="file" name="file" id="file" data-type="file">
+            <img src="{% static 'images/icon-folder.svg' %}" alt="Upload Here">
           </div>
+          <p class="accepted-formats">.pdf, .docx, .pptx, .jpg, .jpeg, .png, .md, .svg, .txt, .zip</p>
+          <p class="selected-file"></p>
         </div>
-        <div class="col-md-6 mt-3">
-          <label>File Type :</label>
-          <div class="mt-2">
-            <select class="selectpicker show-tick" name="filetype" title="---Select Filetype---" data-width="fit" data-style="btn-primary">
-              <option value="PDF">PDF</option>
-              <option value="PPT">PPT</option>
-              <option value="DOC/DOCX">DOC/DOCX</option>
-              <option value="TXT">TXT</option>
-              <option value="IMG">IMG</option>
-              <option value="ZIP/RAR">ZIP/RAR</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="mb-2 mt-4">
-        <label>Upload Notes :</label>
       </div>
       <div class="input-group">
-        <label class="btn btn-primary">
-          <input type="file" name="notesfile" class="d-none" onchange="$('#upload-file-name').html(this.files[0].name)" required>
-          Upload File
-        </label>
-        <span class="filname" id="upload-file-name">No File Uploaded</span>
-      </div>
-      <div class="mt-4">
-        <label>Subject :</label>
-        <div class="mt-2">
-          <input type="text" class="form-control" placeholder="Enter Subject" name="subject" style="width:90%;">
+        <label for="dept">Department</label>
+        <div class="input-field">
+          <select name="dept" id="dept" data-type="select">
+            <option value="0" selected disabled>Select Department</option>
+            <option value="1">Computer Science and Engg.</option>
+            <option value="2">Electrical Engg.</option>
+            <option value="3">Electronics and Communication Engg.</option>
+            <option value="4">Information Technology</option>
+            <option value="5">Mechanical Engineering</option>
+          </select>
         </div>
       </div>
-      <div class="mt-4">
-        <label>Description :</label>
-        <div class="mt-2">
-          <textarea class="form-control" name="description" placeholder="A brief description about the notes" style="width: 90%;height: 100px"></textarea>
+      <div class="input-group">
+        <label for="subject">Subject</label>
+        <div class="input-field">
+          <input type="text" name="subject" id="subject" data-type="text">
         </div>
       </div>
-      <div class="mt-4">
-        <button type="submit" class="btn btn-danger">Submit</button>
+      <div class="input-group">
+        <label for="desc">Description</label>
+        <div class="input-field t-area">
+          <textarea name="desc" id="desc" cols="30" rows="10" data-type="text"></textarea>
+        </div>
       </div>
-    </div>
-  </form>
-</div>
-<button class="scrollToTopBtn">☝️</button>
-<script>
-  var target = document.querySelector("footer");
-
-  var scrollToTopBtn = document.querySelector(".scrollToTopBtn")
-  var rootElement = document.documentElement
-
-  // Next we want to create a function that will be called when that element is intersected
-  function callback(entries, observer) {
-    // The callback will return an array of entries, even if you are only observing a single item
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        // Show button
-        scrollToTopBtn.classList.add("showBtn")
-      } else {
-        // Hide button
-        scrollToTopBtn.classList.remove("showBtn")
-      }
-    });
-  }
-
-  function scrollToTop() {
-    rootElement.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    })
-  }
-  scrollToTopBtn.addEventListener("click", scrollToTop);
-
-  // Next we instantiate the observer with the function we created above. This takes an optional configuration
-  // object that we will use in the other examples.
-  let observer = new IntersectionObserver(callback);
-  // Finally start observing the target element
-  observer.observe(target);
-</script>
-
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script>
-
-
-{% endblock %}
+      <div class="form-footer">
+        <button type="submit" class="button" id="form-btn">Submit</button>
+      </div>
+    </form>
+  </div>
+</main>
+{% include "footer1.html" %}
+{% endblock content %}

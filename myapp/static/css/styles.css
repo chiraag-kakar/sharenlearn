@@ -599,6 +599,74 @@ select[disabled] {
   text-align: center;
 }
 
+/* UPLOAD NEW */
+.upload-new h1 {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bd);
+  text-align: center;
+}
+
+.upload-new form {
+  margin-top: 4rem;
+}
+
+.upload-new .input-group .input-field.file-input {
+  height: 24rem;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  border: 0.5rem solid var(--clr-neutral-txt);
+  cursor: pointer;
+  position: relative;
+}
+
+.upload-new .input-group .input-field.file-input:hover {
+  border-style: dotted;
+}
+
+.upload-new .input-group .input-field.file-input > div {
+  width: 8rem;
+  height: 8rem;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -40%);
+}
+
+.upload-new .input-group .input-field.file-input > div > img {
+  margin: auto;
+  width: 100%;
+}
+
+.input-field.file-input input[type="file"] {
+  position: absolute;
+  bottom: 1.2rem;
+  width: 2rem;
+  right: 0.5rem;
+  opacity: 0;
+}
+
+.input-field.file-input > .invalid {
+  right: 1rem;
+}
+
+.selected-file {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-size: var(--fs-sm);
+  font-style: italic;
+}
+
+.accepted-formats {
+  margin-top: 11rem;
+  text-align: center;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-md);
+  color: var(--clr-neutral-txt);
+}
+
 /* FOOTER */
 footer {
   text-align: center;
@@ -872,6 +940,48 @@ footer .cright {
   .form-container .contact-form .form-footer {
     grid-column: 2/3;
     justify-self: right;
+  }
+  .upload-new-form {
+    display: grid;
+    grid-template-columns: calc(40% - 1.5rem) calc(60% - 1.5rem);
+    gap: 1.5rem 3rem;
+    grid-template-rows: 1fr 1fr 3fr 1fr;
+  }
+  .upload-new-form > * + * {
+    margin: 0;
+  }
+  .upload-new-form .input-group:nth-child(2) {
+    grid-column: 1/2;
+    grid-row: 1/5;
+  }
+  .upload-new-form .input-group:nth-child(3) {
+    grid-column: 2/3;
+    grid-row: 1/2;
+  }
+  .upload-new-form .input-group:nth-child(4) {
+    grid-column: 2/3;
+    grid-row: 2/3;
+  }
+  .upload-new-form .input-group:nth-child(5) {
+    grid-column: 2/3;
+    grid-row: 3/4;
+  }
+  .upload-new-form .form-footer {
+    grid-column: 2/3;
+    grid-row: 4/5;
+    align-self: start;
+    justify-self: right;
+    position: relative;
+    bottom: 3.5rem;
+  }
+  .upload-new-form .input-group:nth-child(2) > .input-field {
+    height: 73%;
+  }
+  .upload-new .input-group .input-field.file-input > div {
+    top: 35%;
+  }
+  .accepted-formats {
+    margin-top: 8rem;
   }
 }
 
