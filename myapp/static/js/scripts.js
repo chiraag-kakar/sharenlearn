@@ -58,6 +58,9 @@ if (document.querySelector(".upload-new-form")) {
     document.querySelector(".selected-file").textContent = this.files.item(0)
       ? this.files.item(0).name
       : "";
+    document.getElementById("ftype").value = this.files.item(0)
+      ? this.files.item(0).name.split(".").pop()
+      : "";
   });
   document
     .querySelector(".upload-new-form")
