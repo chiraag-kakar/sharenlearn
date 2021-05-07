@@ -660,7 +660,7 @@ select[disabled] {
 }
 
 .accepted-formats {
-  margin-top: 7.4rem;
+  margin-top: 11rem;
   text-align: center;
   font-size: var(--fs-sm);
   font-weight: var(--fw-md);
