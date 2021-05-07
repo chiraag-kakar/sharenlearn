@@ -48,6 +48,24 @@ if (document.querySelector(".edit-profile-form")) {
     });
 }
 
+if (document.querySelector(".upload-new-form")) {
+  document
+    .querySelector(".input-field.file-input")
+    .addEventListener("click", function () {
+      this.querySelector("input[type='file']").click();
+    });
+  document.getElementById("file").addEventListener("change", function () {
+    document.querySelector(".selected-file").textContent = this.files.item(0)
+      ? this.files.item(0).name
+      : "";
+  });
+  document
+    .querySelector(".upload-new-form")
+    .addEventListener("submit", async function (event) {
+      if (!(await validate_form(this))) event.preventDefault();
+    });
+}
+
 // VALIDATE FORM
 async function validate_form(form) {
   const removeSpans = () => {
@@ -60,6 +78,7 @@ async function validate_form(form) {
   const selects = [...form.querySelectorAll("select")];
   const areas = [...form.querySelectorAll("textarea")];
   const fields = inputs.concat(selects.concat(areas));
+  console.log(fields);
   try {
     const validationResponse = await validation(fields);
     if (validationResponse) return true;
@@ -110,7 +129,28 @@ function validation(fields) {
       }
     } else if (type === "select")
       return value != "0" ? res : { ...res, error: "Please fill this field" };
-    else return res;
+    else if (type === "file") {
+      const supported = [
+        "pdf",
+        "docx",
+        "pptx",
+        "jpg",
+        "jpeg",
+        "png",
+        "md",
+        "svg",
+        "txt",
+        "zip",
+      ];
+      const file = field.files.item(0);
+      return file
+        ? supported.includes(file.name.split(".").pop().toLowerCase())
+          ? Math.round(file.size / 1024) >= 7600
+            ? { ...res, error: "Select File less than 7.5MB" }
+            : res
+          : { ...res, error: "Unsupported File Format" }
+        : { ...res, error: "Please Select a File" };
+    } else return res;
   };
   return new Promise((resolve, reject) => {
     for (let field of fields) {
