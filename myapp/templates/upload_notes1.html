@@ -5,7 +5,8 @@
 <main>
   <div class="upload-new">
     <h1 class="colored title">Upload New</h1>
-    <form action="#" method="POST" class="upload-new-form">
+    <input type="hidden" name="ftype" id="ftype" value="" style="display: none;pointer-events: none;" form="upload-new-form">
+    <form action="#" method="POST" class="upload-new-form" id="upload-new-form" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="input-group file-grp">
         <label for="file">Upload Here</label>
@@ -40,7 +41,7 @@
       <div class="input-group">
         <label for="desc">Description</label>
         <div class="input-field t-area">
-          <textarea name="message" id="message" cols="30" rows="10" data-type="text"></textarea>
+          <textarea name="desc" id="desc" cols="30" rows="10" data-type="text"></textarea>
         </div>
       </div>
       <div class="form-footer">
