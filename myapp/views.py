@@ -48,20 +48,15 @@ def check(email):
 
 # Create your views here.
 
-def home(request):
-    context = {'auth': request.user.is_authenticated}
-    if request.user.is_authenticated:
-        return redirect('/profile');
-    return render(request, 'home.html', context);
-
 def about(request):
-    context = {'auth': request.user.is_authenticated}
-    return render(request, 'about.html', context)
+    return redirect('/#about')
 
 
 def index(request):
+    if request.user.is_authenticated:
+        return redirect('/profile')
     context = {'auth': request.user.is_authenticated}
-    return render(request, 'home.html', context)
+    return render(request, 'home-new.html', context)
 
 
 
@@ -104,7 +99,7 @@ def contact(request):
         message = request.POST['message']
         if check(email) == False:
             messages.error(request, "Looks like email is not valid")
-            return redirect('/contact')
+            return redirect('/#contact')
         # try:
         #     # send_mail('Contact Form',fmessage, settings.EMAIL_HOST_USER,['reciever@gmail.com'], fail_silently=False)
         #     pass
@@ -112,9 +107,9 @@ def contact(request):
         #     messages.error(
         #         request, "Some Error Occured We are sorry for that Please Try again!!")
         messages.success(request, 'Thanks for contacting us, we will reach you soon')
-        return render(request, 'contact.html', context)
+        return redirect('index')
     else:
-        return render(request, 'contact.html', context)
+        return redirect('/#contact')
 
 
 
