@@ -25,6 +25,7 @@
   --fs-md: 1.6rem;
   --fs-md-2: 2rem;
   --fs-lg: 2.6rem;
+  --fs-lg-2: 3rem;
 }
 
 /* RESETS */
@@ -165,9 +166,10 @@ header .logo + .button {
 
 /* MAIN */
 main {
-  margin: 7rem 0;
+  padding: 7rem 0;
 }
 
+/* hero-content heading and illust */
 .hero-content {
   text-align: center;
 }
@@ -177,80 +179,94 @@ main {
   font-size: var(--fs-lg);
   font-weight: var(--fw-bd);
   margin: auto;
-  margin-bottom: 5rem;
+  margin-bottom: 3.9rem;
   width: 31.875rem;
 }
 
+/* reduce width for about's heading */
+.about .hero-content .hero-h1 {
+  width: 29rem;
+}
+
+/* span.colored text */
 .colored {
   color: var(--clr-neutral-txt);
 }
 
+/* left illust */
 .hero-content img {
   width: min(80%, 44rem);
 }
 
+/* right illust invisible in mobile */
 .hero-illust {
   display: none;
 }
-/* ABOUT PAGE */
-.about-hero {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto;
-  align-items: center;
-  width: 100%;
-  margin: 1em auto;
+
+/* ABOUT */
+.about-section {
+  padding-top: 7rem;
 }
 
-.about-hero .hero-content .hero-h1 {
-  width: 28.875rem;
+/* about section title heading */
+.about-section > h2.title {
+  font-size: var(--fs-lg-2);
+  font-weight: var(--fw-bd);
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
-.about-hero .hero-illust {
-  display: block;
-  margin: 0 auto;
-}
-.about-hero .hero-illust img {
-  width: 225px;
-  margin: 0 auto;
-}
-
-.about-features {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto;
-  row-gap: 3em;
-  width: 100%;
-  margin: 1.5em auto;
-}
-
-.feature {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.feature-img {
-  color: var(--clr-accent);
-  font-size: var(--fs-lg);
-  margin-bottom: 0.5em;
-}
-
-.feature-heading {
-  font-size: var(--fs-md);
-  margin-bottom: 0.5em;
-}
-
-.feature-text {
-  width: 90%;
-  margin: 0.5em auto;
-  font-size: var(--fs-sm);
+.hero.about {
   text-align: center;
 }
 
-/* SIGNUP */
+/* about's right illust -> visible in mobile and desktop */
+.about .hero-illust {
+  display: initial;
+}
 
+.about .hero-illust img {
+  width: min(90%, 44rem);
+}
+
+/* ABOUT FEATURES */
+.features {
+  margin-top: 7rem;
+}
+
+.features > * + * {
+  margin-top: 3.5rem;
+}
+
+.features .feature {
+  text-align: center;
+  background-color: var(--clr-gray);
+  border-radius: 1.2rem;
+  padding: 2.2rem 2.6rem;
+}
+
+.features .feature > * + * {
+  margin-top: 2.2rem;
+}
+
+.features .feature img {
+  width: 4.2rem;
+}
+
+.features .feature h3 {
+  color: var(--clr-neutral-txt);
+  font-weight: var(--fw-md);
+  font-size: var(--fs-md-2);
+}
+
+.features .feature p {
+  font-size: var(--fs-sm);
+  line-height: 1.9;
+  text-align: left;
+  opacity: 0.85;
+}
+
+/* SIGNUP */
 .signup h1,
 .edit-profile h1 {
   font-size: var(--fs-lg);
@@ -321,6 +337,7 @@ form .input-field textarea {
 form .input-field textarea {
   height: 14.5rem;
   resize: none;
+  line-height: 2;
 }
 
 form .input-field select option {
@@ -386,8 +403,12 @@ form .invalid {
 }
 
 /* CONTACT */
-.contact h1 {
-  font-size: var(--fs-lg);
+.contact {
+  padding-top: 7rem;
+}
+
+.contact h2 {
+  font-size: var(--fs-lg-2);
   font-weight: var(--fw-bd);
   text-align: center;
 }
@@ -403,10 +424,8 @@ form .invalid {
 
 /* PROFILE */
 .profile-section {
-  /* border: 0.1rem solid pink; */
   width: 90%;
   margin: 0 auto;
-  /* height: 33rem; */
   margin-bottom: 11rem;
   text-align: center;
 }
@@ -745,10 +764,15 @@ footer .cright {
 }
 
 @media (min-width: 731px) {
-  .hero {
-    display: flex;
+  /* reduce width on large devices for three home sections */
+  .hero-section,
+  .about-section,
+  .contact {
     width: 85%;
     margin: auto;
+  }
+  .hero {
+    display: flex;
     height: 31rem;
     justify-content: space-between;
   }
@@ -758,6 +782,7 @@ footer .cright {
   }
   .hero-content .hero-h1 {
     width: auto;
+    font-size: var(--fs-lg-2);
   }
   .hero-content img {
     width: 25rem;
@@ -770,45 +795,36 @@ footer .cright {
   .hero-illust img {
     width: 100%;
   }
-  /* styles for about page */
-  .about-hero {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    align-items: center;
-    width: 80%;
-    margin: 0 auto;
-  }
-  .about-hero .hero-content {
-    width: 80%;
-    text-align: left;
-  }
-  .about-hero .hero-illust {
-    width: 70%;
-    display: initial;
+  /* hero-content and hero-illust are flex in about to make the contents
+  align center vertically */
+  .about .hero-content,
+  .about .hero-illust {
     display: flex;
+    align-items: center;
   }
-  .about-hero .hero-illust img {
-    width: 100%;
+  .about .hero-illust {
+    justify-content: center;
   }
-  .about-features {
-    display: grid;
-    grid-template-columns: 1fr 0.4fr 1fr;
-    grid-template-rows: auto;
-    width: 95%;
-    margin: 2em auto;
-    padding: 1.5em 0;
+  .about .hero-content .hero-h1 {
+    margin: 0;
   }
-  .feature-text {
-    width: 80%;
+  .features {
+    display: flex;
+    gap: 8rem;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .essence-div {
-    grid-column: 1/2;
-    grid-row: auto;
+  .features > .feature {
+    width: calc(50% - 1.5rem);
+    background: transparent;
+    padding-left: 0;
+    padding-right: 0;
   }
-  .goal-div {
-    grid-column: 3/4;
-    grid-row: auto;
+  .features > * + * {
+    margin-top: 0;
+  }
+  .features .feature p {
+    text-align: center;
   }
   .profile-section {
     display: grid;
@@ -850,7 +866,9 @@ footer .cright {
   html {
     font-size: 0.92vw;
   }
-  .hero {
+  .hero-section,
+  .about-section,
+  .contact {
     width: 80%;
   }
   .nav-btn {
@@ -877,7 +895,7 @@ footer .cright {
     background: none;
   }
   .nav-list > * + * {
-    margin-left: 2.5rem;
+    margin-left: 5rem;
   }
   .signup form,
   .edit-profile form {
@@ -912,7 +930,7 @@ footer .cright {
     width: 20%;
   }
   .form-container .contact-form {
-    width: 74%;
+    width: 72%;
     display: grid;
     grid-template-columns: calc(50% - 1.5rem) calc(50% - 1.5rem);
     grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -991,13 +1009,18 @@ footer .cright {
     margin-left: auto;
     margin-right: auto;
   }
+  main.home {
+    padding: 8rem 0;
+  }
 }
 
 @media (min-width: 1441px) {
   html {
     font-size: 0.7vw;
   }
-  .hero {
+  .hero-section,
+  .about-section,
+  .contact {
     width: 65%;
   }
 }
