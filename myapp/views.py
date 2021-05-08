@@ -56,7 +56,7 @@ def index(request):
     if request.user.is_authenticated:
         return redirect('/profile')
     context = {'auth': request.user.is_authenticated}
-    return render(request, 'home-new.html', context)
+    return render(request, 'home.html', context)
 
 
 
