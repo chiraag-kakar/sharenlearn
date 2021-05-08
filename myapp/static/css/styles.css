@@ -337,6 +337,7 @@ form .input-field textarea {
 form .input-field textarea {
   height: 14.5rem;
   resize: none;
+  line-height: 2;
 }
 
 form .input-field select option {
