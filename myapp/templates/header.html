@@ -1,6 +1,6 @@
 {% load static %}
 <header>
-  <img src="{% static 'images/logo.svg' %}" alt="share and learn logo" class="logo">
+  <a href="/" class="logo-a"><img src="{% static 'images/logo.svg' %}" alt="share and learn logo" class="logo"></a>
   {% if auth %}
   <a href="{% url 'logout' %}" class="button auth-log">Logout</a>
   {% else %}
