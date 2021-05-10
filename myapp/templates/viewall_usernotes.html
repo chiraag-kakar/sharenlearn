@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load svg %}
 {% block content %}
 {% include "header.html" %}
 <main class="list">
@@ -15,7 +16,7 @@
           <p title="Date Uploaded">{{i.uploadingdate}}</p>
           <p title="Branch">{{i.branch}}</p>
           <a title="Download" href="{{i.notesfile.url}}" download>{{i.filetype}}</a>
-          <img class="status" src="{% static "images/icon-approved.svg" %}" alt="approved" title="Approved">
+          {% svg "icon-approved" %}
         </div>
         <div class="card-body">
           <h2 class="card-body-title">{{i.subject|title}}</h2>
