@@ -62,7 +62,7 @@
         </div>
       </div>
       <div class="form-footer">
-        <button type="submit" class="button lg" id="form-btn">Sign Up</button>
+        <button type="submit" class="button" id="form-btn">Sign Up</button>
         <p class="tip">Already have an account? <a class="colored" href="/login">Login</a></p>
       </div>
     </form>
@@ -70,15 +70,15 @@
 </main>
 
 <script>
-  const password = document.getElementById("password");
+  const password=document.getElementById("password");
   const togglePassword = document.querySelector('#togglePassword');
-  togglePassword.addEventListener('click', function(e) {
+  togglePassword.addEventListener('click', function (e) {
     // toggle the type attribute
     const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
     password.setAttribute('type', type);
     // toggle the eye slash icon
     this.classList.toggle('fa-eye-slash');
-  });
+});
 </script>
 </script>
 {% include "footer1.html" %}
