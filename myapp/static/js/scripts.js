@@ -165,3 +165,37 @@ function validation(fields) {
     resolve(true);
   });
 }
+
+// THEME SWITCHER
+
+document.querySelectorAll(".theme-switcher").forEach((btn) => {
+  btn.addEventListener("click", function () {
+    document.body.classList.toggle("light-theme");
+    updateSVGs();
+    localStorage.setItem(
+      "theme",
+      localStorage.getItem("theme") === "light" ? "dark" : "light"
+    );
+  });
+});
+
+function updateSVGs() {
+  const elements = document.querySelectorAll("[data-opposite]");
+  elements.forEach((element) => {
+    const currColor = element.getAttribute("fill");
+    element.setAttribute("fill", element.dataset.opposite);
+    element.dataset.opposite = currColor;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (
+    localStorage.getItem("theme") &&
+    localStorage.getItem("theme") === "light"
+  ) {
+    document.body.classList.add("light-theme");
+    updateSVGs();
+  } else {
+    localStorage.setItem("theme", "dark");
+  }
+});
