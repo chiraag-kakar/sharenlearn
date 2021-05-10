@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% load svg %}
 {% block content %}
 {% include "header.html" %}
 <main class="big">
@@ -8,7 +7,7 @@
     <div class="profile">
       <div class="avatar" title="Feature Coming Soon">
         <input type="file" class="avatar-input" name="avatar" id="avatar" disabled title="Feature Coming Soon">
-        {% svg "icon-edit" %}
+        <img src="{% static 'images/icon-edit.svg' %}" alt="Edit icon">
       </div>
       <div class="profile-main">
         <h1 class="user-name">{{data.user.first_name}} {{data.user.last_name}}</h1>
