@@ -130,7 +130,7 @@ STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'static'),
 ]
 SVG_DIRS=[
-    os.path.join(BASE_DIR, 'myapp\static\images\\')
+    os.path.join(BASE_DIR, 'myapp', 'static', 'images')
 ]
 
 MEDIA_URL = '/media/'
