@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% load svg %}
 {% block content %}
 {% include "header.html" %}
 <main class="home" id="home">
@@ -8,41 +7,41 @@
     <div class="hero">
       <div class="hero-content">
         <h1 class="hero-h1">Share your files and learn, <span class="colored">success</span></h1>
-        {% svg "illustration-learn" %}
+        <img src="{% static 'images/illustration-learn.svg' %}" alt="">
       </div>
       <div class="hero-illust">
-        {% svg "illustration-phone" %}
+        <img src="{% static 'images/illustration-phone.svg' %}" alt="">
       </div>
     </div>
   </div>
   <div class="about-section" id="about">
-    <h2 class="title colored lg">About</h2>
+    <h2 class="title colored">About</h2>
     <div class="hero about">
       <div class="hero-content">
         <h2 class="hero-h1">Our mission is to grow <span class="colored">together</span></h2>
       </div>
       <div class="hero-illust">
-        {% svg "illustration-team" %}
+        <img src="{% static 'images/icon-team.svg' %}" alt="">
       </div>
     </div>
     <div class="features">
       <div class="feature">
-        {% svg "icon-essence" %}
+        <img src="{% static 'images/icon-essence.svg' %}" alt="">
         <h3>Essence</h3>
         <p>Share N Learn is a Common Platform for Students &amp; Faculties to upload and share files including study material which will be accessible to all the registered members.</p>
       </div>
       <div class="feature">
-        {% svg "icon-goal" %}
+        <img src="{% static 'images/icon-goal.svg' %}" alt="">
         <h3>Goal</h3>
         <p>The Goal of the project is to create a secure and scalable platform common to both college students and faculties so that they can easily share the files.</p>
       </div>
     </div>
   </div>
   <div class="contact" id="contact">
-    <h2 class="title colored lg">Contact</h2>
+    <h2 class="title colored">Contact</h2>
     <div class="form-container">
       <div class="form-illust">
-        {% svg "illustration-contact" %}
+        <img src="{% static 'images/illustration-contact.svg' %}" alt="">
       </div>
       <form action="{% url "contact" %}" method="POST" class="contact-form">
         {% csrf_token %}
@@ -71,7 +70,7 @@
           </div>
         </div>
         <div class="form-footer">
-          <button type="submit" class="button lg" id="form-btn">Message</button>
+          <button type="submit" class="button" id="form-btn">Message</button>
         </div>
       </form>
     </div>

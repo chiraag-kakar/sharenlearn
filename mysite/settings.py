@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp.apps.MyappConfig',
     'django.contrib.sitemaps',
-    'svg',
     'admin_honeypot',
 ]
 
@@ -129,9 +128,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
 SVG_DIRS=[
     os.path.join(BASE_DIR, 'myapp', 'static', 'images')
 ]
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

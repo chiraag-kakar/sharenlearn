@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% load svg %}
 {% block content %}
 {% include "header.html" %}
 <main>
@@ -14,7 +13,7 @@
         <div class="input-field file-input">
           <div>
             <input type="file" name="file" id="file" data-type="file">
-            {% svg "icon-folder" %}
+            <img src="{% static 'images/icon-folder.svg' %}" alt="Upload Here">
           </div>
           <p class="accepted-formats">.pdf, .docx, .pptx, .jpg, .jpeg, .png, .md, .svg, .txt, .zip</p>
           <p class="selected-file"></p>
@@ -46,7 +45,7 @@
         </div>
       </div>
       <div class="form-footer">
-        <button type="submit" class="button lg" id="form-btn">Submit</button>
+        <button type="submit" class="button" id="form-btn">Submit</button>
       </div>
     </form>
   </div>

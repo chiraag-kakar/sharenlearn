@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% load svg %}
 {% block content %}
 {% include "header.html" %}
 <main class="list">
@@ -31,9 +30,9 @@
           </p>
           <a title="Download" href="{{i.notesfile.url}}" download>{{i.filetype|upper}}</a>
           {% if i.status == True %}
-          {% svg "icon-approved" %}
+          <img class="status" src="{% static "images/icon-approved.svg" %}" alt="approved" title="Approved">
           {% else %}
-          {% svg "icon-pending" %}
+          <img class="status" src="{% static "images/icon-pending.svg" %}" alt="pending on review" title="Pending (On Review)">
           {% endif %}
         </div>
         <div class="card-body">
@@ -41,7 +40,7 @@
           <p class="card-body-desc">{{i.description|truncatechars:125}}</p>
         </div>
         <a href="{% url "delete_usernotes" i.id %}" class="delete">
-          {% svg "icon-clear" %}
+          <img src="{% static 'images/icon-clear.svg' %}" alt="Delete this upload">
         </a>
       </div>
       {% endfor %}

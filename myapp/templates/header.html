@@ -1,17 +1,14 @@
 {% load static %}
-{% load svg %}
 <header>
-  <a href="/" class="logo-a" title="Share N Learn">
-    {% svg "logo" %}
-  </a>
+  <img src="{% static 'images/logo.svg' %}" alt="share and learn logo" class="logo">
   {% if auth %}
   <a href="{% url 'logout' %}" class="button auth-log">Logout</a>
   {% else %}
   <a href="{% url 'login' %}" class="button auth-log">Login</a>
   {% endif %}
   <nav>
-    <button class="nav-btn" title="Open Menu">
-      {% svg "icon-hamburger" %}
+    <button class="nav-btn">
+      <img src="{% static 'images/icon-hamburger.svg' %}" alt="Open menu">
     </button>
     <ul class="nav-list">
       {% if not auth %}
@@ -35,19 +32,6 @@
         <a href="{% url "viewall_usernotes" %}">All Uploads</a>
       </li>
       {% endif %}
-      <li class="theme-item">
-        <p>Appearance</p>
-        <div class="theme-switcher">
-          <div class="switch">
-            <img src="{% static 'images/icon-moon.svg' %}" alt="change theme" />
-          </div>
-        </div>
-      </li>
     </ul>
   </nav>
-  <div class="theme-switcher desktop">
-    <div class="switch">
-      <img src="{% static 'images/icon-moon.svg' %}" alt="change theme" />
-    </div>
-  </div>
 </header>
