@@ -261,3 +261,68 @@ function updateStickySVGs() {
     }
   });
 }
+
+//PROFLE FEATURE
+const avatarInput = document.getElementById("avatar");
+document.querySelector(".avatar").addEventListener("click", function (e) {
+  avatarInput.click();
+});
+
+avatarInput.addEventListener("click", function (e) {
+  e.stopPropagation();
+});
+
+avatarInput.addEventListener("change", function () {
+  const validate_profile = (file) => {
+    const supported = ["png", "jpg", "jpeg"];
+    return file
+      ? supported.includes(file.name.split(".").pop().toLowerCase())
+        ? Math.round(file.size / 1024) >= 5000
+          ? "Select File less than 5MB"
+          : "maybe"
+        : "Unsupported File"
+      : "Please Select a File";
+  };
+  const file = this.files.item(0);
+  const valMsg = validate_profile(file);
+  if (valMsg === "maybe") {
+    const formData = new FormData();
+    formData.append("profile", file);
+    fetch(u, {
+      method: "POST",
+      cache: "no-cache",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": t,
+      },
+      body: formData,
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.message === "OK") {
+          document.querySelector(
+            ".avatar"
+          ).style.backgroundImage = `url(${data.url})`;
+          document.querySelector(".img-msg").classList.remove("notok");
+          document.querySelector(".img-msg").classList.remove("disappear");
+          document.querySelector(".img-msg").classList.add("ok");
+          document.querySelector(".img-msg").textContent = "Updated";
+          setTimeout(() => {
+            document.querySelector(".img-msg").classList.add("disappear");
+          }, 3000);
+        } else if (data.message === "notlogin") {
+          window.location.href = l;
+        }
+      });
+  } else {
+    document.querySelector(".img-msg").classList.remove("ok");
+    document.querySelector(".img-msg").classList.remove("disappear");
+    document.querySelector(".img-msg").classList.add("notok");
+    document.querySelector(".img-msg").textContent = valMsg;
+    setTimeout(() => {
+      document.querySelector(".img-msg").classList.add("disappear");
+    }, 3000);
+  }
+});
