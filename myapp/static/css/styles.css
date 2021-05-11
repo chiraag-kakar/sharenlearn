@@ -1198,3 +1198,47 @@ body.light-theme .theme-switcher .switch {
     order: 2;
   }
 }
+
+/* img-msg */
+
+.img-msg {
+  position: absolute;
+  top: -3.7rem;
+  min-width: 11.3rem;
+  text-align: center;
+  pointer-events: none;
+  font-size: var(--fs-xs);
+  border-radius: 0.6rem;
+  color: var(--clr-validation-msg-txt);
+  transition: padding 0.4s ease, opacity 0.4s ease;
+}
+
+.img-msg::before {
+  content: "";
+  position: absolute;
+  bottom: -0.55rem;
+  width: 1.3rem;
+  left: 4.3rem;
+  height: 1rem;
+  background-color: inherit;
+  box-shadow: inherit;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+}
+
+.img-msg.ok,
+.img-msg.notok {
+  padding: 0.5rem 0;
+}
+
+.img-msg.ok {
+  background-color: var(--clr-success);
+}
+
+.img-msg.notok {
+  background-color: var(--clr-danger);
+  min-width: 20rem;
+}
+
+.img-msg.disappear {
+  opacity: 0;
+}
