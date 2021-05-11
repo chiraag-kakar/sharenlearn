@@ -5,7 +5,7 @@
     {% svg "logo" %}
   </a>
   {% if auth %}
-  <a href="{% url 'logout' %}" class="button auth-log">Logout</a>
+  <a href="# " onclick="confirmation()" class="button auth-log">Logout</a>
   {% else %}
   <a href="{% url 'login' %}" class="button auth-log">Login</a>
   {% endif %}
@@ -51,3 +51,24 @@
     </div>
   </div>
 </header>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    function confirmation(){
+    swal({
+      title: "Are you sure?",
+      text: "You Want to LogOut!!",
+      icon: "warning",
+      buttons: true,
+      buttons: ['cancel','Yes, Log out'],
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        window.location = "{% url 'logout' %}";
+      } else {
+        
+      }
+    });
+    }
+  </script>
