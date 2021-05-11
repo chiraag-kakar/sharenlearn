@@ -163,9 +163,32 @@ body {
 /* HEADER */
 
 header {
+  --header-bg: hsl(300, 27%, 42%);
+  --header-btn-bg: var(--clr-secondary-bg);
+  --header-btn-bg-sticky: var(--clr-neutral-txt);
+}
+
+body.light-theme header {
+  --header-bg: hsl(20, 100%, 59%);
+}
+
+header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -8.84%;
+  right: -8.84%;
+  bottom: 0;
+  z-index: -1;
 }
 
 header .logo-a {
@@ -178,6 +201,24 @@ header .logo {
 
 header .logo + .button {
   margin-right: 1.6rem;
+}
+
+header .button.auth-log {
+  background-color: var(--header-btn-bg);
+}
+
+header.sticky {
+  top: 0;
+  position: sticky;
+  padding: 1.5rem 0;
+}
+
+header.sticky::before {
+  background: var(--header-bg);
+}
+
+header.sticky .button.auth-log {
+  background-color: var(--header-btn-bg-sticky);
 }
 
 /* NAV-BTN */
@@ -951,6 +992,9 @@ footer .cright {
   }
   .nav-list li {
     padding: 0;
+  }
+  header.sticky .nav-list li > a {
+    color: #ffffff;
   }
   .nav-list li:hover {
     background: none;

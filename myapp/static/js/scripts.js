@@ -180,11 +180,42 @@ document.querySelectorAll(".theme-switcher").forEach((btn) => {
 });
 
 function updateSVGs() {
-  const elements = document.querySelectorAll("[data-opposite]");
-  elements.forEach((element) => {
+  const changetheme = (element) => {
     const currColor = element.getAttribute("fill");
     element.setAttribute("fill", element.dataset.opposite);
     element.dataset.opposite = currColor;
+  };
+  const elements = document.querySelectorAll("[data-opposite]");
+  elements.forEach((element) => {
+    if (
+      !(
+        element.hasAttribute("data-sticky-dark") &&
+        document.querySelector("header.sticky") &&
+        document.querySelector("header.sticky").contains(element)
+      )
+    ) {
+      changetheme(element);
+    } else {
+      const currColor = element.getAttribute("fill");
+      console.log("secial");
+      if (localStorage.getItem("theme") === "dark") {
+        let currColor = element.getAttribute("fill");
+        element.setAttribute("fill", element.dataset.stickyDark);
+        element.dataset.stickyDark = currColor;
+        changetheme(element);
+        currColor = element.getAttribute("fill");
+        element.setAttribute("fill", element.dataset.stickyLight);
+        element.dataset.stickyLight = currColor;
+      } else {
+        let currColor = element.getAttribute("fill");
+        element.setAttribute("fill", element.dataset.stickyLight);
+        element.dataset.stickyLight = currColor;
+        changetheme(element);
+        currColor = element.getAttribute("fill");
+        element.setAttribute("fill", element.dataset.stickyDark);
+        element.dataset.stickyDark = currColor;
+      }
+    }
   });
 }
 
@@ -198,4 +229,35 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     localStorage.setItem("theme", "dark");
   }
+
+  let found = false;
+  window.addEventListener("scroll", function () {
+    if (this.scrollY > 20) {
+      document.querySelector("header").classList.add("sticky");
+      if (!found) {
+        found = true;
+        updateStickySVGs();
+      }
+    } else {
+      if (this.scrollY === 0) {
+        document.querySelector("header").classList.remove("sticky");
+        found = false;
+        updateStickySVGs();
+      }
+    }
+  });
 });
+
+function updateStickySVGs() {
+  document.querySelectorAll("[data-sticky-dark]").forEach((element) => {
+    const theme = localStorage.getItem("theme");
+    const currColor = element.getAttribute("fill");
+    if (theme === "dark") {
+      element.setAttribute("fill", element.dataset.stickyDark);
+      element.dataset.stickyDark = currColor;
+    } else {
+      element.setAttribute("fill", element.dataset.stickyLight);
+      element.dataset.stickyLight = currColor;
+    }
+  });
+}
