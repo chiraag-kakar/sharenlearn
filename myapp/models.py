@@ -18,7 +18,7 @@ class Notes(models.Model):
     notesfile = models.FileField(null=True)
     filetype = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
-    status = models.BooleanField()
+    status = models.CharField(max_length=15)
 
     def __str__(self):
         return self.user.username+" "+self.status

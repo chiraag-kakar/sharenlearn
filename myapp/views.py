@@ -23,9 +23,6 @@ import requests
 
 from django.conf import settings
 from django.http import JsonResponse
-
-
-# code added by arpit for message flashing and email validation
 from django.contrib import messages
 import re
 
@@ -33,23 +30,12 @@ import re
 # for validating an Email
 regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
-
 def check(email):
     if(re.search(regex, email)):
         return True
 
     else:
         return False
-# arpit code end
-
-
-# Create your views here.
-
-
-# Create your views here.
-
-def about(request):
-    return redirect('/#about')
 
 
 def index(request):
@@ -58,37 +44,8 @@ def index(request):
     context = {'auth': request.user.is_authenticated}
     return render(request, 'home.html', context)
 
-
-
-# AJAX Validations Start Here
-
-def email_validation(request):
-    """This function will be used to validate email against a regex pattern as well as to check if a user is already registered."""
-
-    data = json.loads(request.body)
-    email = data['email']
-    pattern = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-    if User.objects.filter(username=email).exists():
-        return JsonResponse({'email_error': 'You are already registered. Please login to continue.'}, status=409)
-    if not bool(re.match(pattern, email)):
-        return JsonResponse({'email_pattern_error': 'Please enter a valid email address.'})
-    return JsonResponse({'email_valid': True})
-
-
-def password_validation(request):
-    """This function will be used to validate password against a regex pattern."""
-
-    data = json.loads(request.body)
-    password = data['password']
-    pattern = '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&_])(?=\S+$).{8,20}$'
-    if bool(re.match(pattern, password)):
-        return JsonResponse({'password_valid': True})
-    else:
-        return JsonResponse({'password_error': 'Password must be 8-20 characters long and must contain atleast one uppercase letter, one lowercase letter, one number(0-9) and one special character(@,#,$,%,&,_)'})
-
-
-
-# AJAX Validations End Here
+def about(request):
+    return redirect('/#about')
 
 def contact(request):
     context = {'auth': request.user.is_authenticated}
@@ -118,6 +75,35 @@ def Logout(request):
     return redirect('index')
 
 
+
+########################################################################################################
+###################################        USER        ################################################
+########################################################################################################
+
+def signup1(request):
+    if request.method == 'POST':
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        email = request.POST['email']
+        password = request.POST['password']
+        contact = request.POST['contact']
+        role = request.POST['role']
+        dept = request.POST['dept']
+        try:
+            user = User.objects.create_user(username=email, password=password, first_name=fname, last_name=lname)
+            user.save()
+            signup = Signup.objects.create(user=user, contact=contact, branch=dept, role=role)
+            signup.save()
+            messages.success(request, "Account Created")
+            return redirect("login")
+        except IntegrityError:
+            messages.info(request, "Username taken, Try different")
+            return render(request, "signup.html")
+    if request.user.is_authenticated:
+        return redirect('index')
+    return render(request, 'signup.html')
+
+
 def userlogin(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
@@ -141,9 +127,83 @@ def userlogin(request):
         return render(request, 'login.html')
     else:
         return redirect('index')
+def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    user = User.objects.get(id=request.user.id)
+    data = Signup.objects.get(user=user)
+    d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
+    return render(request, 'profile.html', d)
 
-def login_admin(request):
+
+def edit_profile(request):
+    if not request.user.is_authenticated:
+        messages.info(request, "Please login first")
+        return redirect('login')
+    user = User.objects.get(id=request.user.id)
+    data = Signup.objects.get(user=user)
+    if request.method == 'POST':
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        contact = request.POST['contact']
+        user.first_name, user.last_name, data.contact = fname, lname, contact
+        user.save()
+        data.save()
+        messages.success(request, "Profile Updated Successfully")
+        return redirect('/profile')
+    d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
+    return render(request, 'edit_profile.html', d)
+    
+
+def changepassword(request):
+    if not request.user:
+        return redirect('login')
     error = ""
+    if request.method == "POST":
+        o = request.POST['old']
+        n = request.POST['new']
+        c = request.POST['confirm']
+        if c == n:
+            u = User.objects.get(username__exact=request.user.username)
+            u.set_password(n)
+            u.save()
+            error = "no"
+            messages.info(request, f'Password Changed Successfully')
+            return redirect('/logout')
+        else:
+            error = "yes"
+            messages.info(request, f'Invalid Login Credentials, Try Again')
+    d = {'error': error}
+    return render(request, 'changepassword.html', d)
+
+@csrf_exempt
+def Forgot_Password(request):
+    if(request.method =="POST"):
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        user = User.objects.get(username=email)
+        user.set_password(password)
+        user.save()
+        messages.success(request, "You can now login with your new password.")
+        return redirect("login")
+    return render(request, 'forgotpassword.html')
+
+
+########################################################################################################
+###################################        ADMIN        ################################################
+########################################################################################################
+
+def admin_home(request):
+
+    if not request.user.is_staff:
+        return redirect('login_admin')
+
+    pn = Notes.objects.filter(status="pending").count()
+    an = Notes.objects.filter(status="Accepted").count()
+    rn = Notes.objects.filter(status="Rejected").count()
+    aln = Notes.objects.all().count()
+    d = {'pn': pn, 'an': an, 'rn': rn, 'aln': aln}
+    return render(request, 'admin_home.html', d)
 
 
 def login_admin(request) :
@@ -168,6 +228,15 @@ def login_admin(request) :
             messages.info(request, f'Invalid Login Credentials, Try Again')
     d = {'error': error}
     return render(request, 'login_admin.html', d)
+
+########################################################################################################
+########################################################################################################
+
+
+
+
+
+
 
 
 def gen_otp():
@@ -227,103 +296,14 @@ def check_otp(request):
         return JsonResponse({'otp_mismatch': 'OTP does not match.'})
 
 
-def signup1(request):
-    if request.method == 'POST':
-        fname = request.POST['fname']
-        lname = request.POST['lname']
-        email = request.POST['email']
-        password = request.POST['password']
-        contact = request.POST['contact']
-        role = request.POST['role']
-        dept = request.POST['dept']
-        try:
-            user = User.objects.create_user(username=email, password=password, first_name=fname, last_name=lname)
-            user.save();
-            signup = Signup.objects.create(user=user, contact=contact, branch=dept, role=role)
-            signup.save();
-            messages.success(request, "Account Created")
-            return redirect("login")
-        except IntegrityError:
-            messages.info(request, "Username taken, Try different")
-            return render(request, "signup.html")
-    if request.user.is_authenticated:
-        return redirect('index')
-    return render(request, 'signup.html')
-
-@csrf_exempt
-def Forgot_Password(request):
-    if(request.method =="POST"):
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        user = User.objects.get(username=email)
-        user.set_password(password)
-        user.save()
-        messages.success(request, "You can now login with your new password.")
-        return redirect("login")
-    return render(request, 'forgotpassword.html')
 
 
-def admin_home(request):
-
-    if not request.user.is_staff:
-        return redirect('login_admin')
-
-    pn = Notes.objects.filter(status="pending").count()
-    an = Notes.objects.filter(status="Accepted").count()
-    rn = Notes.objects.filter(status="Rejected").count()
-    aln = Notes.objects.all().count()
-    d = {'pn': pn, 'an': an, 'rn': rn, 'aln': aln}
-    return render(request, 'admin_home.html', d)
 
 
-def profile(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    user = User.objects.get(id=request.user.id)
-    data = Signup.objects.get(user=user)
-    d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
-    return render(request, 'profile.html', d)
 
 
-def edit_profile(request):
-    if not request.user.is_authenticated:
-        messages.info(request, "Please login first")
-        return redirect('login')
-    user = User.objects.get(id=request.user.id)
-    data = Signup.objects.get(user=user)
-    if request.method == 'POST':
-        fname = request.POST['fname']
-        lname = request.POST['lname']
-        contact = request.POST['contact']
-        user.first_name, user.last_name, data.contact = fname, lname, contact
-        user.save()
-        data.save()
-        messages.success(request, "Profile Updated Successfully")
-        return redirect('/profile')
-    d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
-    return render(request, 'edit_profile.html', d)
-    
 
-def changepassword(request):
-    if not request.user:
-        return redirect('login')
-    error = ""
-    if request.method == "POST":
-        o = request.POST['old']
-        n = request.POST['new']
-        c = request.POST['confirm']
-        if c == n:
-            u = User.objects.get(username__exact=request.user.username)
-            u.set_password(n)
-            u.save()
-            error = "no"
-            messages.info(request, f'Password Changed Successfully')
-            return redirect('/logout')
-        else:
-            error = "yes"
-            messages.info(request, f'Invalid Login Credentials, Try Again')
-    d = {'error': error}
-    return render(request, 'changepassword.html', d)
+
 
 
 def upload_notes(request):
@@ -454,4 +434,31 @@ def viewall_usernotes(request):
     return render(request, 'viewall_usernotes.html', d)
 
 
-# SMTP Backend in views.py
+
+
+# AJAX Validations Start Here
+
+def email_validation(request):
+    """This function will be used to validate email against a regex pattern as well as to check if a user is already registered."""
+
+    data = json.loads(request.body)
+    email = data['email']
+    pattern = '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+    if User.objects.filter(username=email).exists():
+        return JsonResponse({'email_error': 'You are already registered. Please login to continue.'}, status=409)
+    if not bool(re.match(pattern, email)):
+        return JsonResponse({'email_pattern_error': 'Please enter a valid email address.'})
+    return JsonResponse({'email_valid': True})
+
+
+def password_validation(request):
+    """This function will be used to validate password against a regex pattern."""
+
+    data = json.loads(request.body)
+    password = data['password']
+    pattern = '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&_])(?=\S+$).{8,20}$'
+    if bool(re.match(pattern, password)):
+        return JsonResponse({'password_valid': True})
+    else:
+        return JsonResponse({'password_error': 'Password must be 8-20 characters long and must contain atleast one uppercase letter, one lowercase letter, one number(0-9) and one special character(@,#,$,%,&,_)'})
+# AJAX Validations End Here
