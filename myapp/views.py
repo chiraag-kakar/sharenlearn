@@ -303,6 +303,17 @@ def edit_profile(request):
     d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
     return render(request, 'edit_profile.html', d)
     
+def update_profile_photo(request):
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return JsonResponse({"message": "notlogin"});
+        user = User.objects.get(id=request.user.id)
+        data = Signup.objects.get(user=user)
+        profile = request.FILES['profile']
+        data.profile_photo = profile
+        data.save();
+        return JsonResponse({"message": "OK", "url": data.profile_photo.url})
+    return redirect('login')
 
 def changepassword(request):
     if not request.user:
