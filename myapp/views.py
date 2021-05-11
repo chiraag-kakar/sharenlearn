@@ -296,15 +296,28 @@ def check_otp(request):
         return JsonResponse({'otp_mismatch': 'OTP does not match.'})
 
 
+def update_profile_photo(request):
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return JsonResponse({"message": "notlogin"});
+        user = User.objects.get(id=request.user.id)
+        data = Signup.objects.get(user=user)
+        profile = request.FILES['profile']
+        data.profile_photo = profile
+        data.save();
+        return JsonResponse({"message": "OK", "url": data.profile_photo.url})
+    return redirect('login')
 
-
-
-
-
-
-
-
-
+def delete_profile_photo(request):
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return JsonResponse({"message": "notlogin"});
+        user = User.objects.get(id=request.user.id)
+        data = Signup.objects.get(user=user)
+        data.profile_photo = None
+        data.save();
+        return JsonResponse({"message": "OK"})
+    return redirect('login')
 
 def upload_notes(request):
     if not request.user.is_authenticated:

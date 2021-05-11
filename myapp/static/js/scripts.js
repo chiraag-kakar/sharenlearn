@@ -261,3 +261,118 @@ function updateStickySVGs() {
     }
   });
 }
+
+//PROFLE FEATURE
+if (document.getElementById("avatar")) {
+  const avatarInput = document.getElementById("avatar");
+  document.querySelector(".avatar").addEventListener("click", function (e) {
+    console.log(e.target.classList.contains("cross"));
+    if (!e.target.classList.contains("cross")) avatarInput.click();
+  });
+
+  avatarInput.addEventListener("click", function (e) {
+    e.stopPropagation();
+  });
+
+  avatarInput.addEventListener("change", function () {
+    const validate_profile = (file) => {
+      const supported = ["png", "jpg", "jpeg"];
+      return file
+        ? supported.includes(file.name.split(".").pop().toLowerCase())
+          ? Math.round(file.size / 1024) >= 5000
+            ? "Select File less than 5MB"
+            : "maybe"
+          : "Unsupported File"
+        : "Please Select a File";
+    };
+    const file = this.files.item(0);
+    const valMsg = validate_profile(file);
+    if (valMsg === "maybe") {
+      const formData = new FormData();
+      formData.append("profile", file);
+      fetch(u, {
+        method: "POST",
+        cache: "no-cache",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRFToken": t,
+        },
+        body: formData,
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          if (data.message === "OK") {
+            document.querySelector(
+              ".avatar"
+            ).style.backgroundImage = `url(${data.url})`;
+            document.querySelector(".img-msg").classList.remove("notok");
+            document.querySelector(".img-msg").classList.remove("disappear");
+            document.querySelector(".img-msg").classList.add("ok");
+            document.querySelector(".img-msg").textContent = "Updated";
+            if (!document.querySelector("button.cross")) {
+              const btn = document.createElement("button");
+              btn.classList.add("cross");
+              btn.style.display = "initial";
+              btn.setAttribute("title", "Delete Profile Picture");
+              btn.innerHTML = `<svg class="cross" width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6.14717L3.704 3.49417L5.977 0.818417L5.269 0L2.9965 2.67692L0.7025 0.0268333L0 0.846417L2.2965 3.50175L0.023 6.18042L0.7255 7L3.003 4.319L5.2985 6.97317L6 6.14717Z" fill="#C2C2C2" data-opposite="hsla(0, 0%, 8%, 0.76)"/></svg>`;
+              btn.addEventListener("click", deleteProfile);
+              document.querySelector(".avatar").appendChild(btn);
+            } else {
+              document.querySelector("button.cross").style.display = "initial";
+            }
+            setTimeout(() => {
+              document.querySelector(".img-msg").classList.add("disappear");
+            }, 3000);
+          } else if (data.message === "notlogin") {
+            window.location.href = l;
+          }
+        });
+    } else {
+      document.querySelector(".img-msg").classList.remove("ok");
+      document.querySelector(".img-msg").classList.remove("disappear");
+      document.querySelector(".img-msg").classList.add("notok");
+      document.querySelector(".img-msg").textContent = valMsg;
+      setTimeout(() => {
+        document.querySelector(".img-msg").classList.add("disappear");
+      }, 3000);
+    }
+  });
+
+  if (document.querySelector("button.cross")) {
+    document
+      .querySelector("button.cross")
+      .addEventListener("click", deleteProfile);
+  }
+}
+
+function deleteProfile(e) {
+  e.stopPropagation();
+  console.log("...");
+  fetch(u_d, {
+    method: "POST",
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+      "X-CSRFToken": t,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message === "OK") {
+        document.querySelector(
+          ".avatar"
+        ).style.backgroundImage = `var(--icon-avatar)`;
+        document.querySelector(".img-msg").classList.remove("notok");
+        document.querySelector(".img-msg").classList.remove("disappear");
+        document.querySelector(".img-msg").classList.add("ok");
+        document.querySelector(".img-msg").textContent = "Deleted";
+        document.querySelector(".cross").style.display = "none";
+        setTimeout(() => {
+          document.querySelector(".img-msg").classList.add("disappear");
+        }, 3000);
+      } else if (data.message === "notlogin") {
+        window.location.href = l;
+      }
+    });
+}

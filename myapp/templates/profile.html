@@ -6,47 +6,61 @@
 <main class="big">
   <div class="profile-section">
     <div class="profile">
-      <div class="avatar" title="Feature Coming Soon">
-        <input type="file" class="avatar-input" name="avatar" id="avatar" disabled title="Feature Coming Soon">
-        {% svg "icon-edit" %}
-      </div>
-      <div class="profile-main">
-        <h1 class="user-name">{{data.user.first_name}} {{data.user.last_name}}</h1>
-        <p class="user-email">{{data.user.username}}</p>
-      </div>
-    </div>
-    <div class="profile-data">
-      <div class="field">
-        <div class="field-name">Branch</div>
-        <div class="field-value">
-          {% if data.branch == "1" %}
-          Computer Science and Engg.
-          {% elif data.branch == "2" %}
-          Electrical Engg.
-          {% elif data.branch == "3" %}
-          Electronics and Communication Engg.
-          {% else %}
-          Other Department
+      {% if data.profile_photo %}
+      <div class="avatar" title="Change Profile Picture" style="background-image: url({{data.profile_photo.url}})">
+        {% else %}
+        <div class="avatar" title="Change Profile Picture">
           {% endif %}
+          <input type="file" class="avatar-input" name="avatar" id="avatar" title="Change Profile Picture">
+          {% svg "icon-edit" %}
+          {% if data.profile_photo %}
+          <button class="cross" title="Delete Profile Picture">{% svg "icon-cross" %}</button>
+          {% endif %}
+          <p class="img-msg"></p>
+        </div>
+        <div class="profile-main">
+          <h1 class="user-name">{{data.user.first_name}} {{data.user.last_name}}</h1>
+          <p class="user-email">{{data.user.username}}</p>
         </div>
       </div>
-      <div class="field">
-        <div class="field-name">Role</div>
-        <div class="field-value">
-          {% if data.role == "1" %}
-          Student
-          {% else %}
-          Staff
-          {% endif %}
+      <div class="profile-data">
+        <div class="field">
+          <div class="field-name">Branch</div>
+          <div class="field-value">
+            {% if data.branch == "1" %}
+            Computer Science and Engg.
+            {% elif data.branch == "2" %}
+            Electrical Engg.
+            {% elif data.branch == "3" %}
+            Electronics and Communication Engg.
+            {% else %}
+            Other Department
+            {% endif %}
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-name">Role</div>
+          <div class="field-value">
+            {% if data.role == "1" %}
+            Student
+            {% else %}
+            Staff
+            {% endif %}
+          </div>
+        </div>
+        <div class="field">
+          <div class="field-name">Contact</div>
+          <div class="field-value">{{data.contact}}</div>
         </div>
       </div>
-      <div class="field">
-        <div class="field-name">Contact</div>
-        <div class="field-value">{{data.contact}}</div>
-      </div>
+      <a href="{% url 'edit_profile' %}" class="button">Edit</a>
     </div>
-    <a href="{% url 'edit_profile' %}" class="button">Edit</a>
-  </div>
 </main>
 {% include "footer1.html" %}
+<script>
+  const t = "{{ csrf_token }}";
+  const u = "{% url 'update_profile_photo' %}";
+  const l = "{% url 'login' %}";
+  const u_d = "{% url 'delete_profile_photo' %}";
+</script>
 {% endblock content %}
