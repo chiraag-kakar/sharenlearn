@@ -317,6 +317,7 @@ if (document.getElementById("avatar")) {
               btn.style.display = "initial";
               btn.setAttribute("title", "Delete Profile Picture");
               btn.innerHTML = `<svg class="cross" width="6" height="7" viewBox="0 0 6 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6.14717L3.704 3.49417L5.977 0.818417L5.269 0L2.9965 2.67692L0.7025 0.0268333L0 0.846417L2.2965 3.50175L0.023 6.18042L0.7255 7L3.003 4.319L5.2985 6.97317L6 6.14717Z" fill="#C2C2C2" data-opposite="hsla(0, 0%, 8%, 0.76)"/></svg>`;
+              btn.addEventListener("click", deleteProfile);
               document.querySelector(".avatar").appendChild(btn);
             } else {
               document.querySelector("button.cross").style.display = "initial";
@@ -342,32 +343,36 @@ if (document.getElementById("avatar")) {
   if (document.querySelector("button.cross")) {
     document
       .querySelector("button.cross")
-      .addEventListener("click", function () {
-        fetch(u_d, {
-          method: "POST",
-          headers: {
-            "X-Requested-With": "XMLHttpRequest",
-            "X-CSRFToken": t,
-          },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.message === "OK") {
-              document.querySelector(
-                ".avatar"
-              ).style.backgroundImage = `var(--icon-avatar)`;
-              document.querySelector(".img-msg").classList.remove("notok");
-              document.querySelector(".img-msg").classList.remove("disappear");
-              document.querySelector(".img-msg").classList.add("ok");
-              document.querySelector(".img-msg").textContent = "Deleted";
-              document.querySelector(".cross").style.display = "none";
-              setTimeout(() => {
-                document.querySelector(".img-msg").classList.add("disappear");
-              }, 3000);
-            } else if (data.message === "notlogin") {
-              window.location.href = l;
-            }
-          });
-      });
+      .addEventListener("click", deleteProfile);
   }
+}
+
+function deleteProfile(e) {
+  e.stopPropagation();
+  console.log("...");
+  fetch(u_d, {
+    method: "POST",
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+      "X-CSRFToken": t,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message === "OK") {
+        document.querySelector(
+          ".avatar"
+        ).style.backgroundImage = `var(--icon-avatar)`;
+        document.querySelector(".img-msg").classList.remove("notok");
+        document.querySelector(".img-msg").classList.remove("disappear");
+        document.querySelector(".img-msg").classList.add("ok");
+        document.querySelector(".img-msg").textContent = "Deleted";
+        document.querySelector(".cross").style.display = "none";
+        setTimeout(() => {
+          document.querySelector(".img-msg").classList.add("disappear");
+        }, 3000);
+      } else if (data.message === "notlogin") {
+        window.location.href = l;
+      }
+    });
 }
