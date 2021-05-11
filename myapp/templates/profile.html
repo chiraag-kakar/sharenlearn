@@ -9,10 +9,13 @@
       {% if data.profile_photo %}
       <div class="avatar" title="Change Profile Picture" style="background-image: url({{data.profile_photo.url}})">
         {% else %}
-        <div class="avatar" title="Feature Coming Soon">
+        <div class="avatar" title="Change Profile Picture">
           {% endif %}
           <input type="file" class="avatar-input" name="avatar" id="avatar" title="Change Profile Picture">
           {% svg "icon-edit" %}
+          {% if data.profile_photo %}
+          <button class="cross" title="Delete Profile Picture">{% svg "icon-cross" %}</button>
+          {% endif %}
           <p class="img-msg"></p>
         </div>
         <div class="profile-main">
@@ -58,5 +61,6 @@
   const t = "{{ csrf_token }}";
   const u = "{% url 'update_profile_photo' %}";
   const l = "{% url 'login' %}";
+  const u_d = "{% url 'delete_profile_photo' %}";
 </script>
 {% endblock content %}
