@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 import json
 from django.core.mail import EmailMultiAlternatives, send_mail
+from django.http.response import HttpResponse
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 from random import randint
@@ -118,9 +119,12 @@ def userlogin(request):
             u = request.POST['email']
             p = request.POST['password']
             user = authenticate(username=u, password=p)
+            s_msg = "Logged in Successfully"
             if user is not None:
+                if user.is_staff:
+                    s_msg = "Logged in as Staff Admin"
                 login(request, user)
-                messages.success(request, "Logged In Successfully")
+                messages.success(request, s_msg)
                 return redirect('/profile')
             else:
                 messages.error(request, "Invalid Login Credentials")
@@ -133,6 +137,9 @@ def profile(request):
     user = User.objects.get(id=request.user.id)
     data = Signup.objects.get(user=user)
     d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
+    if (request.user.is_staff):
+        d["staff"] = True
+    print(request.user.is_staff, d)
     return render(request, 'profile.html', d)
 
 
@@ -332,7 +339,7 @@ def upload_notes(request):
         u = User.objects.filter(username=request.user.username).first()
         try:
             Notes.objects.create(user=u, uploadingdate=date.today(), branch=b, subject=s,
-                                 notesfile=n, filetype=f, description=d, status=False)
+                                 notesfile=n, filetype=f, description=d, status="Pending")
             messages.success(request, f'Notes Uploaded Successfully')
             return redirect('view_usernotes');
         except:
@@ -385,27 +392,6 @@ def pending_notes(request):
     d = {'notes': notes, }
     return render(request, 'pending_notes.html', d)
 
-
-def assign_status(request, pid):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    notes = Notes.objects.get(id=pid)
-    error = ""
-    if request.method == 'POST':
-        s = request.POST['status']
-        try:
-            notes.status = s
-            notes.save()
-            error = "no"
-            messages.info(request, f'Status Updated Successfullly')
-            return redirect('/all_notes')
-        except:
-            error = "yes"
-            messages.info(request, f'Something went wrong, Try Again')
-    d = {'notes': notes, 'error': error}
-    return render(request, 'assign_status.html', d)
-
-
 def accepted_notes(request):
     if not request.user.is_authenticated:
         return redirect('login_admin')
@@ -442,7 +428,7 @@ def viewall_usernotes(request):
     if not request.user.is_authenticated:
         messages.info(request, "Please login to access all uploads")
         return redirect('login')
-    notes = Notes.objects.filter(status=True)
+    notes = Notes.objects.filter(status="Accepted")
     d = {'notes': notes, 'auth': request.user.is_authenticated}
     return render(request, 'viewall_usernotes.html', d)
 
@@ -475,3 +461,43 @@ def password_validation(request):
     else:
         return JsonResponse({'password_error': 'Password must be 8-20 characters long and must contain atleast one uppercase letter, one lowercase letter, one number(0-9) and one special character(@,#,$,%,&,_)'})
 # AJAX Validations End Here
+
+def admin_dashboard(request, type):
+    reviewed = False
+    if not request.user.is_authenticated:
+        return redirect('login')
+    if not request.user.is_staff:
+        return redirect('/profile')
+    if type == "open":
+        notes = Notes.objects.filter(status="Pending")
+    elif type == "reviewed":
+        notes = Notes.objects.exclude(status="Pending")
+        reviewed = True
+    else:
+        notes = Notes.objects.filter(status="Pending")
+    pen = len(Notes.objects.filter(status="Pending"))
+    rev = len(Notes.objects.exclude(status="Pending")) 
+    d = {'notes': notes, 'auth': request.user.is_authenticated, 'staff': request.user.is_staff, 'pen': pen, 'rev': rev, 'reviewed': reviewed}
+    return render(request, 'admin_dashboard.html', d)
+
+def assign_status(request):
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return JsonResponse({"message": "notlogin"})
+        if not request.user.is_staff:
+            return JsonResponse({"message": "notstaff"})
+        sid = request.POST["job"]
+        pid = request.POST["id"]
+        if not (sid == "accept" or sid == "reject"):
+            return JsonResponse({"message": "wentwrong"})
+        notes = Notes.objects.get(id=pid)
+        try:
+            if sid == "accept":
+                notes.status = "Accepted"
+            else:
+                notes.status = "Rejected"
+            notes.save()
+            return JsonResponse({"message": "success"})
+        except:
+            return JsonResponse({"message": "wentwrong"})
+    return HttpResponse("<h1>UnAuthorised</h1>")
