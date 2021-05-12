@@ -376,3 +376,37 @@ function deleteProfile(e) {
       }
     });
 }
+
+if (document.querySelector(".as-st")) {
+  const updateStatus = (id, job) => {
+    const formData = new FormData();
+    formData.append("job", job);
+    formData.append("id", id);
+    fetch(a_s, {
+      method: "POST",
+      cache: "no-cache",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": t,
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "success") window.location.href = a_d;
+        else if (data.message === "notlogin") window.location.href = lg;
+        else if (data.message === "notstaff") window.location.href = p;
+        else window.location.href = a_d;
+      });
+  };
+  document
+    .querySelector(".as-st.accept")
+    .addEventListener("click", function () {
+      updateStatus(this.dataset.id, "accept");
+    });
+  document
+    .querySelector(".as-st.reject")
+    .addEventListener("click", function () {
+      updateStatus(this.dataset.id, "reject");
+    });
+}
