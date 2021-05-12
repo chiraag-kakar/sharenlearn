@@ -14,7 +14,14 @@
       {% svg "icon-hamburger" %}
     </button>
     <ul class="nav-list">
-      {% if not auth %}
+      {% if auth and staff %}
+      <li>
+        <a href="{% url "admin_dashboard" 'open' %}">Dashboard</a>
+      </li>
+      <li>
+        <a href="#">Accepted Notes</a>
+      </li>
+      {% elif not auth %}
       <li>
         <a href="/#home">Home</a>
       </li>
@@ -54,21 +61,21 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
-    function confirmation(){
+  function confirmation() {
     swal({
-      title: "Are you sure?",
-      text: "You Want to LogOut!!",
-      icon: "warning",
-      buttons: true,
-      buttons: ['cancel','Yes, Log out'],
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        window.location = "{% url 'logout' %}";
-      } else {
-        
-      }
-    });
-    }
-  </script>
+        title: "Are you sure?",
+        text: "You Want to LogOut!!",
+        icon: "warning",
+        buttons: true,
+        buttons: ['cancel', 'Yes, Log out'],
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          window.location = "{% url 'logout' %}";
+        } else {
+
+        }
+      });
+  }
+</script>
