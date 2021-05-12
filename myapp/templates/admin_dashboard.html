@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load svg %}
+{% load static %}
+{% block content %}
+{% include "header.html" %}
+<main>
+  <div class="notes">
+    <div class="notes-header">
+      <div class="stat">
+        <a class="stat-open {% if not reviewed %}active{% endif %}" href="{% url "admin_dashboard" 'open' %}">
+          {% svg "icon-pending-bw" %}
+          {{ pen }} Open
+        </a>
+        <a class="stat-reviewed {% if reviewed %}active{% endif %}" href="{% url "admin_dashboard" 'reviewed' %}">
+          {% svg "icon-approved-bw" %}
+          {{ rev }} Reviewed
+        </a>
+      </div>
+      <p class="dwnl">Download</p>
+      <p>Action</p>
+    </div>
+    {% if notes|length == 0  %}
+    <p class="msg">There're nothing here</p>
+    {% endif %}
+    {% for i in notes %}
+    <div class="note">
+      <div class="note-title">
+        <p>{{i.subject|title}}</p>
+        <p class="date">uploaded on {{i.uploadingdate}} by {{i.user.username}}</p>
+        {% if i.status == "Pending" %}
+        {% svg "icon-pending" %}
+        {% elif i.status == "Accepted" %}
+        {% svg "icon-approved" %}
+        {% else %}
+        {% svg "icon-cross-red" %}
+        {% endif %}
+      </div>
+      <a href="{{i.notesfile.url}}" class="dw-type">{{i.filetype|upper}}</a>
+      <div class="note-action">
+        {% if not reviewed %}
+        <button class="button accept as-st" data-id="{{i.id}}">Accept</button>
+        <button class="button reject as-st" data-id="{{i.id}}">Reject</button>
+        {% else %}
+        {% if i.status == "Accepted" %}
+        <button class="button accept" style="pointer-events: none;margin-right: 0;">Accepted</button>
+        {% else %}
+        <button class="button reject" style="pointer-events: none;">Rejected</button>
+        {% endif %}
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</main>
+<script>
+  const t = "{{ csrf_token }}";
+  const a_s = "{% url 'assign_status' %}";
+  const lg = "{% url 'login' %}";
+  const p = "{% url 'profile' %}";
+  const a_d = "{% url 'admin_dashboard' 'open' %}";
+</script>
+{% include "footer1.html" %}
+{% endblock content %}
