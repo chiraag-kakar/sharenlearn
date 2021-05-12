@@ -30,10 +30,12 @@
             {% endif %}
           </p>
           <a title="Download" href="{{i.notesfile.url}}" download>{{i.filetype|upper}}</a>
-          {% if i.status == True %}
+          {% if i.status == "Accepted" %}
           {% svg "icon-approved" %}
-          {% else %}
+          {% elif i.status == "Pending" %}
           {% svg "icon-pending" %}
+          {% else %}
+          {% svg "icon-cross-red" %}
           {% endif %}
         </div>
         <div class="card-body">
