@@ -1257,3 +1257,231 @@ body.light-theme .theme-switcher .switch {
 .img-msg.disappear {
   opacity: 0;
 }
+
+/* ADMIN */
+/* NOTES */
+.notes {
+  --clr-notes-border: hsl(0, 0%, 23%);
+  --clr-notes-header-bg: hsla(0, 0%, 23%, 0.31);
+  --clr-link: hsl(210, 100%, 69%);
+  --clr-success: hsl(116, 82%, 19%);
+  --clr-danger: hsl(357, 95%, 31%);
+}
+
+body.light-theme .notes {
+  --clr-notes-border: hsl(0, 1%, 84%);
+  --clr-notes-header-bg: hsla(0, 1%, 84%, 0.31);
+  --clr-link: var(--clr-neutral-txt);
+}
+
+.notes {
+  width: 100%;
+  border: 0.01rem solid var(--clr-notes-border);
+  border-radius: 0.6rem;
+}
+
+.notes .notes-header {
+  display: flex;
+  padding: 1rem 1.5rem;
+  font-size: var(--fs-sm);
+  align-items: center;
+  background-color: var(--clr-notes-header-bg);
+}
+
+.notes .notes-header .stat {
+  width: 70%;
+}
+
+.notes .notes-header p {
+  width: 30%;
+}
+
+.notes .notes-header .dwnl {
+  display: none;
+}
+
+.notes .notes-header .stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.notes .notes-header .stat > * svg {
+  position: relative;
+  top: 0.4rem;
+  width: 1.6rem;
+  margin-right: 0.4rem;
+}
+
+.notes .notes-header .stat a.active {
+  opacity: 1;
+}
+
+.notes .notes-header .stat a {
+  opacity: 0.6;
+}
+
+.notes .notes-header .stat a:hover {
+  opacity: 0.9;
+}
+
+.notes .notes-header .stat a:hover {
+  text-decoration: none;
+}
+
+.notes .notes-header .stat > * + * {
+  margin-top: 0.5rem;
+}
+
+.notes .notes-header > p {
+  text-align: center;
+  font-weight: var(--fs-sb);
+}
+
+.notes > * + * {
+  border-bottom: 0.1rem solid var(--clr-notes-border);
+}
+
+.note {
+  display: flex;
+  padding: 1rem 1.5rem;
+  align-items: center;
+  position: relative;
+  padding-bottom: 2.4rem;
+}
+
+.note .note-title {
+  width: 70%;
+}
+
+.note > .note-action {
+  width: calc(30% - 1rem);
+}
+
+.note-title {
+  font-size: var(--fs-sm);
+  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+}
+
+.note-title > .date {
+  margin-top: 1rem;
+  opacity: 0.63;
+  order: 2;
+  font-size: var(--fs-xs);
+}
+
+.note-title > svg {
+  margin-top: 1rem;
+  order: 1;
+}
+
+.note .dw-type {
+  position: absolute;
+  right: 1.7rem;
+  bottom: 0.3rem;
+  text-align: right;
+  font-size: var(--fs-xs);
+  color: var(--clr-link);
+  width: auto;
+}
+
+.note .note-action {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.note .note-action .accept {
+  margin-bottom: 2rem;
+  background-color: var(--clr-success);
+}
+
+.note .note-action .reject {
+  background-color: var(--clr-danger);
+}
+
+.notes-header + p.msg {
+  padding: 4rem 0;
+  text-align: center;
+  opacity: 0.8;
+}
+
+@media (min-width: 731px) {
+  .notes .notes-header {
+    padding: 1.4rem 1.8rem;
+    font-size: var(--fs-xs);
+  }
+  .notes .note {
+    padding: 1.4rem 1.8rem;
+  }
+  .notes .notes-header .stat {
+    display: flex;
+    flex-direction: row;
+  }
+  .notes .notes-header .stat > * {
+    margin: 0;
+    margin-right: 1.2rem;
+  }
+  .notes .notes-header .stat > * svg {
+    position: static;
+    margin-right: 0.5rem;
+    width: 1.2rem;
+  }
+  .notes .notes-header .stat > * {
+    display: flex;
+    align-items: center;
+  }
+  .notes .notes-header .stat,
+  .note .note-title {
+    width: 50%;
+  }
+  .notes .notes-header .dwnl {
+    display: initial;
+  }
+  .notes .notes-header p,
+  .note .dw-type,
+  .note .note-action {
+    width: 25%;
+  }
+  .note .dw-type {
+    position: static;
+    text-align: center;
+  }
+  .note .note-title {
+    position: relative;
+  }
+  .note-title > svg {
+    position: absolute;
+    top: 0;
+    margin-top: 0.59rem;
+    width: 1.3rem;
+  }
+  .note-title > svg[title="Approved"] {
+    margin-top: 0.39rem;
+  }
+  .note-title p:first-child {
+    padding-left: 1.9rem;
+  }
+  .note .note-action {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .note .note-action .accept {
+    margin: 0;
+    margin-right: 1.2rem;
+  }
+  .note-title > .date {
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .note-action > .button {
+    padding: 0.5rem;
+  }
+}
