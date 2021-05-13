@@ -841,11 +841,6 @@ footer .social > * + * {
 
 footer .cright {
   font-size: var(--fs-xs);
-  margin-top: 1.6rem;
-}
-
-footer .cright.dev {
-  font-weight: var(--fw-lt);
 }
 
 footer .social .link-insta {
