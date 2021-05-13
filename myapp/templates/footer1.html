@@ -1,15 +1,20 @@
 {% load static %}
+{% load svg %}
 <footer>
   <div class="social">
-    <a href="#">
-      <img src="{% static 'images/icon-facebook.svg' %}" alt="">
+    <a href="#" title="Facebook" class="link-fb">
+      {% svg "icon-facebook" %}
     </a>
-    <a href="#">
-      <img src="{% static 'images/icon-twitter.svg' %}" alt="">
+    <a href="#" title="Twitter" class="link-twitter">
+      {% svg "icon-twitter" %}
     </a>
-    <a href="#">
-      <img src="{% static 'images/icon-instagram.svg' %}" alt="">
+    <a href="#" title="Instagram" class="link-insta">
+      {% svg "icon-instagram" %}
+    </a>
+    <a href="https://github.com/chiraag-kakar/sharenlearn/" class="link-git" title="Github">
+      {% svg "icon-github" %}
     </a>
   </div>
+  <p class="cright dev">Developed with ❤️ by <a href="/"> Chiraag Kakar</a></p>
   <p class="cright">Share N Learn &copy; 2021</p>
 </footer>
