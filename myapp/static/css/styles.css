@@ -120,14 +120,16 @@ button:active,
 a {
   color: inherit;
   text-decoration: none;
+  transition: color 0.4s ease;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: hsl(210, 100%, 69%);
 }
 
 a.button:hover {
   text-decoration: none; /* text decoration none on anchor buttons */
+  color: currentColor;
 }
 
 /* COLORED */
@@ -782,6 +784,28 @@ form .invalid {
 
 footer {
   text-align: center;
+  --clr-social-bg: hsl(0, 0%, 8%);
+  --clr-facebook: hsl(220, 46%, 48%);
+  --clr-twitter: hsl(203, 89%, 53%);
+  --clr-github: hsl(300, 27%, 42%);
+  --clr-instagram: hsl(7, 100%, 62%);
+  --gradient-instagram-1: radial-gradient(
+    92.18% 99.11% at 26.56% 107.7%,
+    #ffdd55 0%,
+    #ffdd55 10%,
+    #ff543e 50%,
+    #c837ab 100%
+  );
+  --gradient-instagram-2: radial-gradient(
+    179.06% 43.44% at -16.75% 7.2%,
+    #3771c8 0%,
+    #3771c8 12.8%,
+    rgba(102, 0, 255, 0) 100%
+  );
+}
+
+body.light-theme footer {
+  --clr-social-bg: hsl(0, 0%, 70%);
 }
 
 footer .social {
@@ -791,19 +815,80 @@ footer .social {
 footer .social a {
   width: 3.4rem;
   height: 3.4rem;
-  display: inline-block;
+  background-color: var(--clr-social-bg);
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  transition: background-color 0.4s ease;
 }
 
-footer .social a img {
-  width: 100%;
+footer .social a svg {
+  width: 1.6rem;
+  z-index: 1;
 }
 
-footer .social a:nth-child(2) {
-  margin: 0 2rem;
+footer .social .link-git svg {
+  width: 1.8rem;
+}
+
+footer .social .link-git #round {
+  transition: fill 0.4s ease;
+}
+
+footer .social > * + * {
+  margin-left: 1.2rem;
 }
 
 footer .cright {
   font-size: var(--fs-xs);
+}
+
+footer .social .link-insta {
+  position: relative;
+}
+
+footer .social .link-insta::before,
+footer .social .link-insta::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--clr-instagram);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: inherit;
+}
+
+footer .social .link-insta::before {
+  background: var(--gradient-instagram-1);
+}
+
+footer .social .link-insta::after {
+  background: var(--gradient-instagram-2);
+}
+
+/* HOVER ICONS */
+
+footer .social .link-fb:hover {
+  background-color: var(--clr-facebook);
+}
+
+footer .social .link-twitter:hover {
+  background-color: var(--clr-twitter);
+}
+
+footer .social .link-git:hover {
+  background-color: var(--clr-github);
+}
+
+footer .social .link-insta:hover::before {
+  opacity: 1;
+}
+
+footer .social .link-git:hover #round {
+  fill: var(--clr-github);
 }
 
 /* VALIDATION MESSAGES AT TOP */
@@ -1010,6 +1095,9 @@ footer .cright {
   }
   header.sticky .nav-list li > a {
     color: #ffffff;
+  }
+  header.sticky .nav-list li > a:hover {
+    text-decoration: underline;
   }
   .nav-list li:hover {
     background: none;
