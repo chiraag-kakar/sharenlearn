@@ -418,7 +418,7 @@ function filterFeat(swtch) {
 }
 
 function backToNormal() {
-  document.querySelectorAll(".active").forEach((active) => {
+  document.querySelectorAll("filters .active").forEach((active) => {
     active.classList.remove("active");
   });
   document.getElementById("search").value = "";
