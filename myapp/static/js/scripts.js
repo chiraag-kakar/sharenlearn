@@ -498,3 +498,15 @@ if (document.querySelector(".filters")) {
       backToNormal();
     });
 }
+
+//close details
+
+if (document.querySelector("details")) {
+  document.querySelectorAll("details").forEach((det) => {
+    det.addEventListener("click", function () {
+      document
+        .querySelectorAll("details[open]")
+        .forEach((det) => det.removeAttribute("open"));
+    });
+  });
+}
