@@ -4,6 +4,49 @@
 {% block content %}
 {% include "header.html" %}
 <main>
+  <div class="filters {% if reviewed %}r{% endif %}">
+    <details title="Filter by File Type" class="f-type">
+      <summary id="ftype">File Type</summary>
+      <ul class="dropdown">
+        <li>PDF</li>
+        <li>JPG</li>
+        <li>JPEG</li>
+        <li>PNG</li>
+        <li>DOCX</li>
+        <li>PPTX</li>
+        <li>TXT</li>
+        <li>MD</li>
+        <li>SVG</li>
+        <li>ZIP</li>
+      </ul>
+    </details>
+    <details title="Branch" class="b-type">
+      <summary id="branch">Branch</summary>
+      <ul class="dropdown">
+        <li>ECE</li>
+        <li>CSE</li>
+        <li>EEE</li>
+        <li>IT</li>
+        <li>ME</li>
+      </ul>
+    </details>
+    {% if reviewed %}
+    <details title="status" class="s-type">
+      <summary id="status">Status</summary>
+      <ul class="dropdown">
+        <li>Accepted</li>
+        <li>Rejected</li>
+      </ul>
+    </details>
+    {% endif %}
+    <div class="input-field" title="Search">
+      <input type="search" id="search" placeholder="Search" autocomplete="off" spellcheck="false">
+    </div>
+    <div class="clear-filters">
+      <div class="clear-icon">{% svg "icon-cross" %}</div>
+      Clear current search queries
+    </div>
+  </div>
   <div class="notes">
     <div class="notes-header">
       <div class="stat">
@@ -19,13 +62,30 @@
       <p class="dwnl">Download</p>
       <p>Action</p>
     </div>
+    <p class="emsg">No results matched your search.</p>
     {% if notes|length == 0  %}
     <p class="msg">There're nothing here</p>
     {% endif %}
     {% for i in notes %}
     <div class="note">
       <div class="note-title">
-        <p>{{i.subject|title}}</p>
+        <p class="n-title">{{i.subject|title}}
+          <span title="Branch" class="label branch">
+            {% if i.branch == "1" %}
+            CSE
+            {% elif i.branch == "2" %}
+            EEE
+            {% elif i.branch == "3" %}
+            ECE
+            {% elif i.branch == "4" %}
+            IT
+            {% elif i.branch == "5" %}
+            ME
+            {% else %}
+            Engg.
+            {% endif %}
+          </span>
+        </p>
         <p class="date">uploaded on {{i.uploadingdate}} by {{i.user.username}}</p>
         {% if i.status == "Pending" %}
         {% svg "icon-pending" %}
