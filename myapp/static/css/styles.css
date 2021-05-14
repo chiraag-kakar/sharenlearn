@@ -390,7 +390,7 @@ form label {
 
 /* INPUT FIELD */
 
-form .input-field {
+.input-field {
   width: 100%;
   height: 3.8rem;
   background-color: var(--clr-card);
@@ -418,7 +418,7 @@ form .input-field.focusing {
 /* IF FLEX SUPPORT, input-field is flex */
 
 @supports (display: flex) {
-  form .input-field {
+  .input-field {
     display: flex;
     padding: 0 1.5rem;
     align-items: center;
@@ -428,9 +428,9 @@ form .input-field.focusing {
 
 /* input elements */
 
-form .input-field input,
-form .input-field select,
-form .input-field textarea {
+.input-field input,
+.input-field select,
+.input-field textarea {
   width: 100%;
   background: transparent;
   border: none;
@@ -450,9 +450,9 @@ form .input-field select option {
   box-shadow: 0.3rem 0.3rem 2rem var(--clr-nav-bs);
 }
 
-form .input-field input:focus,
-form .input-field select:focus,
-form .input-field textarea:focus {
+.input-field input:focus,
+.input-field select:focus,
+.input-field textarea:focus {
   outline: none;
 }
 
@@ -1497,6 +1497,192 @@ body.light-theme .notes {
   opacity: 0.8;
 }
 
+.notes-header + p.emsg {
+  padding: 4rem 0;
+  text-align: center;
+  opacity: 0.8;
+  display: none;
+}
+
+.notes-header + p.emsg.view {
+  display: block;
+}
+
+/* LABELS */
+.note-title .label {
+  background-color: hsla(202, 93%, 46%, 0.18);
+  color: hsla(209, 100%, 56%, 1);
+  border: 0.2rem solid hsla(209, 100%, 56%, 1);
+  border-radius: 2.2rem;
+  padding: 0.1rem 1.7rem;
+  font-size: var(--fs-xs);
+  margin-left: 1rem;
+}
+
+/* FILTERS */
+.filters {
+  margin-bottom: 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  position: relative;
+  align-items: center;
+}
+
+.filters.on {
+  margin-bottom: 7rem;
+}
+
+.filters.r {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+@media (max-width: 731px) {
+  .filters,
+  .filters.r {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem 0;
+  }
+  .filters .input-field {
+    grid-column: 2/3;
+  }
+}
+
+.filters summary {
+  background-color: var(--clr-card);
+  padding: 0.6rem 4rem;
+  padding-left: 2.1rem;
+  border-radius: 0.4rem;
+  font-size: var(--fs-xs);
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.filters summary::before {
+  content: "";
+  position: absolute;
+  width: 0.6rem;
+  height: 0.6rem;
+  background-color: var(--clr-secondary-txt);
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.4s ease, color 0.4s ease;
+}
+
+.filters .dropdown {
+  position: absolute;
+  background-color: var(--clr-primary-bg);
+  border-radius: 0.8rem;
+  box-shadow: 0.3rem 0.3rem 2rem var(--clr-nav-bs);
+  font-size: var(--fs-sm);
+  z-index: 2;
+  display: grid;
+}
+
+.filters .input-field {
+  width: auto;
+  margin: 0;
+  padding: 0.2rem 1.2rem;
+  border-radius: 0;
+  background-color: transparent;
+  border: none;
+  border-bottom: 0.1rem solid var(--clr-card);
+}
+
+.filters .input-field > input {
+  color: var(--clr-secondary-txt);
+  opacity: 0.9;
+}
+
+details[open] summary {
+  color: var(--clr-neutral-txt);
+}
+
+details[open] summary::before {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+details[open] summary + * {
+  animation: zoom 0.4s forwards ease;
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.dropdown li {
+  padding: 1.8rem 1.9rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+  font-size: var(--fs-xs);
+}
+
+.dropdown li.active {
+  background-color: var(--clr-nav-bs);
+}
+
+.dropdown li:hover {
+  background-color: var(--clr-nav-bs);
+}
+
+.filters .f-type .dropdown {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.filters .b-type .dropdown li {
+  padding: 1.8rem 4rem;
+}
+
+.filters .s-type .dropdown li {
+  padding: 1.8rem 2.6rem;
+}
+
+.filters .clear-filters {
+  position: absolute;
+  bottom: -4.7rem;
+  font-size: var(--fs-xs);
+  opacity: 0.75;
+  cursor: pointer;
+  display: none;
+}
+
+.filters .clear-filters.on {
+  display: initial;
+}
+
+.filters .clear-filters > .clear-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+  padding: 0.1rem;
+  background-color: var(--clr-card);
+  border-radius: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  transition: background-color 0.4s ease;
+}
+
+.filters .clear-filters:hover .clear-icon {
+  background-color: var(--clr-neutral-txt);
+}
+
+.filters .clear-filters:hover .clear-icon > svg > path {
+  fill: white;
+}
+
 @media (min-width: 731px) {
   .notes .notes-header {
     padding: 1.4rem 1.8rem;
@@ -1572,4 +1758,8 @@ body.light-theme .notes {
   .note-action > .button {
     padding: 0.5rem;
   }
+}
+
+.none {
+  display: none;
 }
