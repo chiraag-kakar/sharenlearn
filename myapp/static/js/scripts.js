@@ -81,7 +81,6 @@ async function validate_form(form) {
   const selects = [...form.querySelectorAll("select")];
   const areas = [...form.querySelectorAll("textarea")];
   const fields = inputs.concat(selects.concat(areas));
-  console.log(fields);
   try {
     const validationResponse = await validation(fields);
     if (validationResponse) return true;
@@ -197,7 +196,6 @@ function updateSVGs() {
       changetheme(element);
     } else {
       const currColor = element.getAttribute("fill");
-      console.log("secial");
       if (localStorage.getItem("theme") === "dark") {
         let currColor = element.getAttribute("fill");
         element.setAttribute("fill", element.dataset.stickyDark);
@@ -266,7 +264,6 @@ function updateStickySVGs() {
 if (document.getElementById("avatar")) {
   const avatarInput = document.getElementById("avatar");
   document.querySelector(".avatar").addEventListener("click", function (e) {
-    console.log(e.target.classList.contains("cross"));
     if (!e.target.classList.contains("cross")) avatarInput.click();
   });
 
@@ -349,7 +346,6 @@ if (document.getElementById("avatar")) {
 
 function deleteProfile(e) {
   e.stopPropagation();
-  console.log("...");
   fetch(u_d, {
     method: "POST",
     headers: {
@@ -408,5 +404,98 @@ if (document.querySelector(".as-st")) {
     .querySelector(".as-st.reject")
     .addEventListener("click", function () {
       updateStatus(this.dataset.id, "reject");
+    });
+}
+
+function filterFeat(swtch) {
+  if (swtch === "on") {
+    document.querySelector(".filters").classList.add("on");
+    document.querySelector(".clear-filters").classList.add("on");
+  } else {
+    document.querySelector(".filters").classList.remove("on");
+    document.querySelector(".clear-filters").classList.remove("on");
+  }
+}
+
+function backToNormal() {
+  document.querySelectorAll(".active").forEach((active) => {
+    active.classList.remove("active");
+  });
+  document.getElementById("search").value = "";
+  document.getElementById("branch").textContent = "Branch";
+  document.getElementById("ftype").textContent = "File Type";
+  document.querySelector(".emsg").classList.remove("view");
+  if (document.getElementById("status"))
+    document.getElementById("status").textContent = "Status";
+  if (document.querySelector(".none")) {
+    document.querySelectorAll(".none").forEach((none) => {
+      none.classList.remove("none");
+    });
+  }
+}
+
+function filterNotes() {
+  let foundNote = false;
+  const isequal = (a, b, c = false) => {
+    if (b === "File Type" || b === "Branch" || b === "Status" || b === "") {
+      return true;
+    }
+    if (c) return a.trim().toLowerCase().indexOf(b.trim()) !== -1;
+    return a.trim() === b.trim();
+  };
+  if (document.querySelector(".note")) {
+    document.querySelectorAll(".note").forEach((note) => {
+      const type = note.querySelector(".dw-type").textContent;
+      const branch = note.querySelector(".branch").textContent;
+      const title = note.querySelector(".n-title").textContent;
+      const status = note.querySelector("svg[title]").getAttribute("title");
+      if (
+        isequal(type, document.getElementById("ftype").textContent) &&
+        (document.getElementById("status")
+          ? isequal(status, document.getElementById("status").textContent)
+          : true) &&
+        isequal(branch, document.getElementById("branch").textContent) &&
+        isequal(title, document.getElementById("search").value, true)
+      ) {
+        foundNote = true;
+        note.classList.remove("none");
+      } else {
+        note.classList.add("none");
+      }
+    });
+  }
+  return foundNote;
+}
+
+// FILTERS
+if (document.querySelector(".filters")) {
+  const dropdownItems = document.querySelectorAll(".dropdown li");
+  dropdownItems.forEach((item) => {
+    item.addEventListener("click", function () {
+      if (item.parentElement.querySelector(".dropdown li.active")) {
+        item.parentElement
+          .querySelector(".dropdown li.active")
+          .classList.remove("active");
+      }
+      this.classList.add("active");
+      filterFeat("on");
+      this.parentElement.previousElementSibling.textContent = this.textContent;
+      if (!filterNotes()) {
+        document.querySelector(".emsg").classList.add("view");
+      } else document.querySelector(".emsg").classList.remove("view");
+    });
+  });
+  document.getElementById("search").addEventListener("input", function () {
+    filterFeat("on");
+    if (!filterNotes()) {
+      document.querySelector(".emsg").classList.add("view");
+    } else document.querySelector(".emsg").classList.remove("view");
+  });
+  document
+    .querySelector(".clear-filters")
+    .addEventListener("click", function () {
+      searchStarted = false;
+      filterFeat("off");
+      backToNormal();
     });
 }
