@@ -494,7 +494,6 @@ if (document.querySelector(".filters")) {
   document
     .querySelector(".clear-filters")
     .addEventListener("click", function () {
-      searchStarted = false;
       filterFeat("off");
       backToNormal();
     });
