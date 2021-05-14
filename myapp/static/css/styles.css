@@ -1537,7 +1537,8 @@ body.light-theme .notes {
 }
 
 @media (max-width: 731px) {
-  .filters {
+  .filters,
+  .filters.r {
     grid-template-columns: 1fr 1fr;
     gap: 1.4rem 0;
   }
@@ -1620,7 +1621,7 @@ details[open] summary + * {
 }
 
 .dropdown li {
-  padding: 1.8rem 2rem;
+  padding: 1.8rem 1.9rem;
   text-align: center;
   cursor: pointer;
   transition: background-color 0.4s ease;
@@ -1639,8 +1640,8 @@ details[open] summary + * {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.filters .b-type .dropdown {
-  grid-template-columns: 1fr 1fr;
+.filters .b-type .dropdown li {
+  padding: 1.8rem 4rem;
 }
 
 .filters .s-type .dropdown li {
