@@ -46,6 +46,9 @@
             {% else %}
             Staff
             {% endif %}
+            {% if admin %}
+            (Super User)
+            {% endif %}
             {% if staff %}
             (Admin)
             {% endif %}
