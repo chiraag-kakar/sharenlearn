@@ -510,3 +510,49 @@ if (document.querySelector("details")) {
     });
   });
 }
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    if (document.querySelector("details")) {
+      document.querySelectorAll("details[open]").forEach((det) => {
+        det.removeAttribute("open");
+      });
+    }
+  }
+});
+
+// Manage Users
+
+if (document.getElementById("user-action")) {
+  document.querySelectorAll("#user-action button[data-job]").forEach((btn) => {
+    const job = btn.dataset.job;
+    const id = btn.dataset.id;
+    btn.addEventListener("click", function () {
+      if (job === this.dataset.job && id === this.dataset.id) {
+        const formData = new FormData();
+        formData.append("uid", this.dataset.id);
+        fetch(`/manage_users/${this.dataset.job}`, {
+          method: "POST",
+          cache: "no-cache",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": t,
+          },
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message === "notlogin") {
+              window.location.href = l;
+            } else if (data.message === "notsuperuser") {
+              window.location.href = p;
+            } else if (data.message === "success") {
+              window.location.href = sa_d;
+            } else {
+              window.location.href = sa_d;
+            }
+          });
+      }
+    });
+  });
+}
