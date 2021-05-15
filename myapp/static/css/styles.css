@@ -1492,7 +1492,7 @@ body.light-theme .notes {
   background-color: var(--clr-danger);
 }
 
-.notes-header + p.msg {
+.notes-header ~ p.msg {
   padding: 4rem 0;
   text-align: center;
   opacity: 0.8;
