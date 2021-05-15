@@ -468,7 +468,10 @@ function filterNotes() {
 }
 
 // FILTERS
-if (document.querySelector(".filters")) {
+if (
+  document.querySelector(".filters") &&
+  document.querySelectorAll(".note").length > 0
+) {
   const dropdownItems = document.querySelectorAll(".dropdown li");
   dropdownItems.forEach((item) => {
     item.addEventListener("click", function () {
