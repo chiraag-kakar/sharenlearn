@@ -17,7 +17,7 @@
       {% if auth %}
       {% if admin  %}
       <li>
-        <a href="#">Manage Users</a>
+        <a href="{% url "superadmin_dashboard" 'basic' %}">Manage Users</a>
       </li>
       {% endif %}
       {% if staff or admin %}
