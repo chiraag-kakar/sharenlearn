@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load svg %}
+{% load static %}
+{% block content %}
+{% include "header.html" %}
+<main>
+  <div class="users">
+    <div class="users-header">
+      <div class="type-of-users">
+        <a href="{% url "superadmin_dashboard" 'basic' %}" class="type-basic {% if type == "basic" %}active{% endif %}">
+          {% svg "icon-user-bw" %}
+          <span>{{ bas }}</span> Basic
+        </a>
+        <a href="{% url "superadmin_dashboard" 'staff' %}" class="type-staff {% if type == "staff" %}active{% endif %}">
+          {% svg "icon-staff-bw" %}
+          <span>{{ sta }}</span> Staff
+        </a>
+        <a href="{% url "superadmin_dashboard" 'admin' %}" class="type-admin {% if type == "admin" %}active{% endif %}">
+          {% svg "icon-admin-bw" %}
+          <span>{{ adm }}</span> Admin
+        </a>
+      </div>
+      <p>Action</p>
+    </div>
+    {% for i in users reversed %}
+    <div class="user">
+      <div class="user-info">
+        <p>
+          <span class="u-name">{{i.user.first_name}} {{i.user.last_name}}</span>
+          <span class="u-mail">&lt;{{i.user.username}}&gt;</span>
+          <span title="Branch" class="label u-branch">
+            {% if i.branch == "1" %}
+            CSE
+            {% elif i.branch == "2" %}
+            EEE
+            {% elif i.branch == "3" %}
+            ECE
+            {% elif i.branch == "4" %}
+            IT
+            {% elif i.branch == "5" %}
+            ME
+            {% else %}
+            Engg.
+            {% endif %}
+          </span>
+          <span title="Role" class="label u-role">
+            {% if i.role == "1" %}
+            Student
+            {% else %}
+            Faculty
+            {% endif %}
+          </span>
+        </p>
+        <p class="u-joined-date">Joined {{i.user.date_joined}}</p>
+        <div class="u-profile" {% if i.profile_photo %} style="background-image: url({{i.profile_photo.url}})" {% endif %}></div>
+      </div>
+      <div class="user-action" id="user-action">
+        {% if not i.user.is_staff %}
+        <button class="button fine" data-job="m_staff" id="btn{{i.user.id}}ms" data-id="{{i.user.id}}">Make as staff</button>
+        {% else %}
+        <button class="button dang" data-job="d_staff" id="btn{{i.user.id}}ds" data-id="{{i.user.id}}">Dismiss as staff</button>
+        {% endif %}
+        {% if not i.user.is_superuser %}
+        <button class="button fine" data-job="m_admin" id="btn{{i.user.id}}ma" data-id="{{i.user.id}}">Make as Admin</button>
+        {% else %}
+        <button class="button dang" data-job="d_admin" id="btn{{i.user.id}}da" data-id="{{i.user.id}}">Dismiss as Admin</button>
+        {% endif %}
+        {% if not i.user.is_active %}
+        <button class="button fine" data-job="activate" id="btn{{i.user.id}}act" data-id="{{i.user.id}}">Activate</button>
+        {% else %}
+        <button class="button dang" data-job="deactivate" id="btn{{i.user.id}}deact" data-id="{{i.user.id}}">Deactivate</button>
+        {% endif %}
+        <button class="button dang" data-job="delete" id="btn{{i.user.id}}del" data-id="{{i.user.id}}">Delete</button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</main>
+<script>
+  const t = "{{ csrf_token }}";
+  const l = "{% url 'login' %}";
+  const p = "{% url 'profile' %}";
+  const sa_d = "{% url 'superadmin_dashboard' 'basic' %}";
+</script>
+{% include "footer1.html" %}
+{% endblock content %}
