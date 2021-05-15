@@ -213,6 +213,7 @@ header.sticky {
   top: 0;
   position: sticky;
   padding: 1.5rem 0;
+  z-index: 3;
 }
 
 header.sticky::before {
@@ -1422,7 +1423,7 @@ body.light-theme .notes {
 
 .notes .notes-header > p {
   text-align: center;
-  font-weight: var(--fs-sb);
+  font-weight: var(--fw-sb);
 }
 
 .notes > * + * {
@@ -1491,7 +1492,7 @@ body.light-theme .notes {
   background-color: var(--clr-danger);
 }
 
-.notes-header + p.msg {
+.notes-header ~ p.msg {
   padding: 4rem 0;
   text-align: center;
   opacity: 0.8;
@@ -1509,7 +1510,7 @@ body.light-theme .notes {
 }
 
 /* LABELS */
-.note-title .label {
+.label {
   background-color: hsla(202, 93%, 46%, 0.18);
   color: hsla(209, 100%, 56%, 1);
   border: 0.2rem solid hsla(209, 100%, 56%, 1);
@@ -1517,6 +1518,7 @@ body.light-theme .notes {
   padding: 0.1rem 1.7rem;
   font-size: var(--fs-xs);
   margin-left: 1rem;
+  user-select: none;
 }
 
 /* FILTERS */
@@ -1762,4 +1764,174 @@ details[open] summary + * {
 
 .none {
   display: none;
+}
+
+/* SUPERUSER */
+/* USERS */
+.users {
+  --clr-table-border: hsl(0, 0%, 23%);
+  --clr-table-header-bg: hsla(0, 0%, 23%, 0.31);
+  --clr-link: hsl(210, 100%, 69%);
+  --clr-success: hsl(116, 82%, 19%);
+  --clr-danger: hsl(357, 95%, 31%);
+}
+
+body.light-theme .users {
+  --clr-table-border: hsl(0, 1%, 84%);
+  --clr-table-header-bg: hsla(0, 1%, 84%, 0.31);
+  --clr-link: var(--clr-neutral-txt);
+}
+
+.users {
+  width: 100%;
+  border: 0.01rem solid var(--clr-table-border);
+  border-radius: 0.6rem;
+}
+
+.users .users-header {
+  display: flex;
+  padding: 1rem 1.5rem;
+  font-size: var(--fs-sm);
+  align-items: center;
+  background-color: var(--clr-table-header-bg);
+}
+
+.users .users-header .type-of-users {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.users .users-header .type-of-users > * + * {
+  margin-top: 0.5rem;
+}
+
+.users .users-header .type-of-users a.active {
+  opacity: 1;
+}
+
+.users .users-header .type-of-users a {
+  display: flex;
+  opacity: 0.6;
+}
+
+.users .users-header .type-of-users a > span {
+  margin-right: 0.4rem;
+}
+
+.users .users-header .type-of-users a:hover {
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+.users .users-header .type-of-users > a svg {
+  width: 1.3rem;
+  margin-right: 0.8rem;
+}
+
+.users .users-header p {
+  width: 40%;
+  text-align: center;
+  font-weight: var(--fw-sb);
+}
+
+.users > * + * {
+  border-bottom: 0.1rem solid var(--clr-table-border);
+}
+
+.user {
+  display: flex;
+  padding: 1rem 1.5rem;
+  align-items: center;
+  padding-bottom: 2.4rem;
+  gap: 1rem;
+}
+
+.user .user-info {
+  width: 60%;
+  line-height: 1.8;
+  font-size: var(--fs-sm);
+  display: grid;
+  grid-template-columns: calc(3.4rem - 0.5rem) calc(100% - 0.5rem - 6rem);
+  gap: 0.5rem;
+}
+
+.user .user-action {
+  width: calc(40% - 1rem);
+}
+
+.user .user-info p:first-child {
+  grid-column: 2/3;
+  line-height: 2.2;
+}
+
+.user .user-info .u-mail {
+  opacity: 0.63;
+}
+
+.user .user-info .u-joined-date {
+  grid-column: 2/3;
+  grid-row: 2/3;
+  opacity: 0.63;
+  font-size: var(--fs-xs);
+}
+
+.user .user-info .u-profile {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--icon-avatar) no-repeat top center / cover;
+  grid-row: 1/2;
+  align-self: center;
+  position: relative;
+  top: 0.25rem;
+}
+
+.user .user-action {
+  display: grid;
+  justify-content: center;
+  flex-direction: column;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.user-action .button {
+  padding: 0.5rem;
+}
+
+.fine {
+  background-color: var(--clr-success);
+}
+
+.dang {
+  background-color: var(--clr-danger);
+}
+
+@media (max-width: 417px) {
+  .user-action .button {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 731px) {
+  .users .users-header {
+    padding: 1.4rem 1.8rem;
+    font-size: var(--fs-xs);
+  }
+  .user .user-action {
+    grid-template-columns: 1fr 1fr;
+  }
+  .users .users-header .type-of-users {
+    flex-direction: row;
+  }
+  .users .users-header .type-of-users > * + * {
+    margin: 0;
+    margin-left: 1.2rem;
+  }
+  .users .user {
+    padding: 1.4rem 1.8rem;
+  }
+  .user .user-info {
+    gap: 0.3rem 0.4rem;
+  }
 }

@@ -14,22 +14,18 @@
       {% svg "icon-hamburger" %}
     </button>
     <ul class="nav-list">
-      {% if auth and staff %}
+      {% if auth %}
+      {% if admin  %}
+      <li>
+        <a href="{% url "superadmin_dashboard" 'basic' %}">Manage Users</a>
+      </li>
+      {% endif %}
+      {% if staff or admin %}
       <li>
         <a href="{% url "admin_dashboard" 'open' %}">Dashboard</a>
       </li>
       <li>
-        <a href="#">Accepted Notes</a>
-      </li>
-      {% elif not auth %}
-      <li>
-        <a href="/#home">Home</a>
-      </li>
-      <li>
-        <a href="/#about">About</a>
-      </li>
-      <li>
-        <a href="/#contact">Contact</a>
+        <a href="{% url "viewall_usernotes" %}">Accepted Notes</a>
       </li>
       {% else %}
       <li>
@@ -40,6 +36,17 @@
       </li>
       <li>
         <a href="{% url "viewall_usernotes" %}">All Uploads</a>
+      </li>
+      {% endif %}
+      {% else %}
+      <li>
+        <a href="/#home">Home</a>
+      </li>
+      <li>
+        <a href="/#about">About</a>
+      </li>
+      <li>
+        <a href="/#contact">Contact</a>
       </li>
       {% endif %}
       <li class="theme-item">

@@ -108,14 +108,14 @@ def signup1(request):
 def userlogin(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            captcha_token = request.POST['g-recaptcha-response']
-            cap_url = "https://www.google.com/recaptcha/api/siteverify"
-            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
-            cap_server_response = requests.post(url=cap_url, data=cap_data)
-            cap_json = cap_server_response.json()
-            if cap_json['success'] == False:
-                messages.error(request, "Captcha Invalid. Please Try Again")
-                return redirect('login')
+            # captcha_token = request.POST['g-recaptcha-response']
+            # cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            # cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            # cap_server_response = requests.post(url=cap_url, data=cap_data)
+            # cap_json = cap_server_response.json()
+            # if cap_json['success'] == False:
+            #     messages.error(request, "Captcha Invalid. Please Try Again")
+            #     return redirect('login')
             u = request.POST['email']
             p = request.POST['password']
             user = authenticate(username=u, password=p)
@@ -123,6 +123,8 @@ def userlogin(request):
             if user is not None:
                 if user.is_staff:
                     s_msg = "Logged in as Staff Admin"
+                if user.is_superuser:
+                    s_msg = "Logged in as Super User Admin"
                 login(request, user)
                 messages.success(request, s_msg)
                 return redirect('/profile')
@@ -137,9 +139,12 @@ def profile(request):
     user = User.objects.get(id=request.user.id)
     data = Signup.objects.get(user=user)
     d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
+    if (request.user.is_superuser):
+        d["admin"] = True
+        return render(request, 'profile.html', d)
     if (request.user.is_staff):
         d["staff"] = True
-    print(request.user.is_staff, d)
+        return render(request, 'profile.html', d)
     return render(request, 'profile.html', d)
 
 
@@ -429,7 +434,7 @@ def viewall_usernotes(request):
         messages.info(request, "Please login to access all uploads")
         return redirect('login')
     notes = Notes.objects.filter(status="Accepted")
-    d = {'notes': notes, 'auth': request.user.is_authenticated}
+    d = {'notes': notes, 'auth': request.user.is_authenticated, 'staff': request.user.is_staff}
     return render(request, 'viewall_usernotes.html', d)
 
 
@@ -466,7 +471,7 @@ def admin_dashboard(request, type):
     reviewed = False
     if not request.user.is_authenticated:
         return redirect('login')
-    if not request.user.is_staff:
+    if (not request.user.is_staff) and (not request.user.is_superuser):
         return redirect('/profile')
     if type == "open":
         notes = Notes.objects.filter(status="Pending")
@@ -477,14 +482,29 @@ def admin_dashboard(request, type):
         notes = Notes.objects.filter(status="Pending")
     pen = len(Notes.objects.filter(status="Pending"))
     rev = len(Notes.objects.exclude(status="Pending")) 
-    d = {'notes': notes, 'auth': request.user.is_authenticated, 'staff': request.user.is_staff, 'pen': pen, 'rev': rev, 'reviewed': reviewed}
+    d = {'notes': notes, 'auth': request.user.is_authenticated, 'staff': request.user.is_staff, 'pen': pen, 'rev': rev, 'reviewed': reviewed, "admin": request.user.is_superuser}
     return render(request, 'admin_dashboard.html', d)
+
+def superadmin_dashboard(request, type):
+    if request.user.is_authenticated and request.user.is_superuser:
+        basic_users = [i.id for i in User.objects.filter(is_staff=False, is_superuser=False)]
+        staff_users = [i.id for i in User.objects.filter(is_staff=True, is_superuser=False)]
+        admin_users = [i.id for i in User.objects.filter(is_superuser=True)]
+        signed = Signup.objects.all()
+        basic_s_users = list(filter(lambda x: x.user.id in basic_users, signed))
+        staff_s_users = list(filter(lambda x: x.user.id in staff_users, signed))
+        admin_s_users = list(filter(lambda x: x.user.id in admin_users, signed))
+        d = {'users': basic_s_users if type == "basic" else staff_s_users if type == "staff" else admin_s_users if type == "admin" else basic_s_users, 'auth': request.user.is_authenticated, 'admin': request.user.is_superuser, 'sta': len(staff_s_users), 'adm': len(admin_s_users), 'bas': len(basic_s_users), 'type': "admin" if type == "admin" else "staff" if type == "staff" else "basic"}
+        return render(request, "superadmin_dashboard.html", d)
+    if not request.user.is_superuser:
+        return redirect('/profile')
+    return redirect("login")
 
 def assign_status(request):
     if request.method == 'POST':
         if not request.user.is_authenticated:
             return JsonResponse({"message": "notlogin"})
-        if not request.user.is_staff:
+        if not request.user.is_staff and not request.user.is_superuser:
             return JsonResponse({"message": "notstaff"})
         sid = request.POST["job"]
         pid = request.POST["id"]
@@ -501,3 +521,33 @@ def assign_status(request):
         except:
             return JsonResponse({"message": "wentwrong"})
     return HttpResponse("<h1>UnAuthorised</h1>")
+
+
+def manage_users(request, job):
+    if request.method == "POST":
+        if request.user.is_authenticated and request.user.is_superuser:
+            uid = request.POST["uid"]
+            if job == "delete":
+                User.objects.get(id=uid).delete()
+            else:
+                user = User.objects.get(id=uid)
+                if job == "m_staff":
+                    user.is_staff = True
+                elif job == "d_staff":
+                    user.is_staff = False
+                elif job == "m_admin":
+                    user.is_superuser = True
+                elif job == "d_admin":
+                    user.is_superuser = False
+                elif job == "deactivate":
+                    user.is_active = False
+                elif job == "activate":
+                    user.is_active = True
+                else:
+                    return JsonResponse({"message": "wentwrong"})
+                user.save()
+            return JsonResponse({"message": "success", "job": job})
+        if not request.user.is_superuser:
+            return JsonResponse({"message": "notsuperuser"})
+        return JsonResponse({"message": "notlogin"})
+    return HttpResponse("<h1>UnAuthorised..</h1>")
