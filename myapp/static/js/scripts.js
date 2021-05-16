@@ -559,3 +559,22 @@ if (document.getElementById("user-action")) {
     });
   });
 }
+
+// Alert box
+if (document.getElementById("logout-btn")) {
+  document.getElementById("logout-btn").addEventListener("click", function () {
+    document.querySelector(".alert-box").classList.add("view");
+    document.querySelector(".win").classList.add("view");
+    document
+      .getElementById("cancel-logout")
+      .addEventListener("click", function () {
+        document.querySelector(".alert-box").classList.remove("view");
+        document.querySelector(".win").classList.remove("view");
+      });
+    document
+      .getElementById("confirm-logout")
+      .addEventListener("click", function () {
+        window.location.href = "/logout";
+      });
+  });
+}
