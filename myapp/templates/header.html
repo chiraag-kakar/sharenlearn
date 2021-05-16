@@ -5,7 +5,7 @@
     {% svg "logo" %}
   </a>
   {% if auth %}
-  <a href="# " onclick="confirmation()" class="button auth-log">Logout</a>
+  <a href="#" class="button auth-log" id="logout-btn">Logout</a>
   {% else %}
   <a href="{% url 'login' %}" class="button auth-log">Login</a>
   {% endif %}
@@ -64,25 +64,27 @@
       <img src="{% static 'images/icon-moon.svg' %}" alt="change theme" />
     </div>
   </div>
+  <div class="alert-box">
+    <h2>Log Out</h2>
+    <p>Are you sure you want to logout?</p>
+    <div class="alert-box-action">
+      <button class="button" id="cancel-logout">Cancel</button>
+      <button class="button dang" id="confirm-logout">Logout</button>
+    </div>
+  </div>
+  <div class="win"></div>
 </header>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
-  function confirmation() {
-    swal({
-        title: "Are you sure?",
-        text: "You Want to LogOut!!",
-        icon: "warning",
-        buttons: true,
-        buttons: ['cancel', 'Yes, Log out'],
-        dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-          window.location = "{% url 'logout' %}";
-        } else {
-
-        }
-      });
-  }
+  document.getElementById("logout-btn").addEventListener("click", function() {
+    document.querySelector(".alert-box").classList.add("view");
+    document.querySelector(".win").classList.add("view");
+    document.getElementById("cancel-logout").addEventListener("click", function() {
+      document.querySelector(".alert-box").classList.remove("view");
+      document.querySelector(".win").classList.remove("view");
+    });
+    document.getElementById("confirm-logout").addEventListener("click", function() {
+      window.location.href = "/logout";
+    })
+  });
 </script>
