@@ -2079,3 +2079,7 @@ body.light-theme .alert-box {
   opacity: 0;
   pointer-events: none;
 }
+
+button[type="button"].done {
+  background-color: var(--clr-success);
+}
