@@ -169,40 +169,6 @@ def edit_profile(request):
     return render(request, 'edit_profile.html', d)
     
 
-# def changepassword(request):
-#     if not request.user:
-#         return redirect('login')
-#     error = ""
-#     if request.method == "POST":
-#         o = request.POST['old']
-#         n = request.POST['new']
-#         c = request.POST['confirm']
-#         if c == n:
-#             u = User.objects.get(username__exact=request.user.username)
-#             u.set_password(n)
-#             u.save()
-#             error = "no"
-#             messages.info(request, f'Password Changed Successfully')
-#             return redirect('/logout')
-#         else:
-#             error = "yes"
-#             messages.info(request, f'Invalid Login Credentials, Try Again')
-#     d = {'error': error}
-#     return render(request, 'changepassword.html', d)
-
-@csrf_exempt
-def Forgot_Password(request):
-    if(request.method =="POST"):
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-        user = User.objects.get(username=email)
-        user.set_password(password)
-        user.save()
-        messages.success(request, "You can now login with your new password.")
-        return redirect("login")
-    return render(request, 'forgotpassword.html')
-
-
 ########################################################################################################
 ###################################        ADMIN        ################################################
 ########################################################################################################
@@ -246,68 +212,6 @@ def login_admin(request) :
 ########################################################################################################
 ########################################################################################################
 
-
-
-
-
-
-
-
-def gen_otp():
-    """This function returns a 6-digit OTP everytime it is called."""
-    return randint(100000, 999999)
-
-
-def send_otp(request):
-    """This function saves the OTP in the database and sends an email to the user with that OTP."""
-
-    user_email = request.GET['email']
-    try:
-        user_name = request.GET['fname']
-    except Exception:
-        user = User.objects.get(username=user_email)
-        user_name = user.first_name
-    otp = gen_otp()     # Generate OTP
-    # Save OTP in database and send email to user
-    try:
-        OTPModel.objects.create(user=user_email, otp=otp)
-        data = {
-            'receiver': user_name.capitalize(),
-            'otp': otp
-        }
-        html_content = render_to_string("emails/otp.html", data)
-        text_content = strip_tags(html_content)
-
-        email = EmailMultiAlternatives(
-            f"One Time Password | Share N Learn",
-            text_content,
-            "Share N Learn <no-reply@sharenlearn.com>",
-            [user_email]
-        )
-        email.attach_alternative(html_content, "text/html")
-        email.send()
-        return JsonResponse({'otp_sent': f'An OTP has been sent to {user_email}.'})
-    except Exception as e:
-        print(e)
-        return JsonResponse({'otp_error': 'Error while sending OTP, try again'})
-
-
-def match_otp(email, otp):
-    """This function matches the OTP entered by the user with that in the database."""
-
-    otp_from_db = OTPModel.objects.filter(user=email).last().otp
-    return str(otp) == str(otp_from_db)
-
-
-# def check_otp(request):
-#     """This function gets the OTP from the user and sends it to match_otp function."""
-
-#     req_otp = request.GET['otp']
-#     req_user = request.GET['email']
-#     if match_otp(req_user, req_otp):
-#         return JsonResponse({'otp_match': True})
-#     else:
-#         return JsonResponse({'otp_mismatch': 'OTP does not match.'})
 
 
 def update_profile_photo(request):
