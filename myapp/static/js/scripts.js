@@ -581,6 +581,38 @@ if (document.getElementById("logout-btn")) {
 
 //Forgot Password
 if (document.querySelector("form.f-password-form")) {
+  const setDefaults = () => {
+    if (document.querySelector(".check-otp")) {
+      document.querySelector(".check-otp").classList.add("hide");
+      setTimeout(() => {
+        document.querySelector(".check-otp").classList.add("remove");
+      }, 400);
+      const otpBtn = document.getElementById("check-otp");
+      otpBtn.classList.remove("done");
+      otpBtn.textContent = "Submit OTP";
+      otpBtn.removeAttribute("disabled");
+      otpBtn.style.pointerEvents = "all";
+      const otpField = document.getElementById("otp");
+      otpField.value = "";
+      otpField.removeAttribute("disabled");
+      otpField.parentElement.classList.remove("disabled");
+    }
+    if (document.querySelector(".change-password")) {
+      document.querySelector(".change-password").classList.add("hide");
+      setTimeout(() => {
+        document.querySelector(".change-password").classList.add("remove");
+      }, 400);
+      const cpBtn = document.getElementById("change-password");
+      cpBtn.classList.remove("done");
+      cpBtn.textContent = "Change Password";
+      cpBtn.removeAttribute("disabled");
+      cpBtn.style.pointerEvents = "all";
+      const cpField = document.getElementById("password");
+      cpField.value = "";
+      cpField.removeAttribute("disabled");
+      cpField.parentElement.classList.remove("disabled");
+    }
+  };
   let email = "";
   let otp = "";
   let nP = "";
@@ -592,12 +624,15 @@ if (document.querySelector("form.f-password-form")) {
           this.parentElement.previousElementSibling.querySelector("#email"),
         ])
       ) {
+        setDefaults();
         const ipField =
           this.parentElement.previousElementSibling.querySelector(
             ".input-field"
           );
         const emField = ipField.querySelector("#email");
         email = emField.value;
+        otp = "";
+        nP = "";
         const formData = new FormData();
         formData.append("email", email);
         const span = document.createElement("span");
@@ -648,6 +683,7 @@ if (document.querySelector("form.f-password-form")) {
           );
         const otpField = ipField.querySelector("#otp");
         otp = otpField.value;
+        nP = "";
         const formData = new FormData();
         formData.append("otp", otp);
         formData.append("email", email);
@@ -672,6 +708,7 @@ if (document.querySelector("form.f-password-form")) {
               otpField.setAttribute("disabled", "disabled");
               this.textContent = "OTP Verified";
               this.setAttribute("disabled", "disabled");
+              this.classList.add("done");
               this.style.pointerEvents = "none";
               document
                 .querySelector(".change-password")
@@ -726,6 +763,15 @@ if (document.querySelector("form.f-password-form")) {
           .then((data) => {
             if (data.message === "success") {
               span.innerHTML = `<i style="color: var(--clr-success);font-style: normal;">Password Changed</i>`;
+              const sendotpBtn = document.getElementById("send-otp");
+              sendotpBtn.setAttribute("disabled", "disabled");
+              sendotpBtn.pointerEvents = "none";
+              sendotpBtn.textContent = "OTP Sent";
+              sendotpBtn.classList.add("done");
+              this.textContent = "Password Changed";
+              this.setAttribute("disabled", "disabled");
+              this.classList.add("done");
+              this.style.pointerEvents = "none";
               setTimeout(() => {
                 window.location.href = l;
               }, 900);
