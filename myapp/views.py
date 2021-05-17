@@ -1,6 +1,8 @@
+from json.decoder import JSONDecodeError
 from django.contrib.auth.decorators import login_required
 import json
 from django.core.mail import EmailMultiAlternatives, send_mail
+from django.core.mail import EmailMessage
 from django.http.response import HttpResponse
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
@@ -167,26 +169,26 @@ def edit_profile(request):
     return render(request, 'edit_profile.html', d)
     
 
-def changepassword(request):
-    if not request.user:
-        return redirect('login')
-    error = ""
-    if request.method == "POST":
-        o = request.POST['old']
-        n = request.POST['new']
-        c = request.POST['confirm']
-        if c == n:
-            u = User.objects.get(username__exact=request.user.username)
-            u.set_password(n)
-            u.save()
-            error = "no"
-            messages.info(request, f'Password Changed Successfully')
-            return redirect('/logout')
-        else:
-            error = "yes"
-            messages.info(request, f'Invalid Login Credentials, Try Again')
-    d = {'error': error}
-    return render(request, 'changepassword.html', d)
+# def changepassword(request):
+#     if not request.user:
+#         return redirect('login')
+#     error = ""
+#     if request.method == "POST":
+#         o = request.POST['old']
+#         n = request.POST['new']
+#         c = request.POST['confirm']
+#         if c == n:
+#             u = User.objects.get(username__exact=request.user.username)
+#             u.set_password(n)
+#             u.save()
+#             error = "no"
+#             messages.info(request, f'Password Changed Successfully')
+#             return redirect('/logout')
+#         else:
+#             error = "yes"
+#             messages.info(request, f'Invalid Login Credentials, Try Again')
+#     d = {'error': error}
+#     return render(request, 'changepassword.html', d)
 
 @csrf_exempt
 def Forgot_Password(request):
@@ -297,15 +299,15 @@ def match_otp(email, otp):
     return str(otp) == str(otp_from_db)
 
 
-def check_otp(request):
-    """This function gets the OTP from the user and sends it to match_otp function."""
+# def check_otp(request):
+#     """This function gets the OTP from the user and sends it to match_otp function."""
 
-    req_otp = request.GET['otp']
-    req_user = request.GET['email']
-    if match_otp(req_user, req_otp):
-        return JsonResponse({'otp_match': True})
-    else:
-        return JsonResponse({'otp_mismatch': 'OTP does not match.'})
+#     req_otp = request.GET['otp']
+#     req_user = request.GET['email']
+#     if match_otp(req_user, req_otp):
+#         return JsonResponse({'otp_match': True})
+#     else:
+#         return JsonResponse({'otp_mismatch': 'OTP does not match.'})
 
 
 def update_profile_photo(request):
@@ -551,3 +553,73 @@ def manage_users(request, job):
             return JsonResponse({"message": "notsuperuser"})
         return JsonResponse({"message": "notlogin"})
     return HttpResponse("<h1>UnAuthorised..</h1>")
+
+def forgot_password(request):
+    if request.user.is_authenticated:
+        return redirect('/profile')
+    if request.method == "POST":
+        email = request.POST["email"]
+        try:
+            user = User.objects.get(username=email)
+            otp = randint(100000, 999999)
+            try:
+                try:
+                    for i in OTPModel.objects.filter(user=user.username):
+                        i.delete()
+                except:
+                    pass
+                finally:
+                    OTPModel.objects.create(user=user.username, otp=otp)
+                    subject = 'Forgot Password: Here\'s your OTP <sharenlearn>'
+                    message = 'Your OTP is {}'.format(otp)
+                    email_from = settings.EMAIL_HOST_USER
+                    email_to = [user.username, ]
+                    send_mail(subject, message, email_from, email_to)
+                    return JsonResponse({"message": "success"})
+            except:
+                return JsonResponse({"message": "erroronotp"})
+        except:
+            return JsonResponse({"message": "notfound"})
+    return render(request, 'forgot_password.html')
+
+def check_otp(request):
+    if request.method == "POST" and not request.user.is_authenticated:
+        email = request.POST["email"]
+        otp = request.POST["otp"]
+        try:
+            user = User.objects.get(username=email)
+            try:
+                d_otp = OTPModel.objects.get(user=user.username).otp
+                try:
+                    otp = int(otp)
+                    if otp == d_otp:
+                        return JsonResponse({"message": "success"})
+                    return JsonResponse({"message": "wrong"})
+                except:
+                    return JsonResponse({"message": "wrong"})
+            except:
+                return JsonResponse({"message": "wentwrong"})
+        except:
+            return JsonResponse({"message": "notfound"})
+    return HttpResponse("<h1>UnAuthorised</h1>")
+
+def set_new_password(request):
+    if request.method == "POST" and not request.user.is_authenticated:
+        email = request.POST["email"]
+        otp = request.POST["otp"]
+        np = request.POST["np"]
+        try:
+            user = User.objects.get(username=email)
+            try:
+                if int(otp) == OTPModel.objects.get(user=user.username).otp:
+                    try:
+                        user.set_password(np)
+                        user.save()
+                        return JsonResponse({"message": "success"})
+                    except:
+                        return JsonResponse({"message": "cantset"})
+            except:
+                return JsonResponse({"message": "wentwrong"})
+        except:
+            return JsonResponse({"message": "notfound"})
+    return HttpResponse("<h1>UnAuthorised</h1>")
