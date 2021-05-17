@@ -45,7 +45,7 @@ urlpatterns = [
     path('logout/',Logout,name="logout"),
 
     path('profile/',profile,name="profile"),
-    path('changepassword/',changepassword,name="changepassword"),
+    # path('changepassword/',changepassword,name="changepassword"),
     path('edit_profile/',edit_profile,name="edit_profile"),
 
     # path('Forgot_Password/',Forgot_Password,name="Forgot_Password"), // SMTP OTP Based Forgot Password
@@ -71,5 +71,8 @@ urlpatterns = [
     path('delete_notes/<int:pid>',delete_notes,name="delete_notes"),
     path('admin_dashboard/<str:type>', admin_dashboard, name="admin_dashboard"),
     path('superadmin_dashboard/<str:type>', superadmin_dashboard, name="superadmin_dashboard"),
-    path('manage_users/<str:job>', manage_users, name="manage_users")
+    path('manage_users/<str:job>', manage_users, name="manage_users"),
+    path('forgot_password', forgot_password, name="forgot_password"),
+    path('check_otp', check_otp, name="check_otp"),
+    path('set_new_password', set_new_password, name="set_new_password")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
