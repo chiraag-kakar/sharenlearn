@@ -407,6 +407,20 @@ form label {
   transition: border-color 0.4s ease-in-out;
 }
 
+.input-field + .f-password {
+  margin-top: 0.7rem;
+}
+
+.input-field + .f-password > a {
+  color: var(--clr-neutral-txt);
+  font-size: var(--fs-xs);
+  text-align: right;
+}
+
+.input-field + .f-password > a:hover {
+  color: hsl(210, 100%, 69%);
+}
+
 form .input-field.t-area {
   height: 18rem;
 }
@@ -512,6 +526,10 @@ form .invalid {
 .upload-new form,
 .login form {
   margin-top: 4rem;
+}
+
+.f-password form {
+  margin-top: 6.5rem;
 }
 
 /* recaptcha div */
@@ -2043,4 +2061,25 @@ body.light-theme .alert-box {
   .alert-box p {
     font-size: var(--fs-xs);
   }
+}
+
+.check-otp,
+.change-password,
+.check-email {
+  transition: opacity 0.4s ease;
+}
+
+.check-otp.remove,
+.change-password.remove {
+  display: none;
+}
+
+.check-otp.hide,
+.change-password.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+button[type="button"].done {
+  background-color: var(--clr-success);
 }

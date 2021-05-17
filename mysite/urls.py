@@ -31,8 +31,8 @@ urlpatterns = [
 
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('secret_admin/', admin.site.urls),
-    path('admin_home/',admin_home,name="admin_home"),
-    path('login_admin/',login_admin,name='login_admin'),
+    # path('admin_home/',admin_home,name="admin_home"),
+    # path('login_admin/',login_admin,name='login_admin'),
 
     path('',index,name='index') ,
     path('about/',about,name='about') ,
@@ -45,12 +45,7 @@ urlpatterns = [
     path('logout/',Logout,name="logout"),
 
     path('profile/',profile,name="profile"),
-    path('changepassword/',changepassword,name="changepassword"),
     path('edit_profile/',edit_profile,name="edit_profile"),
-
-    # path('Forgot_Password/',Forgot_Password,name="Forgot_Password"), // SMTP OTP Based Forgot Password
-    # path('send-otp/', send_otp, name='send_otp'),
-    # path('check-otp/', check_otp, name='check_otp'), 
 
     
     path('upload_notes/',upload_notes,name="upload_notes"),
@@ -71,5 +66,8 @@ urlpatterns = [
     path('delete_notes/<int:pid>',delete_notes,name="delete_notes"),
     path('admin_dashboard/<str:type>', admin_dashboard, name="admin_dashboard"),
     path('superadmin_dashboard/<str:type>', superadmin_dashboard, name="superadmin_dashboard"),
-    path('manage_users/<str:job>', manage_users, name="manage_users")
+    path('manage_users/<str:job>', manage_users, name="manage_users"),
+    path('forgot_password', forgot_password, name="forgot_password"),
+    path('check_otp', check_otp, name="check_otp"),
+    path('set_new_password', set_new_password, name="set_new_password")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

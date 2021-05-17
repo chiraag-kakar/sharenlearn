@@ -578,3 +578,236 @@ if (document.getElementById("logout-btn")) {
       });
   });
 }
+
+//Forgot Password
+if (document.querySelector("form.f-password-form")) {
+  const setDefaults = () => {
+    if (document.querySelector(".check-otp")) {
+      document.querySelector(".check-otp").classList.add("hide");
+      setTimeout(() => {
+        document.querySelector(".check-otp").classList.add("remove");
+      }, 400);
+      const otpBtn = document.getElementById("check-otp");
+      otpBtn.classList.remove("done");
+      otpBtn.textContent = "Submit OTP";
+      otpBtn.removeAttribute("disabled");
+      otpBtn.style.pointerEvents = "all";
+      const otpField = document.getElementById("otp");
+      otpField.value = "";
+      otpField.removeAttribute("disabled");
+      otpField.parentElement.classList.remove("disabled");
+    }
+    if (document.querySelector(".change-password")) {
+      document.querySelector(".change-password").classList.add("hide");
+      setTimeout(() => {
+        document.querySelector(".change-password").classList.add("remove");
+      }, 400);
+      const cpBtn = document.getElementById("change-password");
+      cpBtn.classList.remove("done");
+      cpBtn.textContent = "Change Password";
+      cpBtn.removeAttribute("disabled");
+      cpBtn.style.pointerEvents = "all";
+      const cpField = document.getElementById("password");
+      cpField.value = "";
+      cpField.removeAttribute("disabled");
+      cpField.parentElement.classList.remove("disabled");
+    }
+  };
+  let email = "";
+  let otp = "";
+  let nP = "";
+  document
+    .getElementById("send-otp")
+    .addEventListener("click", async function () {
+      if (
+        await validate_field([
+          this.parentElement.previousElementSibling.querySelector("#email"),
+        ])
+      ) {
+        setDefaults();
+        const ipField =
+          this.parentElement.previousElementSibling.querySelector(
+            ".input-field"
+          );
+        const emField = ipField.querySelector("#email");
+        email = emField.value;
+        otp = "";
+        nP = "";
+        const formData = new FormData();
+        formData.append("email", email);
+        const span = document.createElement("span");
+        span.classList.add("invalid");
+        this.parentElement.previousElementSibling.appendChild(span);
+        span.textContent = "Trying to Send OTP..";
+        fetch(f_p, {
+          method: "POST",
+          cache: "no-cache",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": t,
+          },
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message === "success") {
+              span.innerHTML = `<i style="color: var(--clr-success);font-style: normal;">OTP Sent</i>`;
+              ipField.classList.add("disabled");
+              emField.setAttribute("disabled", "disabled");
+              this.textContent = "Resend OTP";
+              document.querySelector(".check-otp").classList.remove("remove");
+              setTimeout(() => {
+                document.querySelector(".check-otp").classList.remove("hide");
+              }, 400);
+            } else if (data.message === "notfound") {
+              span.textContent = "Please Signup";
+            } else if (data.message === "erroronotp") {
+              span.textContent = "Error while sending OTP";
+            } else {
+              span.textContent = "Please Try Again Later";
+            }
+          });
+      }
+    });
+  document
+    .getElementById("check-otp")
+    .addEventListener("click", async function () {
+      if (
+        await validate_field([
+          this.parentElement.previousElementSibling.querySelector("#otp"),
+        ])
+      ) {
+        const ipField =
+          this.parentElement.previousElementSibling.querySelector(
+            ".input-field"
+          );
+        const otpField = ipField.querySelector("#otp");
+        otp = otpField.value;
+        nP = "";
+        const formData = new FormData();
+        formData.append("otp", otp);
+        formData.append("email", email);
+        const span = document.createElement("span");
+        span.classList.add("invalid");
+        this.parentElement.previousElementSibling.appendChild(span);
+        span.textContent = "Verifing OTP..";
+        fetch(c_o, {
+          method: "POST",
+          cache: "no-cache",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": t,
+          },
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message === "success") {
+              span.innerHTML = `<i style="color: var(--clr-success);font-style: normal;">OTP Verified</i>`;
+              ipField.classList.add("disabled");
+              otpField.setAttribute("disabled", "disabled");
+              this.textContent = "OTP Verified";
+              this.setAttribute("disabled", "disabled");
+              this.classList.add("done");
+              this.style.pointerEvents = "none";
+              document
+                .querySelector(".change-password")
+                .classList.remove("remove");
+              setTimeout(() => {
+                document
+                  .querySelector(".change-password")
+                  .classList.remove("hide");
+              }, 400);
+            } else if (data.message === "wrong") {
+              span.textContent = "OTP Entered Wrong";
+            } else if (data.message === "notfound") {
+              span.textContent = "Please Signup";
+            } else {
+              span.textContent = "OTP Verification Failed. Try again";
+            }
+          });
+      }
+    });
+  document
+    .getElementById("change-password")
+    .addEventListener("click", async function () {
+      if (
+        await validate_field([
+          this.parentElement.previousElementSibling.querySelector("#password"),
+        ])
+      ) {
+        const ipField =
+          this.parentElement.previousElementSibling.querySelector(
+            ".input-field"
+          );
+        const passField = ipField.querySelector("#password");
+        nP = passField.value;
+        const formData = new FormData();
+        formData.append("otp", otp);
+        formData.append("email", email);
+        formData.append("np", nP);
+        const span = document.createElement("span");
+        span.classList.add("invalid");
+        this.parentElement.previousElementSibling.appendChild(span);
+        span.textContent = "Working on it..";
+        fetch(s_n_p, {
+          method: "POST",
+          cache: "no-cache",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": t,
+          },
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message === "success") {
+              span.innerHTML = `<i style="color: var(--clr-success);font-style: normal;">Password Changed</i>`;
+              const sendotpBtn = document.getElementById("send-otp");
+              sendotpBtn.setAttribute("disabled", "disabled");
+              sendotpBtn.pointerEvents = "none";
+              sendotpBtn.textContent = "OTP Sent";
+              sendotpBtn.classList.add("done");
+              this.textContent = "Password Changed";
+              this.setAttribute("disabled", "disabled");
+              this.classList.add("done");
+              this.style.pointerEvents = "none";
+              setTimeout(() => {
+                window.location.href = l;
+              }, 900);
+            } else if (data.message === "cantset") {
+              span.textContent = "Failed. Try Again";
+            } else if (data.message === "notfound") {
+              span.textContent = "Please Signup";
+            } else {
+              span.textContent = "Password Change Failed. Try again";
+            }
+          });
+      }
+    });
+}
+
+async function validate_field(field) {
+  const removeSpans = () => {
+    if (document.querySelector("form .input-group .invalid")) {
+      const spans = document.querySelectorAll("form .input-group .invalid");
+      spans.forEach((span) => span.remove());
+    }
+  };
+  try {
+    const validationResponse = await validation(field);
+    if (validationResponse) {
+      removeSpans();
+      return true;
+    }
+  } catch (err) {
+    removeSpans();
+    const elem = document.querySelector(`[name = ${err.name}]`);
+    elem.focus();
+    const span = document.createElement("span");
+    span.classList.add("invalid");
+    span.textContent = err.error;
+    elem.parentElement.parentElement.appendChild(span);
+    return false;
+  }
+}
