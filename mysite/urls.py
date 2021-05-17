@@ -69,5 +69,6 @@ urlpatterns = [
     path('manage_users/<str:job>', manage_users, name="manage_users"),
     path('forgot_password', forgot_password, name="forgot_password"),
     path('check_otp', check_otp, name="check_otp"),
-    path('set_new_password', set_new_password, name="set_new_password")
+    path('set_new_password', set_new_password, name="set_new_password"),
+    path('act/<str:uid>/<str:otp>', activate_user, name="activate_user")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
