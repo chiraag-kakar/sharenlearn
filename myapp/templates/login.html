@@ -23,13 +23,15 @@
       </div>
       <div class="g-recaptcha" data-sitekey="6Lf3i3waAAAAABaIbVWFi0Cnmq5YQ5JuG_NC2fVd"></div>
       <div class="form-footer">
-        <button type="submit" class="button lg" id="form-btn">Login</button>
+        <button type="button" class="button lg" id="login-btn">Login</button>
         <p class="tip">New User? <a class="colored" href="/signup">Sign Up</a></p>
       </div>
     </form>
   </div>
 </main>
 <script>
+  const t = "{{ csrf_token }}";
+  const l = "{% url 'login' %}";
   const password = document.getElementById("password");
   const togglePassword = document.querySelector('#togglePassword');
   togglePassword.addEventListener('click', function(e) {
