@@ -24,13 +24,13 @@ if (document.querySelector(".signup-form")) {
     });
 }
 
-if (document.querySelector(".login-form")) {
-  document
-    .querySelector(".login-form")
-    .addEventListener("submit", async function (event) {
-      if (!(await validate_form(this))) event.preventDefault();
-    });
-}
+// if (document.querySelector(".login-form")) {
+//   document
+//     .querySelector(".login-form")
+//     .addEventListener("submit", async function (event) {
+//       if (!(await validate_form(this))) event.preventDefault();
+//     });
+// }
 
 if (document.querySelector(".contact-form")) {
   document
@@ -781,6 +781,73 @@ if (document.querySelector("form.f-password-form")) {
               span.textContent = "Please Signup";
             } else {
               span.textContent = "Password Change Failed. Try again";
+            }
+          });
+      }
+    });
+}
+
+// Login
+
+// Login
+if (document.querySelector(".login-form")) {
+  document
+    .getElementById("login-btn")
+    .addEventListener("click", async function () {
+      if (
+        await validate_field([
+          document.querySelector("#email"),
+          document.querySelector("#password"),
+        ])
+      ) {
+        const ipFields = document.querySelectorAll(".input-field");
+        const emField = document.getElementById("email");
+        const passField = document.getElementById("password");
+        const email = emField.value;
+        const password = passField.value;
+        const formData = new FormData();
+        formData.append("email", email);
+        formData.append("password", password);
+        const span = document.createElement("span");
+        span.classList.add("invalid");
+        span.textContent = "Working on it..";
+        ipFields[0].parentElement.appendChild(span);
+        fetch(l, {
+          method: "POST",
+          cache: "no-cache",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": t,
+          },
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data.message);
+            if (data.message === "mailsent") {
+              span.textContent = "Please check your email";
+              this.textContent = "Resend Mail";
+            } else if (data.message === "erroronotp") {
+              span.textContent = "Error sending verification mail";
+              this.textContent = "Resend Mail";
+            } else if (data.message === "notfound") {
+              span.textContent = "Error, please signup";
+              this.textContent = "Resend Mail";
+            } else if (data.message === "success") {
+              span.textContent = "";
+              ipFields.forEach((ipField) => {
+                ipField.classList.add("disabled");
+              });
+              emField.setAttribute("disabled", "disabled");
+              passField.setAttribute("disabled", "disabled");
+              this.style.pointerEvents = "none";
+              setTimeout(() => {
+                window.location.href = l;
+              }, 200);
+            } else if (data.message === "wrong") {
+              span.textContent = "Invalid Credentials";
+            } else {
+              span.textContent = "Error while signing up";
             }
           });
       }
