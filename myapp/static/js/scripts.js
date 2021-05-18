@@ -807,7 +807,7 @@ if (document.querySelector(".login-form")) {
         const passField = document.getElementById("password");
         const email = emField.value;
         const password = passField.value;
-        const cap = document.querySelector(".g-recaptcha").value;
+        const cap = grecaptcha.getResponse();
         const formData = new FormData();
         formData.append("email", email);
         formData.append("password", password);
