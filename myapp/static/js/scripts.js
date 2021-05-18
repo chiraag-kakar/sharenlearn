@@ -807,9 +807,11 @@ if (document.querySelector(".login-form")) {
         const passField = document.getElementById("password");
         const email = emField.value;
         const password = passField.value;
+        const cap = document.querySelector(".g-recaptcha").value;
         const formData = new FormData();
         formData.append("email", email);
         formData.append("password", password);
+        formData.append("g-recaptcha-response", cap);
         const span = document.createElement("span");
         span.classList.add("invalid");
         span.textContent = "Working on it..";
@@ -825,16 +827,15 @@ if (document.querySelector(".login-form")) {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data.message);
-            if (data.message === "mailsent") {
+            if (data.message == "caperror") {
+              span.textContent = "Captcha Verification Failed";
+            } else if (data.message === "mailsent") {
               span.textContent = "Please check your email";
-              this.textContent = "Resend Mail";
             } else if (data.message === "erroronotp") {
               span.textContent = "Error sending verification mail";
               this.textContent = "Resend Mail";
             } else if (data.message === "notfound") {
               span.textContent = "Error, please signup";
-              this.textContent = "Resend Mail";
             } else if (data.message === "success") {
               span.textContent = "";
               ipFields.forEach((ipField) => {
