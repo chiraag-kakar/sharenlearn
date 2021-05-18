@@ -95,6 +95,7 @@ def signup1(request):
         dept = request.POST['dept']
         try:
             user = User.objects.create_user(username=email, password=password, first_name=fname, last_name=lname)
+            user.is_active = False
             user.save()
             signup = Signup.objects.create(user=user, contact=contact, branch=dept, role=role)
             signup.save()
@@ -111,14 +112,13 @@ def signup1(request):
 def userlogin(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            # captcha_token = request.POST['g-recaptcha-response']
-            # cap_url = "https://www.google.com/recaptcha/api/siteverify"
-            # cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
-            # cap_server_response = requests.post(url=cap_url, data=cap_data)
-            # cap_json = cap_server_response.json()
-            # if cap_json['success'] == False:
-            #     messages.error(request, "Captcha Invalid. Please Try Again")
-            #     return redirect('login')
+            captcha_token = request.POST['g-recaptcha-response']
+            cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            cap_server_response = requests.post(url=cap_url, data=cap_data)
+            cap_json = cap_server_response.json()
+            if cap_json['success'] == False:
+                return JsonResponse({"message": "caperror"})
             u = request.POST['email']
             p = request.POST['password']
             try:
@@ -141,7 +141,8 @@ def userlogin(request):
                             finally:
                                 OTPModel.objects.create(user=user.username, otp=otp)
                                 subject = 'Verification Mail <sharenlearn>'
-                                message = 'Use this link below http://localhost:8000/act/{}/{}'.format(hashids.encode(uid), hashids.encode(otp))
+                                h_uid = hashids.encode(uid + int(str(otp)[0])) #otp logic
+                                message = 'Use this link below http://localhost:8000/act/{}/{}'.format(h_uid, hashids.encode(otp))
                                 email_from = settings.EMAIL_HOST_USER
                                 email_to = [user.username, ]
                                 send_mail(subject, message, email_from, email_to)
@@ -171,21 +172,24 @@ def userlogin(request):
 def activate_user(request, uid, otp):
     if not request.user.is_authenticated:
         try:
-            user = User.objects.get(id=hashids.decode(uid)[0])
-            r_otp = hashids.decode(otp)[0]
+            r_otp = hashids.decode(otp)[0] #received otp
+            r_uid = hashids.decode(uid)[0] - int(str(r_otp)[0]) #received uid - retrieving using otp logic
+            user = User.objects.get(id=r_uid)
             d_otp = OTPModel.objects.get(user=user.username).otp;
             if (r_otp == d_otp):
+                OTPModel.objects.get(user=user.username).delete()
                 user.is_active = True
                 user.save()
-                messages.success(request, "Email Verified. Please Login")
+                messages.success(request, "Email Verified.")
                 return redirect('login')
             else:
-                messages.error(request, "Email Verification Failed")
+                OTPModel.objects.get(user=user.username).delete()
+                messages.error(request, "Email Verification Failed, Try Again")
                 return redirect('login')
         except:
             messages.error(request, "Email Verification Failed")
             return redirect('login')
-    return HttpResponse("<h1>UnAuthorised</h1>")
+    return redirect('login')
 
 def profile(request):
     if not request.user.is_authenticated:
@@ -576,6 +580,8 @@ def set_new_password(request):
                         return JsonResponse({"message": "cantset"})
             except:
                 return JsonResponse({"message": "wentwrong"})
+            finally:
+                OTPModel.objects.get(user=user.username).delete()
         except:
             return JsonResponse({"message": "notfound"})
     return HttpResponse("<h1>UnAuthorised</h1>")
