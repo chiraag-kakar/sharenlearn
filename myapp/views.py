@@ -20,7 +20,7 @@ from django.db import IntegrityError
 
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import make_password, check_password
-
+from hashids import Hashids
 
 import requests
 
@@ -32,6 +32,7 @@ import re
 # Make a regular expression
 # for validating an Email
 regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+hashids = Hashids(min_length=45)
 
 def check(email):
     if(re.search(regex, email)):
@@ -94,6 +95,7 @@ def signup1(request):
         dept = request.POST['dept']
         try:
             user = User.objects.create_user(username=email, password=password, first_name=fname, last_name=lname)
+            user.is_active = False
             user.save()
             signup = Signup.objects.create(user=user, contact=contact, branch=dept, role=role)
             signup.save()
@@ -116,25 +118,79 @@ def userlogin(request):
             cap_server_response = requests.post(url=cap_url, data=cap_data)
             cap_json = cap_server_response.json()
             if cap_json['success'] == False:
-                messages.error(request, "Captcha Invalid. Please Try Again")
-                return redirect('login')
+                return JsonResponse({"message": "caperror"})
             u = request.POST['email']
             p = request.POST['password']
-            user = authenticate(username=u, password=p)
-            s_msg = "Logged in Successfully"
-            if user is not None:
-                if user.is_staff:
-                    s_msg = "Logged in as Staff Admin"
-                if user.is_superuser:
-                    s_msg = "Logged in as Super User Admin"
-                login(request, user)
-                messages.success(request, s_msg)
-                return redirect('/profile')
-            else:
-                messages.error(request, "Invalid Login Credentials")
+            try:
+                if not User.objects.get(username=u).is_active:
+                    p = ""
+            except:
+                pass
+            finally:
+                if p == "":
+                    try:
+                        user = User.objects.get(username=u)
+                        uid = user.id
+                        otp = randint(100000, 999999)
+                        try:
+                            try:
+                                for i in OTPModel.objects.filter(user=user.username):
+                                    i.delete()
+                            except:
+                                pass
+                            finally:
+                                OTPModel.objects.create(user=user.username, otp=otp)
+                                subject = 'Verification Mail <sharenlearn>'
+                                h_uid = hashids.encode(uid + int(str(otp)[0])) #otp logic
+                                message = 'Use this link below http://localhost:8000/act/{}/{}'.format(h_uid, hashids.encode(otp))
+                                email_from = settings.EMAIL_HOST_USER
+                                email_to = [user.username, ]
+                                send_mail(subject, message, email_from, email_to)
+                                print(request.user, request.user.is_active)
+                                return JsonResponse({"message": "mailsent"})
+                        except:
+                            return JsonResponse({"message": "erroronotp"})
+                    except:
+                        return JsonResponse({"message": "notfound"})
+                user = authenticate(username=u, password=p)
+                s_msg = "Logged in Successfully"
+                if user is not None:
+                    if user.is_staff:
+                        s_msg = "Logged in as Staff Admin"
+                    if user.is_superuser:
+                        s_msg = "Logged in as Super User Admin"
+                    login(request, user)
+                    messages.success(request, s_msg)
+                    return JsonResponse({"message": "success"})
+                else:
+                    messages.error(request, "Invalid Login Credentials")
+                    return JsonResponse({"message": "wrong"})
         return render(request, 'login.html')
     else:
         return redirect('index')
+
+def activate_user(request, uid, otp):
+    if not request.user.is_authenticated:
+        try:
+            r_otp = hashids.decode(otp)[0] #received otp
+            r_uid = hashids.decode(uid)[0] - int(str(r_otp)[0]) #received uid - retrieving using otp logic
+            user = User.objects.get(id=r_uid)
+            d_otp = OTPModel.objects.get(user=user.username).otp;
+            if (r_otp == d_otp):
+                OTPModel.objects.get(user=user.username).delete()
+                user.is_active = True
+                user.save()
+                messages.success(request, "Email Verified.")
+                return redirect('login')
+            else:
+                OTPModel.objects.get(user=user.username).delete()
+                messages.error(request, "Email Verification Failed, Try Again")
+                return redirect('login')
+        except:
+            messages.error(request, "Email Verification Failed")
+            return redirect('login')
+    return redirect('login')
+
 def profile(request):
     if not request.user.is_authenticated:
         return redirect('login')
@@ -524,6 +580,8 @@ def set_new_password(request):
                         return JsonResponse({"message": "cantset"})
             except:
                 return JsonResponse({"message": "wentwrong"})
+            finally:
+                OTPModel.objects.get(user=user.username).delete()
         except:
             return JsonResponse({"message": "notfound"})
     return HttpResponse("<h1>UnAuthorised</h1>")
