@@ -534,6 +534,8 @@ if (document.getElementById("user-action")) {
       if (job === this.dataset.job && id === this.dataset.id) {
         const formData = new FormData();
         formData.append("uid", this.dataset.id);
+        this.textContent = "Working..";
+        this.style.pointerEvents = "none";
         fetch(`/manage_users/${this.dataset.job}`, {
           method: "POST",
           cache: "no-cache",
