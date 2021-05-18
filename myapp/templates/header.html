@@ -4,15 +4,7 @@
   <a href="/" class="logo-a" title="Share N Learn">
     {% svg "logo" %}
   </a>
-  {% if auth %}
-  <a href="#" class="button auth-log" id="logout-btn">Logout</a>
-  {% else %}
-  <a href="{% url 'login' %}" class="button auth-log">Login</a>
-  {% endif %}
   <nav>
-    <button class="nav-btn" title="Open Menu">
-      {% svg "icon-hamburger" %}
-    </button>
     <ul class="nav-list">
       {% if auth %}
       {% if admin  %}
@@ -59,6 +51,17 @@
       </li>
     </ul>
   </nav>
+  {% if auth %}
+  <a href="#" class="button auth-log" id="logout-btn">Logout</a>
+  {% else %}
+  <div>
+   <a href="{% url 'signup' %}" class="button auth-log" style="margin-right: 10px">Sign Up</a>
+   <a href="{% url 'login' %}" class="button auth-log">Login</a>
+  </div>
+  {% endif %}
+  <button class="nav-btn" title="Open Menu">
+    {% svg "icon-hamburger" %}
+  </button>
   <div class="theme-switcher desktop">
     <div class="switch">
       <img src="{% static 'images/icon-moon.svg' %}" alt="change theme" />
