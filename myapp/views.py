@@ -144,7 +144,7 @@ def userlogin(request):
                                 h_uid = hashids.encode(uid + int(str(otp)[0])) #otp logic
                                 protocol = "https" if request.is_secure() else "http"
                                 host = request.get_host()
-                                message = 'Use this link below {}://{}/act/{}/{}'.format(protocol, host, h_uid, hashids.encode(otp))
+                                message = 'Click this link to activate your account {}://{}/act/{}/{}'.format(protocol, host, h_uid, hashids.encode(otp))
                                 email_from = settings.EMAIL_HOST_USER
                                 email_to = [user.username, ]
                                 send_mail(subject, message, email_from, email_to)
