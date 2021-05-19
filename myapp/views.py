@@ -84,6 +84,29 @@ def Logout(request):
 ###################################        USER        ################################################
 ########################################################################################################
 
+def send_activation_mail(request, user):
+    try:
+        uid = user.id
+        otp = randint(100000, 999999)
+        try:
+            for i in OTPModel.objects.filter(user=user.username):
+                i.delete()
+        except:
+            pass
+        finally:
+            OTPModel.objects.create(user=user.username, otp=otp)
+            subject = 'Verification Mail <sharenlearn>'
+            h_uid = hashids.encode(uid + int(str(otp)[0])) #otp logic
+            protocol = "https" if request.is_secure() else "http"
+            host = request.get_host()
+            message = 'Click this link to activate your account {}://{}/act/{}/{}'.format(protocol, host, h_uid, hashids.encode(otp))
+            email_from = settings.EMAIL_HOST_USER
+            email_to = [user.username, ]
+            send_mail(subject, message, email_from, email_to)
+            return True
+    except:
+        return False
+
 def signup1(request):
     if request.method == 'POST':
         fname = request.POST['fname']
@@ -99,7 +122,10 @@ def signup1(request):
             user.save()
             signup = Signup.objects.create(user=user, contact=contact, branch=dept, role=role)
             signup.save()
-            messages.success(request, "Account Created")
+            if not send_activation_mail(request, user):
+                messages.error(request, "Account Created, Failed to Send Verification Mail")
+                return redirect("login")
+            messages.success(request, "Account Created, Verification mail sent to your email")
             return redirect("login")
         except IntegrityError:
             messages.info(request, "Username taken, Try different")
@@ -122,7 +148,10 @@ def userlogin(request):
             u = request.POST['email']
             p = request.POST['password']
             try:
-                if not User.objects.get(username=u).is_active:
+                user = User.objects.get(username=u)
+                if not user.is_active:
+                    if not user.check_password(p):
+                        return JsonResponse({"message": "wrong"})
                     p = ""
             except:
                 pass
@@ -130,27 +159,9 @@ def userlogin(request):
                 if p == "":
                     try:
                         user = User.objects.get(username=u)
-                        uid = user.id
-                        otp = randint(100000, 999999)
-                        try:
-                            try:
-                                for i in OTPModel.objects.filter(user=user.username):
-                                    i.delete()
-                            except:
-                                pass
-                            finally:
-                                OTPModel.objects.create(user=user.username, otp=otp)
-                                subject = 'Verification Mail <sharenlearn>'
-                                h_uid = hashids.encode(uid + int(str(otp)[0])) #otp logic
-                                protocol = "https" if request.is_secure() else "http"
-                                host = request.get_host()
-                                message = 'Click this link to activate your account {}://{}/act/{}/{}'.format(protocol, host, h_uid, hashids.encode(otp))
-                                email_from = settings.EMAIL_HOST_USER
-                                email_to = [user.username, ]
-                                send_mail(subject, message, email_from, email_to)
-                                return JsonResponse({"message": "mailsent"})
-                        except:
+                        if not send_activation_mail(request, user):
                             return JsonResponse({"message": "erroronotp"})
+                        return JsonResponse({"message": "mailsent"})
                     except:
                         return JsonResponse({"message": "notfound"})
                 user = authenticate(username=u, password=p)
@@ -164,7 +175,6 @@ def userlogin(request):
                     messages.success(request, s_msg)
                     return JsonResponse({"message": "success"})
                 else:
-                    messages.error(request, "Invalid Login Credentials")
                     return JsonResponse({"message": "wrong"})
         return render(request, 'login.html')
     else:
@@ -185,7 +195,7 @@ def activate_user(request, uid, otp):
                 return redirect('login')
             else:
                 OTPModel.objects.get(user=user.username).delete()
-                messages.error(request, "Email Verification Failed, Try Again")
+                messages.error(request, "Email Verification Failed, Try Login Again")
                 return redirect('login')
         except:
             messages.error(request, "Email Verification Failed")
