@@ -142,11 +142,12 @@ def userlogin(request):
                                 OTPModel.objects.create(user=user.username, otp=otp)
                                 subject = 'Verification Mail <sharenlearn>'
                                 h_uid = hashids.encode(uid + int(str(otp)[0])) #otp logic
-                                message = 'Use this link below https://sharenlearn.herokuapp.com/act/{}/{}'.format(h_uid, hashids.encode(otp))
+                                protocol = "https" if request.is_secure() else "http"
+                                host = request.get_host()
+                                message = 'Use this link below {}://{}/act/{}/{}'.format(protocol, host, h_uid, hashids.encode(otp))
                                 email_from = settings.EMAIL_HOST_USER
                                 email_to = [user.username, ]
                                 send_mail(subject, message, email_from, email_to)
-                                print(request.user, request.user.is_active)
                                 return JsonResponse({"message": "mailsent"})
                         except:
                             return JsonResponse({"message": "erroronotp"})
