@@ -846,7 +846,7 @@ if (document.querySelector(".login-form")) {
               this.style.pointerEvents = "none";
               setTimeout(() => {
                 window.location.href = l;
-              }, 200);
+              }, 100);
             } else if (data.message === "wrong") {
               span.textContent = "Invalid Credentials";
             } else {
