@@ -54,9 +54,9 @@
   {% if auth %}
   <a href="#" class="button auth-log" id="logout-btn">Logout</a>
   {% else %}
-  <div>
-   <a href="{% url 'signup' %}" class="button auth-log" style="margin-right: 10px">Sign Up</a>
-   <a href="{% url 'login' %}" class="button auth-log">Login</a>
+  <div class="n-users">
+    <a href="{% url 'signup' %}" class="button auth-log" style="margin-right: 0.5rem">Sign Up</a>
+    <a href="{% url 'login' %}" class="button auth-log">Login</a>
   </div>
   {% endif %}
   <button class="nav-btn" title="Open Menu">
