@@ -56,10 +56,14 @@
       </div>
       <div class="form-footer">
         <button type="submit" class="button lg" id="form-btn">Update</button>
-        <p class="tip"><a class="colored" href="{% url "change_password" %}">Change Password Here ✍</a></p>
+        <p class="tip"><button class="colored text" type="button" id="c-pass-btn">Change Password Here ✍</button></p>
       </div>
     </form>
   </div>
 </main>
+<script>
+  const t = "{{ csrf_token }}";
+  const c_p = "{% url 'change_password' %}";
+</script>
 {% include "footer1.html" %}
 {% endblock content %}

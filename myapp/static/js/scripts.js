@@ -882,6 +882,33 @@ async function validate_field(field) {
   }
 }
 
+// change password link button
+if (document.getElementById("c-pass-btn")) {
+  const Otext = document.getElementById("c-pass-btn").textContent;
+  document.getElementById("c-pass-btn").addEventListener("click", function () {
+    this.textContent = "Sending mail to your email address..";
+    this.setAttribute("disabled", "disabled");
+    this.style.pointerEvents = "none";
+    this.style.color = "var(--clr-error)";
+    fetch(c_p, {
+      method: "POST",
+      cache: "no-cache",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": t,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message == "success") {
+          this.innerHTML = `<i style="color: var(--clr-success);font-style: normal;">Check your mail for instructions</i>`;
+        } else {
+          this.textContent = "Error sending mail. Try Again";
+        }
+      });
+  });
+}
+
 // change password
 if (document.querySelector("form.change-password-form")) {
   let cP = "";

@@ -119,6 +119,10 @@ body.light-theme a.button:hover {
   color: var(--clr-button-txt);
 }
 
+button.text:hover {
+  text-decoration: underline;
+}
+
 /* ANCHOR LINKS */
 
 a {
@@ -209,6 +213,10 @@ header .logo + .button {
   margin-right: 1.6rem;
 }
 
+header .n-users a {
+  display: inline-block;
+}
+
 header .button.auth-log {
   background-color: var(--header-btn-bg);
 }
@@ -238,6 +246,12 @@ header.sticky .button.auth-log {
 }
 
 /* NAV-LIST */
+
+nav {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
 
 .nav-list {
   position: absolute;
@@ -1101,6 +1115,9 @@ footer .social .link-git:hover #round {
   }
   .auth-log {
     order: 1;
+  }
+  nav {
+    position: static;
   }
   .nav-list {
     display: flex;
