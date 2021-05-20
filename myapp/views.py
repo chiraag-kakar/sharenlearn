@@ -75,8 +75,14 @@ def contact(request):
 
 
 def Logout(request):
-    logout(request)
-    return redirect('index')
+    try:
+        for i in OTPModel.objects.filter(user=request.user.username):
+            i.delete()
+    except:
+        pass
+    finally:
+        logout(request)
+        return redirect('index')
 
 
 
