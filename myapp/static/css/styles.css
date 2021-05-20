@@ -119,6 +119,10 @@ body.light-theme a.button:hover {
   color: var(--clr-button-txt);
 }
 
+button.text:hover {
+  text-decoration: underline;
+}
+
 /* ANCHOR LINKS */
 
 a {
