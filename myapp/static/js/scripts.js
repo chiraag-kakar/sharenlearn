@@ -881,3 +881,120 @@ async function validate_field(field) {
     return false;
   }
 }
+
+// change password
+if (document.querySelector("form.change-password-form")) {
+  let cP = "";
+  let nP = "";
+  document
+    .getElementById("check-c-password")
+    .addEventListener("click", async function () {
+      if (
+        await validate_field([
+          this.parentElement.previousElementSibling.querySelector(
+            "#c-password"
+          ),
+        ])
+      ) {
+        const ipField =
+          this.parentElement.previousElementSibling.querySelector(
+            ".input-field"
+          );
+        const cPField = ipField.querySelector("#c-password");
+        cP = cPField.value;
+        nP = "";
+        const formData = new FormData();
+        formData.append("cp", cP);
+        const span = document.createElement("span");
+        span.classList.add("invalid");
+        this.parentElement.previousElementSibling.appendChild(span);
+        span.textContent = "Checking your password..";
+        fetch(c_u_p, {
+          method: "POST",
+          cache: "no-cache",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": t,
+          },
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message === "success") {
+              span.innerHTML = `<i style="color: var(--clr-success);font-style: normal;">Password Verified</i>`;
+              ipField.classList.add("disabled");
+              cPField.setAttribute("disabled", "disabled");
+              this.textContent = "Password Verified";
+              this.setAttribute("disabled", "disabled");
+              this.classList.add("done");
+              this.style.pointerEvents = "none";
+              document
+                .querySelector(".set-n-password")
+                .classList.remove("remove");
+              setTimeout(() => {
+                document
+                  .querySelector(".set-n-password")
+                  .classList.remove("hide");
+              }, 400);
+            } else if (data.message === "wrong") {
+              span.textContent = "Invalid Password";
+            } else {
+              span.textContent = "Please Try Again!";
+            }
+          });
+      }
+    });
+  document
+    .getElementById("set-n-password")
+    .addEventListener("click", async function () {
+      if (
+        await validate_field([
+          this.parentElement.previousElementSibling.querySelector(
+            "#n-password"
+          ),
+        ])
+      ) {
+        const ipField =
+          this.parentElement.previousElementSibling.querySelector(
+            ".input-field"
+          );
+        const nPField = ipField.querySelector("#n-password");
+        nP = nPField.value;
+        const formData = new FormData();
+        formData.append("cp", cP);
+        formData.append("np", nP);
+        const span = document.createElement("span");
+        span.classList.add("invalid");
+        this.parentElement.previousElementSibling.appendChild(span);
+        span.textContent = "Setting new Password..";
+        fetch(s_u_p, {
+          method: "POST",
+          cache: "no-cache",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": t,
+          },
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message === "success") {
+              span.innerHTML = `<i style="color: var(--clr-success);font-style: normal;">Password Changed</i>`;
+              ipField.classList.add("disabled");
+              nPField.setAttribute("disabled", "disabled");
+              this.textContent = "Done";
+              this.setAttribute("disabled", "disabled");
+              this.classList.add("done");
+              this.style.pointerEvents = "none";
+              setTimeout(() => {
+                window.location.href = l;
+              }, 100);
+            } else if (data.message === "wrong") {
+              span.textContent = "Something went wrong.";
+            } else {
+              span.textContent = "Please try again";
+            }
+          });
+      }
+    });
+}

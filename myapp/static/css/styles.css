@@ -528,7 +528,8 @@ form .invalid {
   margin-top: 4rem;
 }
 
-.f-password form {
+.f-password form,
+.change-password form {
   margin-top: 6.5rem;
 }
 
@@ -1144,7 +1145,8 @@ footer .social .link-git:hover #round {
     justify-self: right;
     grid-column: 2/3;
   }
-  .signup form .form-footer .tip {
+  .signup form .form-footer .tip,
+  .edit-profile form .form-footer .tip {
     position: absolute;
     right: 0;
   }
@@ -2065,17 +2067,21 @@ body.light-theme .alert-box {
 
 .check-otp,
 .change-password,
-.check-email {
+.check-email,
+.check-c-password,
+.set-n-password {
   transition: opacity 0.4s ease;
 }
 
 .check-otp.remove,
-.change-password.remove {
+.change-password.remove,
+.set-n-password.remove {
   display: none;
 }
 
 .check-otp.hide,
-.change-password.hide {
+.change-password.hide,
+.set-n-password.hide {
   opacity: 0;
   pointer-events: none;
 }

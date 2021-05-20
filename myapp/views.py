@@ -596,3 +596,35 @@ def set_new_password(request):
         except:
             return JsonResponse({"message": "notfound"})
     return HttpResponse("<h1>UnAuthorised</h1>")
+
+def change_password(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    d = {'auth': request.user.is_authenticated, 'staff': request.user.is_staff, 'admin': request.user.is_superuser}
+    return render(request, "change_password.html", d)
+
+def check_u_password(request):
+    if request.user.is_authenticated and request.method == "POST":
+        p = request.POST["cp"]
+        if request.user.check_password(p):
+            return JsonResponse({"message": "success"})
+        return JsonResponse({"message": "wrong"})
+    return HttpResponse("<h1>UnAuthorised</h1>")
+
+def set_u_password(request):
+    if request.user.is_authenticated and request.method == "POST":
+        cp = request.POST["cp"]
+        np = request.POST["np"]
+        if request.user.check_password(cp):
+            try:
+                request.user.set_password(np)
+                request.user.save()
+                user = authenticate(username=request.user.username, password=np)
+                if user is not None:
+                    login(request, user)
+                    return JsonResponse({"message": "success"})
+                return JsonResponse({"message": "error"})
+            except:
+                return JsonResponse({"message": "error"})
+        return JsonResponse({"message": "wrong"})
+    return HttpResponse("<h1>UnAuthorised</h1>")
