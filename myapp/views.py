@@ -1,7 +1,7 @@
 from json.decoder import JSONDecodeError
 from django.contrib.auth.decorators import login_required
 import json
-from django.core.mail import EmailMultiAlternatives, send_mail
+from django.core.mail import EmailMultiAlternatives, message, send_mail
 from django.core.mail import EmailMessage
 from django.http.response import HttpResponse
 from django.utils.html import strip_tags
@@ -84,7 +84,7 @@ def Logout(request):
 ###################################        USER        ################################################
 ########################################################################################################
 
-def send_activation_mail(request, user):
+def send_email(request, user, purpose, url):
     try:
         uid = user.id
         otp = randint(100000, 999999)
@@ -95,15 +95,37 @@ def send_activation_mail(request, user):
             pass
         finally:
             OTPModel.objects.create(user=user.username, otp=otp)
-            subject = 'Verification Mail <sharenlearn>'
             h_uid = hashids.encode(uid + int(str(otp)[0])) #otp logic
             protocol = "https" if request.is_secure() else "http"
             host = request.get_host()
-            message = 'Click this link to activate your account {}://{}/act/{}/{}'.format(protocol, host, h_uid, hashids.encode(otp))
+            if purpose == "activation":
+                subject = "Account Activation Mail <sharenlearn>"
+                message = "Click this link to activate your account "
+            elif purpose == "c-password":
+                subject = "Change Password Request <sharenlearn>"
+                message = "Click this link to change your password "
+            else:
+                return False
+            message = message + '{}://{}/{}/{}/{}'.format(protocol, host, url, h_uid, hashids.encode(otp))
             email_from = settings.EMAIL_HOST_USER
             email_to = [user.username, ]
             send_mail(subject, message, email_from, email_to)
             return True
+    except:
+        return False
+
+def check_token(uid, otp):
+    try:
+        r_otp = hashids.decode(otp)[0] #received otp
+        r_uid = hashids.decode(uid)[0] - int(str(r_otp)[0]) #received uid - retrieving using otp logic
+        user = User.objects.get(id=r_uid)
+        d_otp = OTPModel.objects.get(user=user.username).otp;
+        if (r_otp == d_otp):
+            OTPModel.objects.get(user=user.username).delete()
+            return True
+        else:
+            OTPModel.objects.get(user=user.username).delete()
+            return False
     except:
         return False
 
@@ -122,7 +144,7 @@ def signup1(request):
             user.save()
             signup = Signup.objects.create(user=user, contact=contact, branch=dept, role=role)
             signup.save()
-            if not send_activation_mail(request, user):
+            if not send_email(request, user, "activation", "act"):
                 messages.error(request, "Account Created, Failed to Send Verification Mail")
                 return redirect("login")
             messages.success(request, "Account Created, Verification mail sent to your email")
@@ -159,7 +181,7 @@ def userlogin(request):
                 if p == "":
                     try:
                         user = User.objects.get(username=u)
-                        if not send_activation_mail(request, user):
+                        if not send_email(request, user, "activation", "act"):
                             return JsonResponse({"message": "erroronotp"})
                         return JsonResponse({"message": "mailsent"})
                     except:
@@ -598,10 +620,20 @@ def set_new_password(request):
     return HttpResponse("<h1>UnAuthorised</h1>")
 
 def change_password(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    d = {'auth': request.user.is_authenticated, 'staff': request.user.is_staff, 'admin': request.user.is_superuser}
-    return render(request, "change_password.html", d)
+    if request.user.is_authenticated and request.method == "POST":
+        user = User.objects.get(id=request.user.id)
+        if send_email(request, user, "c-password", "cp"):
+            return JsonResponse({"message": "success"})
+        return JsonResponse({"message": "wrong"})
+    return redirect("login")
+
+def cp(request, uid, otp):
+    if request.user.is_authenticated:
+        if check_token(uid, otp):
+            d = {'auth': request.user.is_authenticated, 'staff': request.user.is_staff, 'admin': request.user.is_superuser}
+            return render(request, "change_password.html", d)
+        messages.error(request, "Link Expired")
+    return redirect('/profile')
 
 def check_u_password(request):
     if request.user.is_authenticated and request.method == "POST":
