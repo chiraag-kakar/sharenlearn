@@ -2106,3 +2106,55 @@ body.light-theme .alert-box {
 button[type="button"].done {
   background-color: var(--clr-success);
 }
+
+/* AUTH PAGE */
+.auth-container {
+  width: 45rem;
+  background-color: hsl(0, 0%, 15%);
+  border-radius: 0.4rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 3.4rem 3rem;
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  .auth-container {
+    width: 90%;
+    border-radius: 0.8rem;
+  }
+}
+
+@media (max-height: 375px) {
+  .auth-container {
+    margin: auto;
+    position: static;
+    transform: none;
+  }
+}
+
+.auth-container svg {
+  width: 7rem;
+}
+
+.auth-container .content {
+  margin: 1.8rem 0 3rem;
+}
+
+.auth-container .content h2 {
+  color: var(--clr-primary-txt);
+  font-weight: var(--fw-md);
+  font-size: var(--fs-md-2);
+}
+
+.auth-container .content p {
+  margin-top: 0.6rem;
+  opacity: 0.8;
+  font-size: var(--fs-xs);
+}
+
+.auth-container .button {
+  display: block;
+}

@@ -75,8 +75,14 @@ def contact(request):
 
 
 def Logout(request):
-    logout(request)
-    return redirect('index')
+    try:
+        for i in OTPModel.objects.filter(user=request.user.username):
+            i.delete()
+    except:
+        pass
+    finally:
+        logout(request)
+        return redirect('index')
 
 
 
@@ -213,15 +219,12 @@ def activate_user(request, uid, otp):
                 OTPModel.objects.get(user=user.username).delete()
                 user.is_active = True
                 user.save()
-                messages.success(request, "Email Verified.")
-                return redirect('login')
+                return render(request, "auth_page.html", {"success": True})
             else:
                 OTPModel.objects.get(user=user.username).delete()
-                messages.error(request, "Email Verification Failed, Try Login Again")
-                return redirect('login')
+                return render(request, "auth_page.html", {"success": False})
         except:
-            messages.error(request, "Email Verification Failed")
-            return redirect('login')
+            return render(request, "auth_page.html", {"success": False})
     return redirect('login')
 
 def profile(request):
