@@ -905,6 +905,12 @@ if (document.getElementById("c-pass-btn")) {
         } else {
           this.textContent = "Error sending mail. Try Again";
         }
+        setTimeout(() => {
+          this.textContent = Otext;
+          this.style.pointerEvents = "all";
+          this.removeAttribute("disabled");
+          this.style.color = "";
+        }, 1500);
       });
   });
 }
