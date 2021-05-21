@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Activate your Account</title>
+  <title>ShareNLearn</title>
 </head>
 
 <body style="margin: 0">
@@ -21,7 +21,7 @@
     <img src="https://user-images.githubusercontent.com/58631762/119119608-f8d43300-ba48-11eb-988f-7dbef86a3cc7.png" alt="share and learn" />
     <div style="
           background-color: #ffffff;
-          padding: 50px;
+          padding: 70px;
           width: min(90%, 850px);
           margin: auto;
           margin-top: 40px;
@@ -29,10 +29,15 @@
           text-align: left;
           box-sizing: border-box;
         ">
+      {% if email_for == "activation" %}
       <h2 style="margin: 0; padding: 0">
         <img src="https://user-images.githubusercontent.com/58631762/119120023-6b451300-ba49-11eb-9098-a8fc1a715e39.png" alt="welcome to sharenlearn" style="width: min(100%, 360px)" />
       </h2>
       <img src="https://user-images.githubusercontent.com/58631762/119120926-73ea1900-ba4a-11eb-871d-37a40c0d65f5.png" alt="" style="width: min(100%, 262px); margin: 45px auto; display: block" />
+      {% endif %}
+      {% if email_for == "c-password" %}
+      <h2 style="margin: 0; padding: 0; font-size: 19px; color: hsl(0, 0%, 8%); font-weight: 500;">Hey {{ username }},</h2>
+      {% endif %}
       <p style="
             margin: 45px 0;
             color: hsl(0, 0%, 8%);
@@ -40,12 +45,18 @@
             line-height: 1.8;
             font-weight: 400;
             font-size: 16px;
+            {% if email_for == "c-password" %}margin-top: 20px;{% endif %}
           ">
-        Hey Hari Ram, Thanks for signing up to ShareNLearn. Activate your
+        {% if email_for == "activation" %}
+        Hey {{ username }}, Thanks for signing up to ShareNLearn. Activate your
         account by clicking the below button.
+        {% endif %}
+        {% if email_for == "c-password" %}
+        Please click the below button to change your password.
+        {% endif %}
       </p>
       <div style="text-align: center">
-        <a href="#" target="_blank" style="
+        <a href="{{ link }}" target="_blank" style="
               font: inherit;
               cursor: pointer;
               color: #ffffff;
@@ -57,7 +68,14 @@
               font-weight: 500;
               text-decoration: none;
               display: inline-block;
-            ">Activate my Account</a>
+            ">
+          {% if email_for == "activation" %}
+          Activate my Account
+          {% endif %}
+          {% if email_for == "c-password" %}
+          Change Password
+          {% endif %}
+        </a>
       </div>
       <hr style="
             background-color: hsl(0, 0%, 85%);
