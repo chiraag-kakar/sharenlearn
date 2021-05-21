@@ -17,3 +17,18 @@
   </div>
   <p class="cright">Share N Learn &copy; 2021</p>
 </footer>
+
+<! --top button -->
+<button onclick="topBtn()" id="btn" fill="#884E88" data-opposite="#FF742E"><i class="fa fa-angle-up" ></i></button>
+<script>
+window.onscroll = function(){
+if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20){
+document.getElementById("btn").style.display = "block";
+} else{
+document.getElementById("btn").style.display = "none";
+}};
+function topBtn(){
+document.body.scrollTop = 0; 
+document.documentElement.scrollTop = 0; 
+}
+</script>
