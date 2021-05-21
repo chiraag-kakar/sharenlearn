@@ -115,8 +115,13 @@ def send_email(request, user, purpose, url):
             message = message + '{}://{}/{}/{}/{}'.format(protocol, host, url, h_uid, hashids.encode(otp))
             email_from = settings.EMAIL_HOST_USER
             email_to = [user.username, ]
-            send_mail(subject, message, email_from, email_to)
-            return True
+            try:
+                send_mail(subject, message, email_from, email_to)
+                return True
+            except Exception as e:
+                if type(e).__name__ == "SMTPRecipientsRefused" and user.email:
+                    send_mail(subject, message, email_from, [user.email, ])
+                    return True
     except:
         return False
 
@@ -182,7 +187,12 @@ def userlogin(request):
                         return JsonResponse({"message": "wrong"})
                     p = ""
             except:
-                pass
+                try:
+                    user = User.objects.get(email=u)
+                    if user.is_superuser and user.is_staff:
+                        u = user.username
+                except:
+                    pass
             finally:
                 if p == "":
                     try:
@@ -231,7 +241,15 @@ def profile(request):
     if not request.user.is_authenticated:
         return redirect('login')
     user = User.objects.get(id=request.user.id)
-    data = Signup.objects.get(user=user)
+    try:
+        data = Signup.objects.get(user=user)
+    except Signup.DoesNotExist:
+        if user.is_superuser and user.is_staff:
+            user.first_name = user.username
+            user.save()
+            signup = Signup.objects.create(user=user, contact="", branch="", role="")
+            signup.save()
+            data = Signup.objects.get(user = user)
     d = {'data': data, 'user': user, 'auth': request.user.is_authenticated}
     if (request.user.is_superuser):
         d["admin"] = True
@@ -555,8 +573,15 @@ def forgot_password(request):
         return redirect('/profile')
     if request.method == "POST":
         email = request.POST["email"]
+        sUser = False
         try:
-            user = User.objects.get(username=email)
+            try:
+                user = User.objects.get(username=email)
+            except:
+                user = User.objects.get(email=email)
+                if not (user.is_superuser and user.is_staff):
+                     return JsonResponse({"message": "notfound"})
+                sUser = True
             otp = randint(100000, 999999)
             try:
                 try:
@@ -569,7 +594,7 @@ def forgot_password(request):
                     subject = 'Forgot Password: Here\'s your OTP <sharenlearn>'
                     message = 'Your OTP is {}'.format(otp)
                     email_from = settings.EMAIL_HOST_USER
-                    email_to = [user.username, ]
+                    email_to = [user.username, ] if not sUser else [user.email, ]
                     send_mail(subject, message, email_from, email_to)
                     return JsonResponse({"message": "success"})
             except:

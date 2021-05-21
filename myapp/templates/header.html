@@ -6,13 +6,13 @@
   </a>
   <nav>
     <ul class="nav-list">
-      {% if auth %}
-      {% if admin  %}
+      {% if request.user.is_authenticated %}
+      {% if request.user.is_superuser  %}
       <li>
         <a href="{% url "superadmin_dashboard" 'basic' %}">Manage Users</a>
       </li>
       {% endif %}
-      {% if staff or admin %}
+      {% if request.user.is_superuser or request.user.is_staff %}
       <li>
         <a href="{% url "admin_dashboard" 'open' %}">Dashboard</a>
       </li>
@@ -51,7 +51,7 @@
       </li>
     </ul>
   </nav>
-  {% if auth %}
+  {% if request.user.is_authenticated %}
   <a href="#" class="button auth-log" id="logout-btn">Logout</a>
   {% else %}
   <div class="n-users">
