@@ -104,23 +104,25 @@ def send_email(request, user, purpose, url):
             h_uid = hashids.encode(uid + int(str(otp)[0])) #otp logic
             protocol = "https" if request.is_secure() else "http"
             host = request.get_host()
+            link = '{}://{}/{}/{}/{}'.format(protocol, host, url, h_uid, hashids.encode(otp))
             if purpose == "activation":
                 subject = "Account Activation Mail <sharenlearn>"
-                message = "Click this link to activate your account "
+                html_message = render_to_string('emails/mail_template.html', {'email_for': 'activation', 'username': user.first_name, 'link': link})
+                plain_message = strip_tags(html_message)
             elif purpose == "c-password":
                 subject = "Change Password Request <sharenlearn>"
-                message = "Click this link to change your password "
+                html_message = render_to_string('emails/mail_template.html', {'email_for': 'c-password', 'username': user.first_name, 'link': link})
+                plain_message = strip_tags(html_message)
             else:
                 return False
-            message = message + '{}://{}/{}/{}/{}'.format(protocol, host, url, h_uid, hashids.encode(otp))
             email_from = settings.EMAIL_HOST_USER
             email_to = [user.username, ]
             try:
-                send_mail(subject, message, email_from, email_to)
+                send_mail(subject, plain_message, email_from, email_to, html_message=html_message)
                 return True
             except Exception as e:
                 if type(e).__name__ == "SMTPRecipientsRefused" and user.email:
-                    send_mail(subject, message, email_from, [user.email, ])
+                    send_mail(subject, plain_message, email_from, [user.email, ], html_message=html_message)
                     return True
     except:
         return False
