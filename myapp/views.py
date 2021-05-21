@@ -171,13 +171,13 @@ def signup1(request):
 def userlogin(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            # captcha_token = request.POST['g-recaptcha-response']
-            # cap_url = "https://www.google.com/recaptcha/api/siteverify"
-            # cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
-            # cap_server_response = requests.post(url=cap_url, data=cap_data)
-            # cap_json = cap_server_response.json()
-            # if cap_json['success'] == False:
-            #     return JsonResponse({"message": "caperror"})
+            captcha_token = request.POST['g-recaptcha-response']
+            cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            cap_server_response = requests.post(url=cap_url, data=cap_data)
+            cap_json = cap_server_response.json()
+            if cap_json['success'] == False:
+                return JsonResponse({"message": "caperror"})
             u = request.POST['email']
             p = request.POST['password']
             try:
