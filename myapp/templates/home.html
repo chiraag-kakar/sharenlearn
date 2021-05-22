@@ -71,11 +71,15 @@
           </div>
         </div>
         <div class="form-footer">
-          <button type="submit" class="button lg" id="form-btn">Message</button>
+          <button type="button" class="button lg" id="contact-form-btn">Message</button>
         </div>
       </form>
     </div>
   </div>
 </main>
+<script>
+  const c = "{% url 'contact' %}";
+  const t = "{{ csrf_token }}";
+</script>
 {% include "footer1.html" %}
 {% endblock content %}
