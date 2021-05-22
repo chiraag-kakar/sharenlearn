@@ -880,6 +880,10 @@ footer .cright {
   font-size: var(--fs-xs);
 }
 
+footer .cright + a {
+  font-size: var(--fs-xs);
+}
+
 footer .social .link-insta {
   position: relative;
 }
@@ -2160,30 +2164,30 @@ button[type="button"].done {
 }
 
 /*top-button*/
-#btn{
-position: fixed;
-background-color: hsl(300, 27%, 52%);
-text-decoration: none;
-border: none;
-border-radius: 5px;
-color: white;
-cursor: pointer;
-display: none;
-bottom: 16px;
-right: 32px;
-width: 50px;
-height: 50px;
-font-size: 38px;
-text-align: center;
-font-weight: bold;
+#btn {
+  position: fixed;
+  background-color: hsl(300, 27%, 52%);
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  display: none;
+  bottom: 16px;
+  right: 32px;
+  width: 50px;
+  height: 50px;
+  font-size: 38px;
+  text-align: center;
+  font-weight: bold;
 }
 #btn:hover {
   background-color: hsl(300, 27%, 42%);
 }
 body.light-theme #btn {
-background-color: hsl(20, 100%, 65%);
+  background-color: hsl(20, 100%, 65%);
 }
 
 body.light-theme #btn:hover {
-background-color: hsl(20, 100%, 59%);
+  background-color: hsl(20, 100%, 59%);
 }

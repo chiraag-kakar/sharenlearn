@@ -32,13 +32,13 @@ if (document.querySelector(".signup-form")) {
 //     });
 // }
 
-if (document.querySelector(".contact-form")) {
-  document
-    .querySelector(".contact-form")
-    .addEventListener("submit", async function (event) {
-      if (!(await validate_form(this))) event.preventDefault();
-    });
-}
+// if (document.querySelector(".contact-form")) {
+//   document
+//     .querySelector(".contact-form")
+//     .addEventListener("submit", async function (event) {
+//       if (!(await validate_form(this))) event.preventDefault();
+//     });
+// }
 
 if (document.querySelector(".edit-profile-form")) {
   document
@@ -1026,6 +1026,70 @@ if (document.querySelector("form.change-password-form")) {
               span.textContent = "Something went wrong.";
             } else {
               span.textContent = "Please try again";
+            }
+          });
+      }
+    });
+}
+
+// Contact form
+if (document.querySelector("form.contact-form")) {
+  document
+    .getElementById("contact-form-btn")
+    .addEventListener("click", async function () {
+      if (
+        await validate_field([
+          document.getElementById("name"),
+          document.getElementById("email"),
+          document.getElementById("subject"),
+          document.getElementById("message"),
+        ])
+      ) {
+        const ipFields = document.querySelectorAll(".input-field");
+        const nmField = document.getElementById("name");
+        const emField = document.getElementById("email");
+        const sbField = document.getElementById("subject");
+        const msgField = document.getElementById("message");
+        const name = nmField.value;
+        const email = emField.value;
+        const subject = sbField.value;
+        const message = msgField.value;
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("subject", subject);
+        formData.append("message", message);
+        const span = document.createElement("span");
+        span.classList.add("invalid");
+        span.textContent = "Working on it..";
+        ipFields[0].parentElement.appendChild(span);
+        fetch(c, {
+          method: "POST",
+          cache: "no-cache",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": t,
+          },
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message === "success") {
+              span.textContent = "";
+              ipFields.forEach((ipField) => {
+                ipField.classList.add("disabled");
+                ipField.children[0].setAttribute("disabled", "disabled");
+              });
+              this.style.pointerEvents = "none";
+              this.classList.add("done");
+              this.textContent = "Messaged";
+              setTimeout(() => {
+                window.location.href = c;
+              }, 100);
+            } else if (data.message === "emwrong") {
+              span.textContent = "Looks like email is not valid";
+            } else {
+              span.textContent = "Please Try Again";
             }
           });
       }
