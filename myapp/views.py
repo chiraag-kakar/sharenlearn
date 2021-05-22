@@ -52,27 +52,29 @@ def about(request):
     return redirect('/#about')
 
 def contact(request):
-    context = {'auth': request.user.is_authenticated}
     if request.method == 'POST':
+        if not request.user.is_authenticated:
+            print("user is not auth")
         name = request.POST['name']
         email = request.POST['email']
         subject = request.POST['subject']
         message = request.POST['message']
-        if check(email) == False:
-            messages.error(request, "Looks like email is not valid")
-            return redirect('/#contact')
-        # try:
-        #     # send_mail('Contact Form',fmessage, settings.EMAIL_HOST_USER,['reciever@gmail.com'], fail_silently=False)
-        #     pass
-        # except Exception as e:
-        #     messages.error(
-        #         request, "Some Error Occured We are sorry for that Please Try again!!")
-        messages.success(request, 'Thanks for contacting us, we will reach you soon')
-        return redirect('index')
+        if not request.user.is_authenticated:
+            if check(email) == False:
+                return JsonResponse({"message": "emwrong"})
+        if request.user.is_authenticated:
+            if not User.objects.filter(username=email).exists():
+                return JsonResponse({"message": "notfound"})
+        try:
+            send_mail("Contact","Thanks for contacting us, we'll reach out to you soon.", settings.EMAIL_HOST_USER, [email, ])
+            messages.success(request, "Thanks for contacting us, we'll reach out to you soon")
+            return JsonResponse({"message": "success"})
+        except Exception as e:
+           return JsonResponse({"message": "error"})
     else:
-        return redirect('/#contact')
-
-
+        if request.user.is_authenticated:
+            return render(request, "contact.html", {"email": request.user.username})
+        return redirect("/#contact")
 
 def Logout(request):
     try:
@@ -173,13 +175,13 @@ def signup1(request):
 def userlogin(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            captcha_token = request.POST['g-recaptcha-response']
-            cap_url = "https://www.google.com/recaptcha/api/siteverify"
-            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
-            cap_server_response = requests.post(url=cap_url, data=cap_data)
-            cap_json = cap_server_response.json()
-            if cap_json['success'] == False:
-                return JsonResponse({"message": "caperror"})
+            # captcha_token = request.POST['g-recaptcha-response']
+            # cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            # cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            # cap_server_response = requests.post(url=cap_url, data=cap_data)
+            # cap_json = cap_server_response.json()
+            # if cap_json['success'] == False:
+            #     return JsonResponse({"message": "caperror"})
             u = request.POST['email']
             p = request.POST['password']
             try:
