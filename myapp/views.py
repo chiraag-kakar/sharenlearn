@@ -53,8 +53,6 @@ def about(request):
 
 def contact(request):
     if request.method == 'POST':
-        if not request.user.is_authenticated:
-            print("user is not auth")
         name = request.POST['name']
         email = request.POST['email']
         subject = request.POST['subject']
