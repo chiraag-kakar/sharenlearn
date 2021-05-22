@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% load svg %}
+{% block content %}
+{% include "header.html" %}
+<main>
+  <h2 class="title colored lg">Contact</h2>
+  <div class="form-container">
+    <div class="form-illust">
+      {% svg "illustration-contact" %}
+    </div>
+    <form action="{% url "contact" %}" method="POST" class="contact-form">
+      {% csrf_token %}
+      <div class="input-group">
+        <label for="name">Name</label>
+        <div class="input-field">
+          <input type="text" name="name" id="name" autocomplete="off" spellcheck="false" data-type="text">
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <div class="input-field disabled">
+          <input type="email" name="email" id="email" autocomplete="off" spellcheck="false" data-type="email" value={{ email }} disabled>
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="subject">Subject</label>
+        <div class="input-field">
+          <input type="text" name="subject" id="subject" autocomplete="off" spellcheck="false" data-type="text">
+        </div>
+      </div>
+      <div class="input-group">
+        <label for="message">Message</label>
+        <div class="input-field t-area">
+          <textarea name="message" id="message" cols="30" rows="10" data-type="text"></textarea>
+        </div>
+      </div>
+      <div class="form-footer">
+        <button type="button" class="button lg" id="contact-form-btn">Message</button>
+      </div>
+    </form>
+  </div>
+</main>
+<script>
+  const c = "{% url 'contact' %}";
+  const t = "{{ csrf_token }}";
+</script>
+{% include "footer1.html" %}
+{% endblock content %}
