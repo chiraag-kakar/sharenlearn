@@ -14,8 +14,8 @@
         padding: 50px 0;
         margin: 0;
         text-align: center;
-        font-family: Ubuntu, Whitney, Helvetica Neue, Helvetica, Arial, Lucida Grande,
-          sans-serif;
+        font-family: Ubuntu, Whitney, Helvetica Neue, Helvetica, Arial,
+          Lucida Grande, sans-serif;
         box-sizing: border-box;
       ">
     <img src="https://user-images.githubusercontent.com/58631762/119119608-f8d43300-ba48-11eb-988f-7dbef86a3cc7.png" alt="share and learn" />
@@ -36,7 +36,19 @@
       <img src="https://user-images.githubusercontent.com/58631762/119120926-73ea1900-ba4a-11eb-871d-37a40c0d65f5.png" alt="" style="width: min(100%, 262px); margin: 45px auto; display: block" />
       {% endif %}
       {% if email_for == "c-password" %}
-      <h2 style="margin: 0; padding: 0; font-size: 19px; color: hsl(0, 0%, 8%); font-weight: 500;">Hey {{ username }},</h2>
+      <h2 style="margin: 0; padding: 0">
+        <img src="https://user-images.githubusercontent.com/58631762/119235724-9450cb00-bb51-11eb-947b-c0a92448a9bb.png" alt="change password request" style="width: min(100%, 380px)" />
+      </h2>
+      {% endif %}
+      {% if email_for == "f-password" %}
+      <h2 style="margin: 0; padding: 0">
+        <img src="https://user-images.githubusercontent.com/58631762/119235557-b6961900-bb50-11eb-95cb-2834806918a7.png" alt="password reset code" style="width: min(100%, 305px)" />
+      </h2>
+      {% endif %}
+      {% if email_for == "pass-changed" %}
+      <h2 style="margin: 0; padding: 0">
+        <img src="https://user-images.githubusercontent.com/58631762/119249316-2ccc6700-bbb5-11eb-8d9e-c3541ddaf811.png" alt="password changed" style="width: min(100%, 349px)" />
+      </h2>
       {% endif %}
       <p style="
             margin: 45px 0;
@@ -45,16 +57,66 @@
             line-height: 1.8;
             font-weight: 400;
             font-size: 16px;
-            {% if email_for == "c-password" %}margin-top: 20px;{% endif %}
           ">
         {% if email_for == "activation" %}
-        Hey {{ username }}, Thanks for signing up to ShareNLearn. Activate your
-        account by clicking the below button.
+        Hey {{ username }}, Thanks for
+        signing up to ShareNLearn. Activate your account by clicking the below
+        button.
         {% endif %}
-        {% if email_for == "c-password" %}
-        Please click the below button to change your password.
-        {% endif %}
+        {% if email_for == "c-password" %} Hey {{ username }}, Please click the below button to change your password. {% endif %}
+        {% if email_for == "f-password" %} Hey {{ username }}, Please use this code to reset the password for your shareNLearn account. {% endif %}
+        {% if email_for == "pass-changed" %} Hey {{ username }}, Your password for the shareNLearn account was changed on {{ time }}. {% endif %}
       </p>
+      {% if email_for == "f-password" %}
+      <p style="
+            color: hsl(0, 0%, 8%);
+            width: 90%;
+            line-height: 1.8;
+            font-weight: 400;
+            font-size: 16px;
+          ">
+        Here is your code: {{ otp }}
+      </p>
+      <p style="
+            color: hsl(0, 0%, 8%);
+            width: 90%;
+            line-height: 1.8;
+            font-weight: 400;
+            font-size: 16px;
+            margin: 45px 0;
+          ">
+        If you did not request a new password, please ignore this email.
+      </p>
+      {% endif %}
+      {% if email_for == "pass-changed" %}
+      <p style="
+            color: hsl(0, 0%, 8%);
+            width: 90%;
+            line-height: 1.8;
+            font-weight: 400;
+            font-size: 16px;
+          ">
+        If this was you, then you can safely ignore this email.
+      </p>
+      <p style="
+            color: hsl(0, 0%, 8%);
+            width: 90%;
+            line-height: 1.8;
+            font-weight: 400;
+            font-size: 16px;
+            margin: 45px 0;
+          ">
+        If this wasn't you, please
+        <a href="https://sharenlearn.herokuapp.com/contact" target="_blank" style="
+              color: #274dbb;
+              text-decoration: none;
+              font-weight: 400;
+              font-family: Ubuntu, Helvetica, Arial, sans-serif;
+            ">contact</a>
+        us or reset your password.
+      </p>
+      {% endif %}
+      {% if email_for == "activation" or email_for == "c-password" %}
       <div style="text-align: center">
         <a href="{{ link }}" target="_blank" style="
               font: inherit;
@@ -69,21 +131,18 @@
               text-decoration: none;
               display: inline-block;
             ">
-          {% if email_for == "activation" %}
-          Activate my Account
-          {% endif %}
-          {% if email_for == "c-password" %}
-          Change Password
-          {% endif %}
+          {% if email_for == "activation" %} Activate my Account {% endif %}
+          {% if email_for == "c-password" %} Change Password {% endif %}
         </a>
       </div>
+      {% endif %}
       <hr style="
             background-color: hsl(0, 0%, 85%);
             margin: 45px 0;
             height: 3.2px;
             border: 0;
           " />
-      <p style="color: hsl(0, 0%, 8%); text-align: center; font-size: 16px;">
+      <p style="color: hsl(0, 0%, 8%); text-align: center; font-size: 16px">
         Sent by
         <a href="https://sharenlearn.herokuapp.com" target="_blank" style="
               color: #274dbb;

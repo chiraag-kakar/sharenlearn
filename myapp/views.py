@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from .models import *
 from django.contrib.auth import authenticate, login, logout
-from datetime import date
+import datetime
 
 from django.contrib import messages
 from django.db import IntegrityError
@@ -64,7 +64,14 @@ def contact(request):
             if not User.objects.filter(username=email).exists():
                 return JsonResponse({"message": "notfound"})
         try:
-            send_mail("Contact","Thanks for contacting us, we'll reach out to you soon.", settings.EMAIL_HOST_USER, [email, ])
+            send_mail(subject, f'''
+            Name: {name},
+
+            Email: {email},
+
+            Message: {message}
+            ''', settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER, ])
+            send_mail("Contact <sharenlearn>","Thanks for contacting us, we'll reach out to you soon.", settings.EMAIL_HOST_USER, [email, ])
             messages.success(request, "Thanks for contacting us, we'll reach out to you soon")
             return JsonResponse({"message": "success"})
         except Exception as e:
@@ -361,7 +368,7 @@ def upload_notes(request):
         d = request.POST['desc']
         u = User.objects.filter(username=request.user.username).first()
         try:
-            Notes.objects.create(user=u, uploadingdate=date.today(), branch=b, subject=s,
+            Notes.objects.create(user=u, uploadingdate=datetime.date.today(), branch=b, subject=s,
                                  notesfile=n, filetype=f, description=d, status="Pending")
             messages.success(request, f'Notes Uploaded Successfully')
             return redirect('view_usernotes');
@@ -593,11 +600,12 @@ def forgot_password(request):
                     pass
                 finally:
                     OTPModel.objects.create(user=user.username, otp=otp)
-                    subject = 'Forgot Password: Here\'s your OTP <sharenlearn>'
-                    message = 'Your OTP is {}'.format(otp)
+                    subject = 'Forgot Password: Here\'s your Password Reset Code <sharenlearn>'
+                    html_message = render_to_string('emails/mail_template.html', {'email_for': 'f-password', 'username': user.first_name, 'otp': otp})
+                    plain_message = strip_tags(html_message)
                     email_from = settings.EMAIL_HOST_USER
                     email_to = [user.username, ] if not sUser else [user.email, ]
-                    send_mail(subject, message, email_from, email_to)
+                    send_mail(subject, plain_message, email_from, email_to, html_message=html_message)
                     return JsonResponse({"message": "success"})
             except:
                 return JsonResponse({"message": "erroronotp"})
@@ -610,7 +618,12 @@ def check_otp(request):
         email = request.POST["email"]
         otp = request.POST["otp"]
         try:
-            user = User.objects.get(username=email)
+            try:
+                user = User.objects.get(username=email)
+            except:
+                user = User.objects.get(email=email)
+                if not (user.is_superuser and user.is_staff):
+                     return JsonResponse({"message": "notfound"})
             try:
                 d_otp = OTPModel.objects.get(user=user.username).otp
                 try:
@@ -631,16 +644,36 @@ def set_new_password(request):
         email = request.POST["email"]
         otp = request.POST["otp"]
         np = request.POST["np"]
+        sUser = False
         try:
-            user = User.objects.get(username=email)
+            try:
+                user = User.objects.get(username=email)
+            except:
+                user = User.objects.get(email=email)
+                if not (user.is_superuser and user.is_staff):
+                     return JsonResponse({"message": "notfound"})
+                sUser = True
             try:
                 if int(otp) == OTPModel.objects.get(user=user.username).otp:
+                    p_set = False
                     try:
                         user.set_password(np)
                         user.save()
+                        p_set = True
                         return JsonResponse({"message": "success"})
                     except:
                         return JsonResponse({"message": "cantset"})
+                    finally:
+                        try:
+                            if p_set:
+                                subject = "Your ShareNLearn Password Changed <sharenlearn>"
+                                html_message = render_to_string('emails/mail_template.html', {'email_for': 'pass-changed', 'username': user.first_name, 'time': datetime.datetime.now()})
+                                plain_message = strip_tags(html_message)
+                                email_from = settings.EMAIL_HOST_USER
+                                email_to = [user.username, ] if not sUser else [user.email, ]
+                                send_mail(subject, plain_message, email_from, email_to, html_message=html_message)
+                        except:
+                            pass
             except:
                 return JsonResponse({"message": "wentwrong"})
             finally:
@@ -678,9 +711,11 @@ def set_u_password(request):
         cp = request.POST["cp"]
         np = request.POST["np"]
         if request.user.check_password(cp):
+            p_set = False
             try:
                 request.user.set_password(np)
                 request.user.save()
+                p_set = True
                 user = authenticate(username=request.user.username, password=np)
                 if user is not None:
                     login(request, user)
@@ -688,5 +723,20 @@ def set_u_password(request):
                 return JsonResponse({"message": "error"})
             except:
                 return JsonResponse({"message": "error"})
+            finally:
+                try:
+                    if p_set:
+                        subject = "Your ShareNLearn Password Changed <sharenlearn>"
+                        html_message = render_to_string('emails/mail_template.html', {'email_for': 'pass-changed', 'username': user.first_name, 'time': datetime.datetime.now()})
+                        plain_message = strip_tags(html_message)
+                        email_from = settings.EMAIL_HOST_USER
+                        email_to = [user.username, ]
+                        try:
+                            send_mail(subject, plain_message, email_from, email_to, html_message=html_message)
+                        except Exception as e:
+                            if type(e).__name__ == "SMTPRecipientsRefused" and user.email:
+                                send_mail(subject, plain_message, email_from, [user.email, ], html_message=html_message)
+                except:
+                    pass
         return JsonResponse({"message": "wrong"})
     return HttpResponse("<h1>UnAuthorised</h1>")
