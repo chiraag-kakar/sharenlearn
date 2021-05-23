@@ -1034,16 +1034,26 @@ if (document.querySelector("form.change-password-form")) {
 
 // Contact form
 if (document.querySelector("form.contact-form")) {
+  let email = "";
+  const requiresOTP = document.getElementById("otp");
+  console.log(requiresOTP);
   document
     .getElementById("contact-form-btn")
     .addEventListener("click", async function () {
+      if (requiresOTP && document.querySelector(".otp-field").classList.contains("remove")) {
+        document.querySelector(".otp-field").classList.remove("remove");
+        setTimeout(() => {
+          document.querySelector(".otp-field").classList.remove("hide");
+        })
+      }
       if (
-        await validate_field([
+        (await validate_field([
           document.getElementById("name"),
           document.getElementById("email"),
           document.getElementById("subject"),
           document.getElementById("message"),
-        ])
+        ])) &&
+        (requiresOTP ? await validate_field([requiresOTP]) : true)
       ) {
         const ipFields = document.querySelectorAll(".input-field");
         const nmField = document.getElementById("name");
@@ -1051,7 +1061,7 @@ if (document.querySelector("form.contact-form")) {
         const sbField = document.getElementById("subject");
         const msgField = document.getElementById("message");
         const name = nmField.value;
-        const email = emField.value;
+        email = emField.value;
         const subject = sbField.value;
         const message = msgField.value;
         const formData = new FormData();
@@ -1059,6 +1069,10 @@ if (document.querySelector("form.contact-form")) {
         formData.append("email", email);
         formData.append("subject", subject);
         formData.append("message", message);
+        if (requiresOTP) {
+          const otp = requiresOTP.value;
+          formData.append("otp", otp);
+        }
         const span = document.createElement("span");
         span.classList.add("invalid");
         span.textContent = "Working on it..";
@@ -1088,10 +1102,64 @@ if (document.querySelector("form.contact-form")) {
               }, 100);
             } else if (data.message === "emwrong") {
               span.textContent = "Looks like email is not valid";
+            } else if (data.message === "otperror") {
+              span.textContent = "OTP Entered Wrong";
             } else {
               span.textContent = "Please Try Again";
             }
           });
       }
     });
+}
+
+if (document.querySelector(".email-for-otp")) {
+  document
+    .querySelector(".email-for-otp")
+    .addEventListener("input", async function () {
+      if (await validate_field([this])) {
+        document.querySelector(".ask-otp").classList.add("view");
+      } else {
+        document.querySelector(".ask-otp").classList.remove("view");
+      }
+    });
+  const Otext = document.getElementById("ask-otp").textContent;
+  document.getElementById("ask-otp").addEventListener("click", function () {
+    this.textContent = "Sending OTP..";
+    this.setAttribute("disabled", "disabled");
+    this.style.pointerEvents = "none";
+    this.style.color = "var(--clr-error)";
+    const formData = new FormData();
+    formData.append("email", document.getElementById("email").value);
+    fetch(s_o, {
+      method: "POST",
+      cache: "no-cache",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": t,
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message == "success") {
+          this.innerHTML = `<i style="color: var(--clr-success);font-style: normal;">OTP Sent</i>`;
+          document.querySelector(".otp-field").classList.remove("remove");
+          setTimeout(() => {
+            document.querySelector(".otp-field").classList.remove("hide");
+          }, 400);
+          document.getElementById("email").setAttribute("disabled", "disabled");
+          document
+            .getElementById("email")
+            .parentElement.classList.add("disabled");
+        } else {
+          this.textContent = "Please Try Again";
+        }
+        setTimeout(() => {
+          this.textContent = Otext;
+          this.style.pointerEvents = "all";
+          this.removeAttribute("disabled");
+          this.style.color = "";
+        }, 1500);
+      });
+  });
 }
