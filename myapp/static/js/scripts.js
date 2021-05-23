@@ -1040,11 +1040,15 @@ if (document.querySelector("form.contact-form")) {
   document
     .getElementById("contact-form-btn")
     .addEventListener("click", async function () {
-      if (requiresOTP && document.querySelector(".otp-field").classList.contains("remove")) {
+      if (
+        requiresOTP &&
+        document.querySelector(".otp-field").classList.contains("remove")
+      ) {
         document.querySelector(".otp-field").classList.remove("remove");
         setTimeout(() => {
           document.querySelector(".otp-field").classList.remove("hide");
-        })
+        });
+        document.querySelector(".form-footer").classList.add("expanded");
       }
       if (
         (await validate_field([
@@ -1147,6 +1151,7 @@ if (document.querySelector(".email-for-otp")) {
           setTimeout(() => {
             document.querySelector(".otp-field").classList.remove("hide");
           }, 400);
+          document.querySelector(".form-footer").classList.add("expanded");
           document.getElementById("email").setAttribute("disabled", "disabled");
           document
             .getElementById("email")
