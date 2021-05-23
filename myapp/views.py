@@ -58,8 +58,13 @@ def contact(request):
         subject = request.POST['subject']
         message = request.POST['message']
         if not request.user.is_authenticated:
-            if check(email) == False:
-                return JsonResponse({"message": "emwrong"})
+            try:
+                otp = request.POST["otp"]
+                if not (OTPModel.objects.get(user=email).otp == int(otp)):
+                    return JsonResponse({"message": "otperror"})
+                OTPModel.objects.get(user=email).delete()
+            except:
+                return JsonResponse({"message": "otperror"})
         if request.user.is_authenticated:
             if not User.objects.filter(username=email).exists():
                 return JsonResponse({"message": "notfound"})
@@ -180,13 +185,13 @@ def signup1(request):
 def userlogin(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            captcha_token = request.POST['g-recaptcha-response']
-            cap_url = "https://www.google.com/recaptcha/api/siteverify"
-            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
-            cap_server_response = requests.post(url=cap_url, data=cap_data)
-            cap_json = cap_server_response.json()
-            if cap_json['success'] == False:
-                return JsonResponse({"message": "caperror"})
+            # captcha_token = request.POST['g-recaptcha-response']
+            # cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            # cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            # cap_server_response = requests.post(url=cap_url, data=cap_data)
+            # cap_json = cap_server_response.json()
+            # if cap_json['success'] == False:
+            #     return JsonResponse({"message": "caperror"})
             u = request.POST['email']
             p = request.POST['password']
             try:
@@ -740,3 +745,23 @@ def set_u_password(request):
                     pass
         return JsonResponse({"message": "wrong"})
     return HttpResponse("<h1>UnAuthorised</h1>")
+
+def send_otp_basic(request):
+    if not request.user.is_authenticated and request.method == "POST":
+        email = request.POST["email"]
+        try:
+            otp = randint(100000, 999999)
+            try:
+                for i in OTPModel.objects.filter(user=email):
+                    i.delete()
+            except:
+                pass
+            finally:
+                OTPModel.objects.create(user=email, otp=otp)
+                subject = "OTP to contact sharenlearn"
+                message = "Your otp is " + str(otp)
+                send_mail(subject, message, settings.EMAIL_HOST_USER, [email, ])
+                return JsonResponse({"message": "success"})
+        except Exception as e:
+            print(e)
+            return JsonResponse({"message": "erroronotp"})
