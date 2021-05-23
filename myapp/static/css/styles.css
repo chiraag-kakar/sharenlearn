@@ -1212,6 +1212,9 @@ footer .social .link-git:hover #round {
     grid-column: 2/3;
     justify-self: right;
   }
+  .form-container .contact-form .form-footer.expanded {
+    align-self: end; /* when otp field comes */
+  }
   .upload-new-form {
     display: grid;
     grid-template-columns: calc(40% - 1.5rem) calc(60% - 1.5rem);
@@ -2090,19 +2093,22 @@ body.light-theme .alert-box {
 .change-password,
 .check-email,
 .check-c-password,
-.set-n-password {
+.set-n-password,
+.otp-field {
   transition: opacity 0.4s ease;
 }
 
 .check-otp.remove,
 .change-password.remove,
-.set-n-password.remove {
+.set-n-password.remove,
+.otp-field.remove {
   display: none;
 }
 
 .check-otp.hide,
 .change-password.hide,
-.set-n-password.hide {
+.set-n-password.hide,
+.otp-field.hide {
   opacity: 0;
   pointer-events: none;
 }
@@ -2190,4 +2196,16 @@ body.light-theme #btn {
 
 body.light-theme #btn:hover {
   background-color: hsl(20, 100%, 59%);
+}
+
+.ask-otp {
+  font-size: var(--fs-xs);
+  position: absolute;
+  bottom: -2rem;
+  right: 0;
+  display: none;
+}
+
+.ask-otp.view {
+  display: initial;
 }

@@ -74,5 +74,6 @@ urlpatterns = [
     path('change_password', change_password, name="change_password"),
     path('check_u_password', check_u_password, name="check_u_password"),
     path('set_u_password', set_u_password, name="set_u_password"),
-    path('cp/<str:uid>/<str:otp>', cp, name="cp")
+    path('cp/<str:uid>/<str:otp>', cp, name="cp"),
+    path('send_otp_basic/', send_otp_basic, name="send_otp_basic")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

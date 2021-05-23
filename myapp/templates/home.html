@@ -55,8 +55,9 @@
         <div class="input-group">
           <label for="email">Email</label>
           <div class="input-field">
-            <input type="email" name="email" id="email" autocomplete="off" spellcheck="false" data-type="email">
+            <input type="email" name="email" id="email" class="email-for-otp" autocomplete="off" spellcheck="false" data-type="email">
           </div>
+          <button type="button" class="text colored ask-otp" id="ask-otp">Send OTP ✉</button>
         </div>
         <div class="input-group">
           <label for="subject">Subject</label>
@@ -70,6 +71,12 @@
             <textarea name="message" id="message" cols="30" rows="10" data-type="text"></textarea>
           </div>
         </div>
+        <div class="input-group hide remove otp-field">
+          <label for="otp">OTP</label>
+          <div class="input-field">
+            <input type="text" name="otp" id="otp" autocomplete="off" spellcheck="false" data-type="text">
+          </div>
+        </div>
         <div class="form-footer">
           <button type="button" class="button lg" id="contact-form-btn">Message</button>
         </div>
@@ -78,8 +85,9 @@
   </div>
 </main>
 <script>
-  const c = "{% url 'contact' %}";
   const t = "{{ csrf_token }}";
+  const c = "{% url 'contact' %}";
+  const s_o = "{% url 'send_otp_basic' %}";
 </script>
 {% include "footer1.html" %}
 {% endblock content %}
