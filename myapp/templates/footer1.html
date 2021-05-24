@@ -21,23 +21,8 @@
   {% if request.user.is_authenticated %}
   <a href="{% url "contact" %}">Contact us</a>
   {% endif %}
+  <!--top button -->
+  <button type="button" class="top-btn" id="top-btn">
+    {% svg "icon-top-btn" %}
+  </button>
 </footer>
-
-<!--top button -->
-<button onclick="topBtn()" id="btn" fill="#884E88" data-opposite="#FF742E">
-  <i class="fa fa-angle-up"></i>
-</button>
-<script>
-  window.onscroll = function() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      document.getElementById("btn").style.display = "block";
-    } else {
-      document.getElementById("btn").style.display = "none";
-    }
-  };
-
-  function topBtn() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
-</script>
