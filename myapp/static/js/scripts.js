@@ -1168,3 +1168,28 @@ if (document.querySelector(".email-for-otp")) {
       });
   });
 }
+
+// TOGGLE PASSWORD
+
+if (document.getElementById("password")) {
+  const toggleBtn = document.querySelectorAll(
+    "#password + .toggle-password-btn"
+  );
+  toggleBtn.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      this.previousElementSibling.setAttribute(
+        "type",
+        this.previousElementSibling.getAttribute("type") === "text"
+          ? "password"
+          : "text"
+      );
+      // cross in svg
+      this.querySelector("#cross").style.display =
+        this.querySelector("#cross").style.display === "none"
+          ? "initial"
+          : "none";
+      // focus the input
+      this.previousElementSibling.focus();
+    });
+  });
+}
