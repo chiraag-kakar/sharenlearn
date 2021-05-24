@@ -2192,9 +2192,17 @@ button[type="button"].done {
 .top-btn {
   position: fixed;
   bottom: 1.2rem;
-  right: 1.5rem;
+  right: 1.8rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.top-btn.view {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .top-btn > svg {
-  width: 4.5rem;
+  width: 4.4rem;
 }
