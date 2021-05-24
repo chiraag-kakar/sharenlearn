@@ -50,6 +50,11 @@
         <img src="https://user-images.githubusercontent.com/58631762/119249316-2ccc6700-bbb5-11eb-8d9e-c3541ddaf811.png" alt="password changed" style="width: min(100%, 349px)" />
       </h2>
       {% endif %}
+      {% if email_for == "to-contact" %}
+      <h2 style="margin: 0; padding: 0">
+        <img src="https://user-images.githubusercontent.com/58631762/119311372-a2583600-bc8e-11eb-966e-a3181a90784e.png" alt="thanks for reaching out" style="width: min(100%, 337px)" />
+      </h2>
+      {% endif %}
       <p style="
             margin: 45px 0;
             color: hsl(0, 0%, 8%);
@@ -66,6 +71,7 @@
         {% if email_for == "c-password" %} Hey {{ username }}, Please click the below button to change your password. {% endif %}
         {% if email_for == "f-password" %} Hey {{ username }}, Please use this code to reset the password for your shareNLearn account. {% endif %}
         {% if email_for == "pass-changed" %} Hey {{ username }}, Your password for the shareNLearn account was changed on {{ time }}. {% endif %}
+        {% if email_for == "to-contact" %} Hey {{ username }}, Thanks for reaching out. Here's your otp to contact us, {% endif %}
       </p>
       {% if email_for == "f-password" %}
       <p style="
@@ -114,6 +120,17 @@
               font-family: Ubuntu, Helvetica, Arial, sans-serif;
             ">contact</a>
         us or reset your password.
+      </p>
+      {% endif %}
+      {% if email_for == "to-contact" %}
+      <p style="
+            color: hsl(0, 0%, 8%);
+            width: 90%;
+            line-height: 1.8;
+            font-weight: 400;
+            font-size: 16px;
+          ">
+        Here is your code: {{ otp }}
       </p>
       {% endif %}
       {% if email_for == "activation" or email_for == "c-password" %}
