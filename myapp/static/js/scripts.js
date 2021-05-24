@@ -1193,3 +1193,19 @@ if (document.getElementById("password")) {
     });
   });
 }
+
+// Scroll to top button
+
+window.addEventListener("scroll", function () {
+  const topBtn = document.getElementById("top-btn");
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    topBtn.classList.add("view");
+  } else {
+    topBtn.classList.remove("view");
+  }
+});
+
+document.getElementById("top-btn").addEventListener("click", function () {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+});
