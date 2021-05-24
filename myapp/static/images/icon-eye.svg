@@ -1,0 +1,6 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="iconmonstr-eye-3 1">
+<path id="Vector" d="M15 12C15 13.657 13.657 15 12 15C10.343 15 9 13.657 9 12C9 11.801 9.02 11.607 9.057 11.419C10.531 11.96 11.984 10.537 11.462 9.048C11.636 9.018 11.816 9 12 9C13.657 9 15 10.344 15 12ZM12.015 5C4.446 5 0 11.551 0 11.551C0 11.551 4.835 19 12.015 19C19.748 19 24 11.551 24 11.551C24 11.551 19.709 5 12.015 5ZM12 17C9.239 17 7 14.762 7 12C7 9.239 9.239 7 12 7C14.762 7 17 9.239 17 12C17 14.762 14.762 17 12 17Z" fill="#FAFAFA" data-opposite="hsla(0, 0%, 8%, 0.8)"/>
+<rect id="cross" x="18.301" y="1.93007" width="2.1" height="22.5038" transform="rotate(36.4537 18.301 1.93007)" fill="#FAFAFA" data-opposite="hsla(0, 0%, 8%, 0.8)" stroke="black" stroke-width="0.1" style="display: none;"/>
+</g>
+</svg>

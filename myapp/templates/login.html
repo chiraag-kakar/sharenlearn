@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load svg %}
 {% block content %}
 {% include "header.html" %}
 <main>
@@ -17,7 +18,7 @@
         <label for="password">Password</label>
         <div class="input-field">
           <input type="password" name="password" id="password" autocomplete="off" spellcheck="false" data-type="password">
-          <i class="far fa-eye" id="togglePassword"></i>
+          <button type="button" class="toggle-password-btn" id="toggle-password">{% svg "icon-eye" %}</button>
         </div>
         <div class="f-password"><a href="{% url "forgot_password" %}">Forgot Password?</a></div>
       </div>
@@ -32,15 +33,6 @@
 <script>
   const t = "{{ csrf_token }}";
   const l = "{% url 'login' %}";
-  const password = document.getElementById("password");
-  const togglePassword = document.querySelector('#togglePassword');
-  togglePassword.addEventListener('click', function(e) {
-    // toggle the type attribute
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    // toggle the eye slash icon
-    this.classList.toggle('fa-eye-slash');
-  });
 </script>
 {% include "footer1.html" %}
 {% endblock content %}
