@@ -69,14 +69,14 @@ def contact(request):
             if not User.objects.filter(username=email).exists():
                 return JsonResponse({"message": "notfound"})
         try:
-            send_mail(subject, f'''
-            Name: {name},
-
-            Email: {email},
-
-            Message: {message}
-            ''', settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER, ])
-            send_mail("Contact <sharenlearn>","Thanks for contacting us, we'll reach out to you soon.", settings.EMAIL_HOST_USER, [email, ])
+            subject_admin = f"{name}: {subject}"
+            html_message_admin = render_to_string('emails/contact_template.html', {'email_to': 'admin', 'name': name, 'email': email, 'subject': subject, 'message': message})
+            plain_message_admin = strip_tags(html_message_admin)
+            send_mail(subject_admin, plain_message_admin, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER, ], html_message=html_message_admin)
+            subject_user = f"Hey {name}, "
+            html_message_user = render_to_string('emails/contact_template.html', {'email_to': 'user', 'name': name, 'email': email, 'subject': subject, 'message': message})
+            plain_message_user = strip_tags(html_message_user)
+            send_mail(subject_user, plain_message_user, settings.EMAIL_HOST_USER, [email, ], html_message=html_message_user)
             messages.success(request, "Thanks for contacting us, we'll reach out to you soon")
             return JsonResponse({"message": "success"})
         except Exception as e:
@@ -759,8 +759,9 @@ def send_otp_basic(request):
             finally:
                 OTPModel.objects.create(user=email, otp=otp)
                 subject = "OTP to contact sharenlearn"
-                message = "Your otp is " + str(otp)
-                send_mail(subject, message, settings.EMAIL_HOST_USER, [email, ])
+                html_message = render_to_string('emails/mail_template.html', {'email_for': 'to-contact', 'username': email, 'otp': otp})
+                plain_message = strip_tags(html_message)
+                send_mail(subject, plain_message, settings.EMAIL_HOST_USER, [email, ], html_message=html_message)
                 return JsonResponse({"message": "success"})
         except Exception as e:
             print(e)

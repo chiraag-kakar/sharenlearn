@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShareNLearn</title>
+</head>
+
+<body style="margin: 0">
+  <div style="
+        background-color: #f9f9f9;
+        padding: 50px 0;
+        margin: 0;
+        text-align: center;
+        font-family: Ubuntu, Whitney, Helvetica Neue, Helvetica, Arial,
+          Lucida Grande, sans-serif;
+        box-sizing: border-box;
+      ">
+    <img src="https://user-images.githubusercontent.com/58631762/119119608-f8d43300-ba48-11eb-988f-7dbef86a3cc7.png" alt="share and learn" />
+    <div style="
+          width: min(90%, 598px);
+          margin: auto;
+          margin-top: 52px;
+          box-sizing: border-box;
+          font-family: Ubuntu, Whitney, Helvetica Neue, Helvetica, Arial,
+            Lucida Grande, sans-serif;
+          text-align: left;
+        ">
+      <div style="
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #dadce0;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            padding: 20px 18px;
+            border-radius: 8px;
+          ">
+        <h2 style="
+              color: hsl(0, 0%, 8%);
+              line-height: 1.8;
+              font-weight: 400;
+              font-size: 18px;
+              margin: 0;
+              margin-bottom: 16px;
+              font-family: 'Google Sans', Roboto, Helvetica, Arial, sans-serif;
+            ">
+          {% if email_to == "user" %}
+          Thanks for contacting us. We'll reach out to you soon.
+          {% endif %}
+          {% if email_to == "admin" %}
+          Someone named {{ name }} has filled the contact form.
+          {% endif %}
+        </h2>
+        <p style="
+              color: hsl(0, 0%, 8%);
+              line-height: 1.8;
+              font-weight: 400;
+              font-size: 16px;
+              margin: 0;
+            ">
+          Here's what we got from {% if email_to == "user" %}you{% endif %} {% if email_to == "admin" %}them{% endif %}
+        </p>
+      </div>
+      <div style="
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #dadce0;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            padding: 20px 18px;
+            border-radius: 8px;
+          ">
+        <h2 style="
+              color: hsl(0, 0%, 8%);
+              line-height: 1.8;
+              font-weight: 400;
+              font-size: 18px;
+              margin: 0;
+              margin-bottom: 16px;
+              font-family: 'Google Sans', Roboto, Helvetica, Arial, sans-serif;
+            ">
+          Name
+        </h2>
+        <p style="
+              color: hsl(0, 0%, 8%);
+              line-height: 1.8;
+              font-weight: 400;
+              font-size: 16px;
+              margin: 0;
+              border-bottom: 1px dotted rgba(0, 0, 0, 0.38);
+            ">
+          {{ name }}
+        </p>
+      </div>
+      <div style="
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #dadce0;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            padding: 20px 18px;
+            border-radius: 8px;
+          ">
+        <h2 style="
+              color: hsl(0, 0%, 8%);
+              line-height: 1.8;
+              font-weight: 400;
+              font-size: 18px;
+              margin: 0;
+              margin-bottom: 16px;
+              font-family: 'Google Sans', Roboto, Helvetica, Arial, sans-serif;
+            ">
+          Email
+        </h2>
+        <p style="
+              color: hsl(0, 0%, 8%);
+              line-height: 1.8;
+              font-weight: 400;
+              font-size: 16px;
+              margin: 0;
+              border-bottom: 1px dotted rgba(0, 0, 0, 0.38);
+            ">
+          <a href="mailto:{{email}}" style="text-decoration-skip-ink: none">{{email}}</a>
+        </p>
+      </div>
+      <div style="
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #dadce0;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            padding: 20px 18px;
+            border-radius: 8px;
+          ">
+        <h2 style="
+              color: hsl(0, 0%, 8%);
+              line-height: 1.8;
+              font-weight: 400;
+              font-size: 18px;
+              margin: 0;
+              margin-bottom: 16px;
+              font-family: 'Google Sans', Roboto, Helvetica, Arial, sans-serif;
+            ">
+          Subject
+        </h2>
+        <p style="
+              color: hsl(0, 0%, 8%);
+              line-height: 1.8;
+              font-weight: 400;
+              font-size: 16px;
+              margin: 0;
+              border-bottom: 1px dotted rgba(0, 0, 0, 0.38);
+            ">
+          {{subject}}
+        </p>
+      </div>
+      <div style="
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #dadce0;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            padding: 20px 18px;
+            border-radius: 8px;
+          ">
+        <h2 style="
+              color: hsl(0, 0%, 8%);
+              line-height: 1.8;
+              font-weight: 400;
+              font-size: 18px;
+              margin: 0;
+              margin-bottom: 16px;
+              font-family: 'Google Sans', Roboto, Helvetica, Arial, sans-serif;
+            ">
+          Message
+        </h2>
+        <p style="
+              color: hsl(0, 0%, 8%);
+              line-height: 1.8;
+              font-weight: 400;
+              font-size: 16px;
+              margin: 0;
+              border-bottom: 1px dotted rgba(0, 0, 0, 0.38);
+            ">
+          {{message}}
+        </p>
+      </div>
+      <hr style="
+            background-color: hsl(0, 0%, 85%);
+            margin: 45px 0;
+            height: 3.2px;
+            border: 0;
+          " />
+      <p style="color: hsl(0, 0%, 8%); text-align: center; font-size: 16px">
+        Sent by
+        <a href="https://sharenlearn.herokuapp.com" target="_blank" style="
+              color: #274dbb;
+              text-decoration: none;
+              font-weight: 600;
+              font-family: Ubuntu, Helvetica, Arial, sans-serif;
+            ">sharenlearn</a>
+      </p>
+    </div>
+  </div>
+</body>
+
+</html>
