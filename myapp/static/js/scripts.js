@@ -474,6 +474,7 @@ if (
 ) {
   const dropdownItems = document.querySelectorAll(".dropdown li");
   dropdownItems.forEach((item) => {
+    const oText = item.parentElement.previousElementSibling.textContent;
     item.addEventListener("click", function () {
       if (item.parentElement.querySelector(".dropdown li.active")) {
         item.parentElement
@@ -482,7 +483,8 @@ if (
       }
       this.classList.add("active");
       filterFeat("on");
-      this.parentElement.previousElementSibling.textContent = this.textContent;
+      this.parentElement.previousElementSibling.textContent =
+        this.textContent === "All" ? oText : this.textContent;
       if (!filterNotes()) {
         document.querySelector(".emsg").classList.add("view");
       } else document.querySelector(".emsg").classList.remove("view");
@@ -507,9 +509,16 @@ if (
 if (document.querySelector("details")) {
   document.querySelectorAll("details").forEach((det) => {
     det.addEventListener("click", function () {
-      document
-        .querySelectorAll("details[open]")
-        .forEach((det) => det.removeAttribute("open"));
+      document.querySelectorAll("details[open]").forEach((det) => {
+        if (this !== det) {
+          det.removeAttribute("open");
+        }
+      });
+    });
+  });
+  document.querySelectorAll("details .dropdown li").forEach((li) => {
+    li.addEventListener("click", function () {
+      this.parentElement.parentElement.removeAttribute("open");
     });
   });
 }
@@ -803,6 +812,7 @@ if (document.querySelector(".login-form")) {
         ])
       ) {
         const ipFields = document.querySelectorAll(".input-field");
+        ipFields[0].querySelector("[data-type]").focus();
         const emField = document.getElementById("email");
         const passField = document.getElementById("password");
         const email = emField.value;
@@ -1208,4 +1218,16 @@ window.addEventListener("scroll", function () {
 document.getElementById("top-btn").addEventListener("click", function () {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
+});
+
+// FIX FOCUS ISSUE DUE TO STICKY HEADER
+
+const body = document.body || document.documentElement;
+const header = document.querySelector("header");
+body.addEventListener("focusin", function (e) {
+  const pos1 = header.getBoundingClientRect().bottom;
+  const pos2 = e.target.getBoundingClientRect().top;
+  if (e.target.parentElement.classList.contains("input-field") && pos2 < pos1) {
+    window.scrollBy(0, pos2 - pos1 - 80);
+  }
 });
