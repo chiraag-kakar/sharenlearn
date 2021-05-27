@@ -231,7 +231,7 @@ Note: Virtual Environment should be activated.
 
 Run the following command in the terminal :
 ```
-python manage.py run server
+python manage.py runserver
 ```
 
 
