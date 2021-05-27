@@ -25,4 +25,8 @@
   <button type="button" class="top-btn" id="top-btn">
     {% svg "icon-top-btn" %}
   </button>
+  {% if not request.user.is_authenticated %}
+  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+  <df-messenger intent="WELCOME" chat-title="sharenlearn" agent-id="26f824ca-db06-49b2-b8c2-22c6612e0819" language-code="en"></df-messenger>
+  {% endif %}
 </footer>
