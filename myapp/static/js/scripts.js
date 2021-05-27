@@ -1231,3 +1231,19 @@ body.addEventListener("focusin", function (e) {
     window.scrollBy(0, pos2 - pos1 - 80);
   }
 });
+
+window.addEventListener("dfMessengerLoaded", function (e) {
+  if (document.querySelector("df-messenger")) {
+    const chat = document
+      .querySelector("df-messenger")
+      .shadowRoot.querySelector("df-messenger-chat");
+    let sheet = new CSSStyleSheet();
+    sheet.replaceSync(
+      `div.chat-wrapper[opened="true"] { height: 450px; border-radius: 6px; text-align: left; } @media screen and (max-width: 500px) { div.chat-wrapper[opened="true"] { height: 100%; border-radius: 0px; } } @media screen and (max-height: 400px) { div.chat-wrapper[opened="true"] { height: 100%; border-radius: 0px; } .expanded > #widgetIcon { visibility: hidden; } }`
+    );
+    chat.shadowRoot.adoptedStyleSheets = [sheet];
+    document
+      .querySelector("df-messenger")
+      .shadowRoot.querySelector("#widgetIcon").style.right = "77px";
+  }
+});
