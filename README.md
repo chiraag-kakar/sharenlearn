@@ -1,5 +1,4 @@
-![](https://github.com/chiraag-kakar/sharenlearn/blob/master/banner.png)
-
+<img src="./New-Banner.png" alt="Banner">
 
 [![](https://img.shields.io/github/license/chiraag-kakar/sharenlearn?style=for-the-badge)]()
 [![](https://img.shields.io/tokei/lines/github/chiraag-kakar/sharenlearn?label=Lines%20of%20Code&style=for-the-badge)]()
