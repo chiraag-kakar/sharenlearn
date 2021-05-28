@@ -1,4 +1,7 @@
+
 ![banner](https://user-images.githubusercontent.com/60272753/119993327-11b08b80-bfe9-11eb-8f97-cf23605dbfc8.png)
+
+<img src="./New-Banner.png" alt="Banner">
 
 
 [![](https://img.shields.io/github/license/chiraag-kakar/sharenlearn?style=for-the-badge)]()
@@ -231,7 +234,7 @@ Note: Virtual Environment should be activated.
 
 Run the following command in the terminal :
 ```
-python manage.py run server
+python manage.py runserver
 ```
 
 
