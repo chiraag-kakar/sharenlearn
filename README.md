@@ -1,4 +1,4 @@
-![](https://github.com/chiraag-kakar/sharenlearn/blob/master/banner.png)
+![banner](https://user-images.githubusercontent.com/60272753/119993327-11b08b80-bfe9-11eb-8f97-cf23605dbfc8.png)
 
 
 [![](https://img.shields.io/github/license/chiraag-kakar/sharenlearn?style=for-the-badge)]()
