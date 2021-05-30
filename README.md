@@ -1,6 +1,6 @@
 <!-- Banner -->
 
-<a href="https://github.com/chiraag-kakar/sharenlearn/" title="ShareNLearn"><img src="./banner.svg" width="800" height="500" style="max-width=100%;"></a>
+<a href="https://github.com/chiraag-kakar/sharenlearn/" title="ShareNLearn"><img src="./banner.svg" width="1000" height="400" style="max-width=100%;"></a>
 
 <!-- Status -->
 
