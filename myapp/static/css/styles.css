@@ -661,6 +661,11 @@ form .invalid {
 .field .field-value {
   color: var(--clr-primary-txt);
   font-weight: var(--fs-rg);
+  width: 65%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: right;
 }
 
 /* list-uploads cards */
@@ -1104,6 +1109,9 @@ footer .social .link-git:hover #round {
     left: 50%;
     transform: translateX(-50%);
     bottom: -5rem;
+  }
+  .field .field-value {
+    text-align: left;
   }
   .cards > * + * {
     margin-top: 0;
