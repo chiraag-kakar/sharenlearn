@@ -1,7 +1,7 @@
 <!-- Banner -->
 
-<a href="https://github.com/chiraag-kakar/sharenlearn/" title="ShareNLearn"><img src="./banner.svg" width="1000" height="800" style="max-width=100%;"></a>
-
+<center><a href="https://github.com/chiraag-kakar/sharenlearn/" title="ShareNLearn"><img src="./banner.svg" width="800" height="700"></a></center>
+<!-- style="max-width=100%;" -->
 <!-- Status -->
 
 [![](https://img.shields.io/github/license/chiraag-kakar/sharenlearn?style=for-the-badge)]()
