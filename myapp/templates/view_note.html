@@ -4,12 +4,20 @@
 {% block content %}
 {% include "header.html" %}
 <main>
-  <h1 class="title t-l">Think Python - A Book</h1>
+  <h1 class="title t-l">{{note.subject}}</h1>
   <div class="e-action-mob">
+    {% if request.user.is_staff or request.user.is_superuser %}
     <div class="e-note-action">
-      <button class="button fine">Accept</button>
-      <button class="button dang">Reject</button>
+      {% if note.status == "Pending" %}
+      <button class="button fine as-st accept" data-id={{ note.id }}>Accept</button>
+      <button class="button dang as-st reject" data-id={{ note.id }}>Reject</button>
+      {% elif note.status == "Accepted" %}
+      <button class="button dang as-st reject" data-id={{ note.id }}>Reject</button>
+      {% else %}
+      <button class="button fine as-st accept" data-id={{ note.id }}>Accept</button>
+      {% endif %}
     </div>
+    {% endif %}
     <div class="e-note-reaction">
       <div class="like">
         <button disabled title="Feature Coming Soon">{% svg "icon-thumbsup" %}</button>
@@ -23,19 +31,26 @@
   </div>
   <div class="e-note">
     <div class="e-note-header">
-      <div class="e-note-profile"></div>
-      <p><a href="#">david@gmail.com</a> on 2021-05-12</p>
+      <div class="e-note-profile" {% if note.profile %}style="background-image: url('{{note.profile.url}}')" ;{% endif %}></div>
+      <p><a href="mailto:{{ note.user.username }}">{{ note.user.username }}</a> on {{ note.uploadingdate }}</p>
     </div>
     <div class="e-note-body">
       <div class="e-note-desc">
-        Python is an interpreted high-level general-purpose programming language. Python's design philosophy emphasizes code readability with its notable use of significant indentation. Its language constructs as well as its object-oriented approach aim to help programmers write clear, logical code for small and large-scale projects. This book gives you an intro to python. This is ‘Think Python’. It helps us to think in python.
+        {{ note.description }}
       </div>
       <div class="e-note-dwnl">
         <h2 class="title t-l">Download</h2>
-        <a href="#">PDF</a>
+        <a href="{{note.notesfile.url}}">{{ note.filetype|upper }}</a>
       </div>
     </div>
   </div>
 </main>
+<script>
+  const t = "{{ csrf_token }}";
+  const a_s = "{% url 'assign_status' %}";
+  const lg = "{% url 'login' %}";
+  const p = "{% url 'profile' %}";
+  const a_d = "{% url 'admin_dashboard' 'open' %}";
+</script>
 {% include "footer1.html" %}
 {% endblock content %}
