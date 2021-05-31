@@ -460,6 +460,11 @@ def view_usernotes(request, type):
         reviewed = True
     else:
         notes = notes.filter(status="Pending")
+    for i in notes:
+        i.liked_note = i in Signup.objects.get(user=request.user).liked.all()
+        i.disliked_note = i in Signup.objects.get(user=request.user).disliked.all()
+        i.l_count = len(i.likes.all())
+        i.dl_count = len(i.dislikes.all())
     l_pen = len(Notes.objects.filter(user=user, status="Pending"))
     l_rev = len((Notes.objects.filter(user=user)).exclude(status="Pending"))
     d = {'notes': notes, 'self': True, 'reviewed': reviewed, 'l_rev': l_rev, 'l_pen': l_pen }
@@ -473,7 +478,12 @@ def viewall_usernotes(request):
     for i in notes:
         try:
             i.profile = Signup.objects.get(user=i.user).profile_photo
-        except:
+            i.liked_note = i in Signup.objects.get(user=request.user).liked.all()
+            i.disliked_note = i in Signup.objects.get(user=request.user).disliked.all()
+            i.l_count = len(i.likes.all())
+            i.dl_count = len(i.dislikes.all())
+        except Exception as e:
+            print(e)
             i.profile = None
     d = {'notes': notes, 'viewall': True, 'reviewed': True}
     return render(request, 'viewall_usernotes.html', d)
@@ -524,6 +534,10 @@ def admin_dashboard(request, type):
     for i in notes:
         try:
             i.profile = Signup.objects.get(user=i.user).profile_photo
+            i.liked_note = i in Signup.objects.get(user=request.user).liked.all()
+            i.disliked_note = i in Signup.objects.get(user=request.user).disliked.all()
+            i.l_count = len(i.likes.all())
+            i.dl_count = len(i.dislikes.all())
         except:
             i.profile = None
     d = {'notes': notes, 'auth': request.user.is_authenticated, 'staff': request.user.is_staff, 'l_pen': l_pen, 'l_rev': l_rev, 'reviewed': reviewed, 'admin_page': True}
@@ -788,9 +802,57 @@ def view_note(request, id):
         note = Notes.objects.get(id=id)
         try:
             note.profile = Signup.objects.get(user=note.user).profile_photo
+            note.liked_note = note in Signup.objects.get(user=request.user).liked.all()
+            note.disliked_note = note in Signup.objects.get(user=request.user).disliked.all()
+            note.l_count = len(note.likes.all())
+            note.dl_count = len(note.dislikes.all())
         except:
             note.profile = None
         d = {'note': note}
         return render(request, "view_note.html", d)
     except:
         return HttpResponse("Resource you're looking for is not available now")
+    
+def like(request):
+    if request.method == "POST" and request.user.is_authenticated:
+        user = Signup.objects.get(user=request.user)
+        nid = request.POST["nid"]
+        note = Notes.objects.get(id=nid)
+        user_in_dislikes = user in note.dislikes.all()
+        user_in_likes = user in note.likes.all()
+        if user_in_dislikes:
+            note.dislikes.remove(user)
+            note.likes.add(user)
+            job = "like"
+            note.save()
+        else:
+            if user_in_likes:
+                note.likes.remove(user)
+                job = "unlike"
+            else:
+                note.likes.add(user)
+                job = "like"
+            note.save()
+        return JsonResponse({"message": "success", "job": job, "l_count": len(note.likes.all()), "dl_count": len(note.dislikes.all())})
+
+def dislike(request):
+    if request.method == "POST" and request.user.is_authenticated:
+        user = Signup.objects.get(user=request.user)
+        nid = request.POST["nid"]
+        note = Notes.objects.get(id=nid)
+        user_in_dislikes = user in note.dislikes.all()
+        user_in_likes = user in note.likes.all()
+        if user_in_likes:
+            note.likes.remove(user)
+            note.dislikes.add(user)
+            job = "dislike"
+            note.save()
+        else:
+            if user_in_dislikes:
+                note.dislikes.remove(user)
+                job = "undislike"
+            else:
+                note.dislikes.add(user)
+                job = "dislike"
+            note.save()
+        return JsonResponse({"message": "success", "job": job, "l_count": len(note.likes.all()), "dl_count": len(note.dislikes.all())})

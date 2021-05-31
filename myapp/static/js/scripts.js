@@ -1253,3 +1253,134 @@ window.addEventListener("dfMessengerLoaded", function (e) {
       .shadowRoot.querySelector("#widgetIcon").style.right = "77px";
   }
 });
+
+// Like
+if (document.getElementById("like-it")) {
+  const likeBtn = document.getElementById("like-it");
+  const disLikeBtn = document.getElementById("dislike-it");
+  const likeCount = document.getElementById("like-count");
+  const disLikeCount = document.getElementById("dislike-count");
+  const notLoginURL = likeBtn.dataset.notLogin;
+  const nid = likeBtn.dataset.id;
+  const l_url = likeBtn.dataset.url;
+  const dl_url = disLikeBtn.dataset.url;
+  likeBtn.addEventListener("click", function () {
+    const formData = new FormData();
+    formData.append("nid", nid);
+    fetch(l_url, {
+      method: "POST",
+      cache: "no-cache",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": t,
+      },
+      body: formData,
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        if (data.message === "success") {
+          disLikeBtn.classList.remove("tick");
+          if (data.job === "like") likeBtn.classList.add("tick");
+          else likeBtn.classList.remove("tick");
+          likeCount.textContent = data.l_count;
+          disLikeCount.textContent = data.dl_count;
+        } else {
+          window.location.href = notLoginURL;
+        }
+      });
+  });
+  disLikeBtn.addEventListener("click", function () {
+    const formData = new FormData();
+    formData.append("nid", nid);
+    fetch(dl_url, {
+      method: "POST",
+      cache: "no-cache",
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        "X-CSRFToken": t,
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.message === "success") {
+          likeBtn.classList.remove("tick");
+          if (data.job === "dislike") disLikeBtn.classList.add("tick");
+          else disLikeBtn.classList.remove("tick");
+          likeCount.textContent = data.l_count;
+          disLikeCount.textContent = data.dl_count;
+        } else {
+          window.location.href = notLoginURL;
+        }
+      });
+  });
+}
+
+//new
+
+if (document.querySelector(".nr")) {
+  document.querySelectorAll(".nr").forEach((nr) => {
+    const likeBtn = nr.querySelector("#like-it");
+    const disLikeBtn = nr.querySelector("#dislike-it");
+    const likeCount = nr.querySelector("#like-count");
+    const disLikeCount = nr.querySelector("#dislike-count");
+    const notLoginURL = likeBtn.dataset.notLogin;
+    const nid = likeBtn.dataset.id;
+    const l_url = likeBtn.dataset.url;
+    const dl_url = disLikeBtn.dataset.url;
+    likeBtn.addEventListener("click", function () {
+      const formData = new FormData();
+      formData.append("nid", nid);
+      fetch(l_url, {
+        method: "POST",
+        cache: "no-cache",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRFToken": t,
+        },
+        body: formData,
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          if (data.message === "success") {
+            disLikeBtn.classList.remove("tick");
+            if (data.job === "like") likeBtn.classList.add("tick");
+            else likeBtn.classList.remove("tick");
+            likeCount.textContent = data.l_count;
+            disLikeCount.textContent = data.dl_count;
+          } else {
+            window.location.href = notLoginURL;
+          }
+        });
+    });
+    disLikeBtn.addEventListener("click", function () {
+      const formData = new FormData();
+      formData.append("nid", nid);
+      fetch(dl_url, {
+        method: "POST",
+        cache: "no-cache",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+          "X-CSRFToken": t,
+        },
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.message === "success") {
+            likeBtn.classList.remove("tick");
+            if (data.job === "dislike") disLikeBtn.classList.add("tick");
+            else disLikeBtn.classList.remove("tick");
+            likeCount.textContent = data.l_count;
+            disLikeCount.textContent = data.dl_count;
+          } else {
+            window.location.href = notLoginURL;
+          }
+        });
+    });
+  });
+}
