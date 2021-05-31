@@ -18,14 +18,14 @@
       {% endif %}
     </div>
     {% endif %}
-    <div class="e-note-reaction">
+    <div class="e-note-reaction nr">
       <div class="like">
-        <button disabled title="Feature Coming Soon">{% svg "icon-thumbsup" %}</button>
-        <span id="like-count">0</span>
+        <button class="{% if note.liked_note %}tick{% endif %}" data-url="{% url "like" %}" data-not-login="{% url "login" %}" id="like-it" data-id={{note.id}}>{% svg "icon-thumbsup" %}</button>
+        <span id="like-count">{{ note.l_count }}</span>
       </div>
       <div class="dislike">
-        <button disabled title="Feature Coming Soon">{% svg "icon-thumbsdown" %}</button>
-        <span id="dislike-count">0</span>
+        <button class="{% if note.disliked_note %}tick{% endif %}" data-url="{% url "dislike" %}" data-not-login="{% url "login" %}" id="dislike-it" data-id={{note.id}}>{% svg "icon-thumbsdown" %}</button>
+        <span id="dislike-count">{{ note.dl_count }}</span>
       </div>
     </div>
   </div>
