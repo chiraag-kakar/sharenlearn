@@ -2141,6 +2141,10 @@ body.light-theme .notes {
   width: 1.8rem;
 }
 
+.note .action .note-reaction > * button.tick svg path {
+  fill: var(--clr-neutral-txt);
+}
+
 .note-dept,
 .note-type {
   position: absolute;
@@ -2323,6 +2327,10 @@ body.light-theme .e-note {
 
 .e-note-reaction > * button svg {
   width: 1.8rem;
+}
+
+.e-note-reaction > * button.tick svg path {
+  fill: var(--clr-neutral-txt);
 }
 
 @media (min-width: 768px) {
