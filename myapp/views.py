@@ -389,7 +389,7 @@ def delete_usernotes(request, pid):
     notes = Notes.objects.get(id=pid)
     notes.delete()
     messages.info(request, f'Deleted Successfully')
-    return redirect('view_usernotes')
+    return redirect('/view_usernotes/open')
 
 
 def view_users(request):
@@ -806,6 +806,7 @@ def view_note(request, id):
             note.disliked_note = note in Signup.objects.get(user=request.user).disliked.all()
             note.l_count = len(note.likes.all())
             note.dl_count = len(note.dislikes.all())
+            note.own = (note.user.id == request.user.id)
         except:
             note.profile = None
         d = {'note': note}

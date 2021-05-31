@@ -34,6 +34,9 @@
       <div class="e-note-profile" {% if note.profile %}style="background-image: url('{{note.profile.url}}')" ;{% endif %}></div>
       <p><a href="mailto:{{ note.user.username }}">{{ note.user.username }}</a> on {{ note.uploadingdate }}</p>
     </div>
+    {% if note.own %}
+    <a href="{% url "delete_usernotes" note.id %}" class="delete-note">{% svg 'icon-clear' %}</a>
+    {% endif %}
     <div class="e-note-body">
       <div class="e-note-desc">
         {{ note.description }}
