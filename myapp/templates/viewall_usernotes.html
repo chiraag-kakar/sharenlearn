@@ -7,13 +7,13 @@
   <div class="notes">
     {% if not viewall %}
     <div class="stat top">
-      <a class="stat-open {% if not reviewed %}active{% endif %}" href="{% url "admin_dashboard" 'open' %}">
+      <a class="stat-open {% if not reviewed %}active{% endif %}" href="{% if admin_page %}{% url "admin_dashboard" 'open' %} {% else %} {% url "view_usernotes" 'open' %} {% endif %}">
         {% svg "icon-pending-bw" %}
-        {{ pen }} Open
+        {{ l_pen }} Open
       </a>
-      <a class="stat-reviewed {% if reviewed %}active{% endif %}" href="{% url "admin_dashboard" 'reviewed' %}">
+      <a class="stat-reviewed {% if reviewed %}active{% endif %}" href="{% if admin_page %}{% url "admin_dashboard" 'reviewed' %} {% else %} {% url "view_usernotes" 'reviewed' %} {% endif %}">
         {% svg "icon-approved-bw" %}
-        {{ rev }} Reviewed
+        {{ l_rev }} Reviewed
       </a>
     </div>
     {% endif %}
