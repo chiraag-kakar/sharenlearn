@@ -83,7 +83,7 @@
     {% for i in notes %}
     <div class="note">
       <div class="note-info">
-        <div class="note-title">{{i.subject|title}}</div>
+        <a class="note-title" href="/note/{{i.id}}">{{i.subject|title}}</a>
         <div class="note-u-profile" {% if i.profile %} style="background-image: url({{i.profile.url}})" {% endif %} {% if self %} style="background-image: url({% if i.status == "Pending" %}{% static 'images/icon-pending.svg' %}{% elif i.status == "Accepted" %}{% static 'images/icon-approved.svg' %}{% else %}{% static 'images/icon-cross-red.svg' %}{% endif %})" ; {% endif %}></div>
         <div class="note-meta">{{i.uploadingdate}} by <a href="mailto:{{i.user.username}}">{{i.user.username}}</a></div>
         <span style="display: none;" class="note-status">{{i.status}}</span>
