@@ -780,3 +780,17 @@ def send_otp_basic(request):
         except Exception as e:
             print(e)
             return JsonResponse({"message": "erroronotp"})
+
+def view_note(request, id):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    try:
+        note = Notes.objects.get(id=id)
+        try:
+            note.profile = Signup.objects.get(user=note.user).profile_photo
+        except:
+            note.profile = None
+        d = {'note': note}
+        return render(request, "view_note.html", d)
+    except:
+        return HttpResponse("Resource you're looking for is not available now")
