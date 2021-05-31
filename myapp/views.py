@@ -185,13 +185,13 @@ def signup1(request):
 def userlogin(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            captcha_token = request.POST['g-recaptcha-response']
-            cap_url = "https://www.google.com/recaptcha/api/siteverify"
-            cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
-            cap_server_response = requests.post(url=cap_url, data=cap_data)
-            cap_json = cap_server_response.json()
-            if cap_json['success'] == False:
-                return JsonResponse({"message": "caperror"})
+            # captcha_token = request.POST['g-recaptcha-response']
+            # cap_url = "https://www.google.com/recaptcha/api/siteverify"
+            # cap_data = {"secret": settings.GOOGLE_RECAPTCHA_SECRET_KEY, "response": captcha_token}
+            # cap_server_response = requests.post(url=cap_url, data=cap_data)
+            # cap_json = cap_server_response.json()
+            # if cap_json['success'] == False:
+            #     return JsonResponse({"message": "caperror"})
             u = request.POST['email']
             p = request.POST['password']
             try:
@@ -376,21 +376,11 @@ def upload_notes(request):
             Notes.objects.create(user=u, uploadingdate=datetime.date.today(), branch=b, subject=s,
                                  notesfile=n, filetype=f, description=d, status="Pending")
             messages.success(request, f'Notes Uploaded Successfully')
-            return redirect('view_usernotes');
+            return redirect('/view_usernotes/open');
         except:
             messages.error(request, f'Something went wrong, Try Again')
 
     return render(request, 'upload_notes.html', {'auth': request.user.is_authenticated})
-
-
-def view_usernotes(request):
-    if not request.user.is_authenticated:
-        messages.info(request, "Please login to access your uploads")
-        return redirect('login')
-    user = User.objects.get(id=request.user.id)
-    notes = Notes.objects.filter(user=user)
-    d = {'notes': notes, 'auth': request.user.is_authenticated }
-    return render(request, 'view_usernotes.html', d)
 
 
 def delete_usernotes(request, pid):
@@ -458,13 +448,34 @@ def delete_notes(request, pid):
     notes.delete()
     return redirect('all_notes')
 
+def view_usernotes(request, type):
+    if not request.user.is_authenticated:
+        messages.info(request, "Please login to access your uploads")
+        return redirect('login')
+    user = User.objects.get(id=request.user.id)
+    notes = Notes.objects.filter(user=user)
+    reviewed = False
+    if type == "reviewed":
+        notes = notes.exclude(status="Pending")
+        reviewed = True
+    else:
+        notes = notes.filter(status="Pending")
+    l_pen = len(Notes.objects.filter(user=user, status="Pending"))
+    l_rev = len((Notes.objects.filter(user=user)).exclude(status="Pending"))
+    d = {'notes': notes, 'self': True, 'reviewed': reviewed, 'l_rev': l_rev, 'l_pen': l_pen }
+    return render(request, 'viewall_usernotes.html', d)
 
 def viewall_usernotes(request):
     if not request.user.is_authenticated:
         messages.info(request, "Please login to access all uploads")
         return redirect('login')
     notes = Notes.objects.filter(status="Accepted")
-    d = {'notes': notes, 'auth': request.user.is_authenticated, 'staff': request.user.is_staff}
+    for i in notes:
+        try:
+            i.profile = Signup.objects.get(user=i.user).profile_photo
+        except:
+            i.profile = None
+    d = {'notes': notes, 'viewall': True, 'reviewed': True}
     return render(request, 'viewall_usernotes.html', d)
 
 
@@ -503,17 +514,20 @@ def admin_dashboard(request, type):
         return redirect('login')
     if (not request.user.is_staff) and (not request.user.is_superuser):
         return redirect('/profile')
-    if type == "open":
-        notes = Notes.objects.filter(status="Pending")
-    elif type == "reviewed":
+    if type == "reviewed":
         notes = Notes.objects.exclude(status="Pending")
         reviewed = True
     else:
         notes = Notes.objects.filter(status="Pending")
-    pen = len(Notes.objects.filter(status="Pending"))
-    rev = len(Notes.objects.exclude(status="Pending")) 
-    d = {'notes': notes, 'auth': request.user.is_authenticated, 'staff': request.user.is_staff, 'pen': pen, 'rev': rev, 'reviewed': reviewed, "admin": request.user.is_superuser}
-    return render(request, 'admin_dashboard.html', d)
+    l_pen = len(Notes.objects.filter(status="Pending"))
+    l_rev = len(Notes.objects.exclude(status="Pending"))
+    for i in notes:
+        try:
+            i.profile = Signup.objects.get(user=i.user).profile_photo
+        except:
+            i.profile = None
+    d = {'notes': notes, 'auth': request.user.is_authenticated, 'staff': request.user.is_staff, 'l_pen': l_pen, 'l_rev': l_rev, 'reviewed': reviewed, 'admin_page': True}
+    return render(request, 'viewall_usernotes.html', d)
 
 def superadmin_dashboard(request, type):
     if request.user.is_authenticated and request.user.is_superuser:
