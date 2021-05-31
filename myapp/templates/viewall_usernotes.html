@@ -105,14 +105,14 @@
           {% endif %}
         </p>
         <a href="{{i.notesfile.url}}" class="note-type">{{i.filetype|upper}}</a>
-        <div class="note-reaction {% if request.user.is_staff or request.user.is_superuser %}not-imp{% endif %}">
+        <div class="note-reaction nr {% if request.user.is_staff or request.user.is_superuser %}not-imp{% endif %}">
           <div class="like">
-            <button disabled title="Feature Coming Soon">{% svg "icon-thumbsup" %}</button>
-            <span id="like-count">0</span>
+            <button class="{% if i.liked_note %}tick{% endif %}" data-url="{% url "like" %}" data-not-login="{% url "login" %}" id="like-it" data-id={{i.id}}>{% svg "icon-thumbsup" %}</button>
+            <span id="like-count">{{ i.l_count }}</span>
           </div>
           <div class="dislike">
-            <button disabled title="Feature Coming Soon">{% svg "icon-thumbsdown" %}</button>
-            <span id="dislike-count">0</span>
+            <button class="{% if i.disliked_note %}tick{% endif %}" data-url="{% url "dislike" %}" data-not-login="{% url "login" %}" id="dislike-it" data-id={{i.id}}>{% svg "icon-thumbsdown" %}</button>
+            <span id="dislike-count">{{ i.dl_count }}</span>
           </div>
         </div>
         {% if request.user.is_staff or request.user.is_superuser %}
