@@ -67,6 +67,11 @@ html {
   font-size: 62.5%;
   position: relative;
   scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+html.light-theme {
+  color-scheme: light;
 }
 
 html,
@@ -1464,6 +1469,34 @@ body.light-theme .theme-switcher .switch {
   display: grid;
   max-height: 22.9rem;
   overflow-y: auto;
+}
+
+.filters .dropdown {
+  --clr-scrollbar-thumb: hsl(0, 0%, 41%);
+  --clr-scrollbar-thumb-hover: hsl(0, 1%, 48%);
+}
+
+body.light-theme .filters .dropdown {
+  --clr-scrollbar-thumb: hsl(0, 0%, 76%);
+  --clr-scrollbar-thumb-hover: hsl(0, 0%, 69%);
+}
+
+.filters .dropdown::-webkit-scrollbar {
+  width: 0.7rem;
+}
+
+.filters .dropdown::-webkit-scrollbar-track {
+  opacity: 0;
+}
+
+.filters .dropdown::-webkit-scrollbar-thumb {
+  background-color: var(--clr-scrollbar-thumb);
+  border-radius: 0.8rem;
+  transition: 0.4s;
+}
+
+.filters .dropdown::-webkit-scrollbar-thumb:hover {
+  background-color: var(--clr-scrollbar-thumb-hover);
 }
 
 details {

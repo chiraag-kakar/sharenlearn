@@ -169,6 +169,7 @@ function validation(fields) {
 
 document.querySelectorAll(".theme-switcher").forEach((btn) => {
   btn.addEventListener("click", function () {
+    document.documentElement.classList.toggle("light-theme");
     document.body.classList.toggle("light-theme");
     updateSVGs();
     localStorage.setItem(
@@ -222,6 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.getItem("theme") &&
     localStorage.getItem("theme") === "light"
   ) {
+    document.documentElement.classList.add("light-theme");
     document.body.classList.add("light-theme");
     updateSVGs();
   } else {
