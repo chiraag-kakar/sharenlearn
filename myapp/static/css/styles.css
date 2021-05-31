@@ -67,6 +67,11 @@ html {
   font-size: 62.5%;
   position: relative;
   scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+html.light-theme {
+  color-scheme: light;
 }
 
 html,
