@@ -2248,6 +2248,9 @@ body.light-theme .e-note {
   background-color: var(--clr-table-header-bg);
   display: flex;
   align-items: center;
+}
+
+.e-note .e-note-header p {
   opacity: 0.7;
 }
 
@@ -2331,9 +2334,9 @@ body.light-theme .e-note {
   }
   .e-note::before {
     position: absolute;
-    top: 11px;
+    top: 0.3rem;
     right: 100%;
-    left: -8px;
+    left: -9px;
     display: block;
     width: 8px;
     height: 16px;
