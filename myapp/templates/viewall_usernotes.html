@@ -3,43 +3,143 @@
 {% load svg %}
 {% block content %}
 {% include "header.html" %}
-<main class="list">
-  <div class="list-uploads">
-    <h1 class="colored title">All Uploads</h1>
-    <div class="cards">
-      {% if notes|length == 0  %}
-      <p class="msg">Looks like no uploads are accepted yet..</p>
-      {% endif %}
-      {% for i in notes %}
-      <div class="card">
-        <div class="card-header">
-          <p title="Date Uploaded">{{i.uploadingdate}}</p>
-          <p title="Branch">
-            {% if i.branch == "1" %}
-            CSE
-            {% elif i.branch == "2" %}
-            EEE
-            {% elif i.branch == "3" %}
-            ECE
-            {% elif i.branch == "4" %}
-            IT
-            {% elif i.branch == "5" %}
-            ME
-            {% else %}
-            Engg.
-            {% endif %}
-          </p>
-          <a title="Download" href="{{i.notesfile.url}}" download>{{i.filetype|upper}}</a>
-          {% svg "icon-approved" %}
-        </div>
-        <div class="card-body">
-          <h2 class="card-body-title">{{i.subject|title}}</h2>
-          <p class="card-body-desc">{{i.description|truncatechars:125}}</p>
-        </div>
-      </div>
-      {% endfor %}
+<main>
+  <div class="notes">
+    {% if not viewall %}
+    <div class="stat top">
+      <a class="stat-open {% if not reviewed %}active{% endif %}" href="{% url "admin_dashboard" 'open' %}">
+        {% svg "icon-pending-bw" %}
+        {{ pen }} Open
+      </a>
+      <a class="stat-reviewed {% if reviewed %}active{% endif %}" href="{% url "admin_dashboard" 'reviewed' %}">
+        {% svg "icon-approved-bw" %}
+        {{ rev }} Reviewed
+      </a>
     </div>
+    {% endif %}
+    <div class="notes-header">
+      {% if not viewall %}
+      <div class="stat">
+        <a class="stat-open {% if not reviewed %}active{% endif %}" href="{% if admin_page %}{% url "admin_dashboard" 'open' %} {% else %} {% url "view_usernotes" 'open' %} {% endif %}">
+          {% svg "icon-pending-bw" %}
+          {{ l_pen }} Open
+        </a>
+        <a class="stat-reviewed {% if reviewed %}active{% endif %}" href="{% if admin_page %}{% url "admin_dashboard" 'reviewed' %} {% else %} {% url "view_usernotes" 'reviewed' %} {% endif %}">
+          {% svg "icon-approved-bw" %}
+          {{ l_rev }} Reviewed
+        </a>
+      </div>
+      {% else %}
+      <div>Title of the Material</div>
+      {% endif %}
+      <div class="filters">
+        <div class="clear-filters">
+          <div class="clear-icon">{% svg "icon-cross" %}</div>
+          Clear current search queries
+        </div>
+        <details>
+          <summary id="branch">Branch</summary>
+          <ul class="dropdown brnch">
+            <li>All</li>
+            <li>ECE</li>
+            <li>CSE</li>
+            <li>IT</li>
+            <li>ME</li>
+            <li>EEE</li>
+          </ul>
+        </details>
+        <details>
+          <summary id="ftype">File Type</summary>
+          <ul class="dropdown">
+            <li>All</li>
+            <li>PDF</li>
+            <li>JPG</li>
+            <li>JPEG</li>
+            <li>PNG</li>
+            <li>TXT</li>
+            <li>DOCX</li>
+            <li>PPTX</li>
+            <li>MD</li>
+            <li>SVG</li>
+            <li>ZIP</li>
+          </ul>
+        </details>
+        {% if not viewall or self %}
+        <details>
+          <summary id="status">Status</summary>
+          <ul class="dropdown">
+            <li>All</li>
+            <li>Accepted</li>
+            <li>Rejected</li>
+          </ul>
+        </details>
+        {% endif %}
+      </div>
+    </div>
+    <p class="emsg">No results matched your search.</p>
+    {% if notes|length == 0  %}
+    <p class="msg">There're nothing here</p>
+    {% endif %}
+    {% for i in notes %}
+    <div class="note">
+      <div class="note-info">
+        <div class="note-title">{{i.subject|title}}</div>
+        <div class="note-u-profile" {% if i.profile %} style="background-image: url({{i.profile.url}})" {% endif %} {% if self %} style="background-image: url({% if i.status == "Pending" %}{% static 'images/icon-pending.svg' %}{% elif i.status == "Accepted" %}{% static 'images/icon-approved.svg' %}{% else %}{% static 'images/icon-cross-red.svg' %}{% endif %})" ; {% endif %}></div>
+        <div class="note-meta">{{i.uploadingdate}} by <a href="mailto:{{i.user.username}}">{{i.user.username}}</a></div>
+        <span style="display: none;" class="note-status">{{i.status}}</span>
+      </div>
+      <div class="action">
+        <p class="note-dept">
+          {% if i.branch == "1" %}
+          CSE
+          {% elif i.branch == "2" %}
+          EEE
+          {% elif i.branch == "3" %}
+          ECE
+          {% elif i.branch == "4" %}
+          IT
+          {% elif i.branch == "5" %}
+          ME
+          {% else %}
+          Engg.
+          {% endif %}
+        </p>
+        <a href="{{i.notesfile.url}}" class="note-type">{{i.filetype|upper}}</a>
+        <div class="note-reaction {% if request.user.is_staff or request.user.is_superuser %}not-imp{% endif %}">
+          <div class="like">
+            <button disabled title="Feature Coming Soon">{% svg "icon-thumbsup" %}</button>
+            <span id="like-count">0</span>
+          </div>
+          <div class="dislike">
+            <button disabled title="Feature Coming Soon">{% svg "icon-thumbsdown" %}</button>
+            <span id="dislike-count">0</span>
+          </div>
+        </div>
+        {% if request.user.is_staff or request.user.is_superuser %}
+        <div class="note-action">
+          {% if not reviewed %}
+          <button class="button fine as-st accept" data-id={{i.id}} data-job="accept">Accept</button>
+          <button class="button dang as-st reject" data-id={{i.id}} data-job="reject">Reject</button>
+          {% else %}
+          {% if i.status == "Accepted" %}
+          <button class="button dang as-st reject" data-id={{ i.id }} data-job="reject">Reject</button>
+          {% else %}
+          <button class="button fine as-st accept" data-id={{i.id}} data-job="accept">Accept</button>
+          {% endif %}
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
   </div>
 </main>
+<script>
+  const t = "{{ csrf_token }}";
+  const a_s = "{% url 'assign_status' %}";
+  const lg = "{% url 'login' %}";
+  const p = "{% url 'profile' %}";
+  const a_d = "{% url 'admin_dashboard' 'open' %}";
+</script>
 {% include "footer1.html" %}
 {% endblock content %}

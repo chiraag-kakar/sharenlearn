@@ -395,16 +395,20 @@ if (document.querySelector(".as-st")) {
         else window.location.href = a_d;
       });
   };
-  document
-    .querySelector(".as-st.accept")
-    .addEventListener("click", function () {
-      updateStatus(this.dataset.id, "accept");
+  if (document.querySelector(".as-st.accept")) {
+    document.querySelectorAll(".as-st.accept").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        updateStatus(this.dataset.id, "accept");
+      });
     });
-  document
-    .querySelector(".as-st.reject")
-    .addEventListener("click", function () {
-      updateStatus(this.dataset.id, "reject");
+  }
+  if (document.querySelector(".as-st.reject")) {
+    document.querySelectorAll(".as-st.reject").forEach((btn) => {
+      btn.addEventListener("click", function () {
+        updateStatus(this.dataset.id, "reject");
+      });
     });
+  }
 }
 
 function filterFeat(swtch) {
@@ -421,7 +425,8 @@ function backToNormal() {
   document.querySelectorAll("filters .active").forEach((active) => {
     active.classList.remove("active");
   });
-  document.getElementById("search").value = "";
+  if (document.getElementById("search"))
+    document.getElementById("search").value = "";
   document.getElementById("branch").textContent = "Branch";
   document.getElementById("ftype").textContent = "File Type";
   document.querySelector(".emsg").classList.remove("view");
@@ -445,17 +450,16 @@ function filterNotes() {
   };
   if (document.querySelector(".note")) {
     document.querySelectorAll(".note").forEach((note) => {
-      const type = note.querySelector(".dw-type").textContent;
-      const branch = note.querySelector(".branch").textContent;
-      const title = note.querySelector(".n-title").textContent;
-      const status = note.querySelector("svg[title]").getAttribute("title");
+      const type = note.querySelector(".note-type").textContent;
+      const branch = note.querySelector(".note-dept").textContent;
+      const title = note.querySelector(".note-title").textContent;
+      const status = note.querySelector(".note-status").textContent;
       if (
         isequal(type, document.getElementById("ftype").textContent) &&
         (document.getElementById("status")
           ? isequal(status, document.getElementById("status").textContent)
           : true) &&
-        isequal(branch, document.getElementById("branch").textContent) &&
-        isequal(title, document.getElementById("search").value, true)
+        isequal(branch, document.getElementById("branch").textContent)
       ) {
         foundNote = true;
         note.classList.remove("none");
@@ -490,12 +494,14 @@ if (
       } else document.querySelector(".emsg").classList.remove("view");
     });
   });
-  document.getElementById("search").addEventListener("input", function () {
-    filterFeat("on");
-    if (!filterNotes()) {
-      document.querySelector(".emsg").classList.add("view");
-    } else document.querySelector(".emsg").classList.remove("view");
-  });
+  if (document.getElementById("search")) {
+    document.getElementById("search").addEventListener("input", function () {
+      filterFeat("on");
+      if (!filterNotes()) {
+        document.querySelector(".emsg").classList.add("view");
+      } else document.querySelector(".emsg").classList.remove("view");
+    });
+  }
   document
     .querySelector(".clear-filters")
     .addEventListener("click", function () {

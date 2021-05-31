@@ -49,7 +49,7 @@ urlpatterns = [
 
     
     path('upload_notes/',upload_notes,name="upload_notes"),
-    path('view_usernotes/',view_usernotes,name="view_usernotes"),
+    path('view_usernotes/<str:type>',view_usernotes,name="view_usernotes"),
     path('pending_notes/',pending_notes,name="pending_notes"),
 
     path('accepted_notes/',accepted_notes,name="accepted_notes"),
