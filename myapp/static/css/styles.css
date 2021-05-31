@@ -2277,6 +2277,23 @@ body.light-theme .e-note {
   width: 100%;
   border: 0.01rem solid var(--clr-table-border);
   border-radius: 0.6rem;
+  position: relative;
+}
+
+.e-note a.delete-note {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  background: var(--clr-danger);
+  border-radius: 50%;
+  position: absolute;
+  top: -0.8rem;
+  right: -1rem;
+}
+
+.e-note a.delete-note > svg {
+  margin: auto;
+  width: 0.5rem;
 }
 
 .e-note .e-note-header {
